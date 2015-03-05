@@ -1,0 +1,93 @@
+@(currentPage: com.avaje.ebean.Page[MastersStudent])
+
+    @main("Masters Thesis Management System") {
+        <h2>Danh Sách Học Viên Cao Học</h2>
+        <script>
+        function del ( urlToDelete ) {
+        $.ajax ( {
+        url : urlToDelete,
+        type : 'DELETE',
+        success : function ( results ) {
+        // Refresh the page
+        location.reload ( ) ;
+        }
+        } ) ;
+        }
+        </script>
+
+        <div id="pagination" class="pagination">
+            @if(currentPage.hasPrev) {
+                <li>
+                    <a href="@routes.MastersStudents.list(currentPage.getPageIndex - 1)">&larr;</a>
+                </li>
+            } else {
+                <li class="disabled"><a>&larr;</a></li>
+            }
+
+            <li class="active"><a>
+            @currentPage.getDisplayXtoYofZ(" - ", " / ")</a></li>
+            @if(currentPage.hasNext) {
+                <li>
+                    <a href="@routes.MastersStudents.list(currentPage.getPageIndex + 1)">&rarr;</a>
+                </li>
+            } else {
+                <li class="disabled"><a>&rarr;</a></li>
+            }
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Phone Number</th>
+                    <th>Faculty</th>
+                    <th>Course</th>
+                    <th>Email</th>
+                    <th>Birthday</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>    @for(mastersStudent <- currentPage.getList()) {
+                <tr>
+                    <td><a href="@routes.MastersStudents.details(mastersStudent)">
+                    @mastersStudent.ean
+                    </a>
+                    </td>
+                    <td><a href="@routes.MastersStudents.details(mastersStudent)">
+                    @mastersStudent.name</a>
+                    </td>
+                    <td><a href="@routes.MastersStudents.details(mastersStudent)">
+                    @mastersStudent.address</a>
+                    </td>
+                    <td><a href="@routes.MastersStudents.details(mastersStudent)">
+                    @mastersStudent.phonenumber</a>
+                    </td>
+                    <td><a href="@routes.MastersStudents.details(mastersStudent)">
+                    @mastersStudent.faculty</a>
+                    </td>
+                    <td><a href="@routes.MastersStudents.details(mastersStudent)">
+                    @mastersStudent.course</a>
+                    </td>
+                    <td><a href="@routes.MastersStudents.details(mastersStudent)">
+                    @mastersStudent.email</a>
+                    </td>
+                    <td>@if(mastersStudent.birthday != null) {
+                        @mastersStudent.birthday.format("dd-MM-yyyy")
+                    }</td>
+                    <td>
+                        <a href="@routes.MastersStudents.details(mastersStudent)">
+                            <span class="glyphicon glyphicon-pencil"></span></a>
+                        <a onclick="javascript : del ( '       @routes.MastersStudents.delete(mastersStudent.ean) ')">
+                            <span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+        <a href="@routes.MastersStudents.newMastersStudent()" class="btn btn-primary">Thêm Học Viên</a>
+        <br></br>
+    }

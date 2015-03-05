@@ -74,7 +74,7 @@ public class MastersStudents extends Controller {
 
     public static Result list(Integer page) {
         Page<MastersStudent> mastersStudents = MastersStudent.find(page);
-        return ok(views.html.catalog.render(mastersStudents));
+        return ok(views.html.listmastersstudent.render(mastersStudents));
     }
 
 }

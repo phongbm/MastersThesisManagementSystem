@@ -27,6 +27,19 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     @Constraints.Required
     public String address;
 
+    @Constraints.Required
+    public String phonenumber;
+
+    @Constraints.Required
+    public String faculty;
+
+    @Constraints.Required
+    public String course;
+
+    @Constraints.Required
+    public String email;
+
+    @Constraints.Required
     public Date birthday;
 
     @OneToMany(mappedBy = "mastersStudent")
@@ -44,10 +57,15 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     public MastersStudent() {
     }
 
-    public MastersStudent(String ean, String name, String address, Date birthday) {
+    public MastersStudent(String ean, String name, String address, String phonenumber, String faculty,
+                          String course, String email, Date birthday) {
         this.ean = ean;
         this.name = name;
         this.address = address;
+        this.phonenumber = phonenumber;
+        this.faculty = faculty;
+        this.course = course;
+        this.email = email;
         this.birthday = birthday;
     }
 

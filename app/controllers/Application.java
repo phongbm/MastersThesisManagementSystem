@@ -3,8 +3,12 @@ package controllers;
 import models.UserAccount;
 import play.data.Form;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
-import views.html.*;
+import views.html.index;
+import views.html.login;
+
+import java.io.File;
 
 import static play.data.Form.form;
 
@@ -20,7 +24,7 @@ public class Application extends Controller {
     }
 
     public static Result login() {
-        if(session().get("email") != null){
+        if (session().get("email") != null) {
             return redirect(routes.Application.index());
         }
         return ok(login.render(form(Login.class)));

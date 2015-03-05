@@ -1,0 +1,27 @@
+
+body {
+    background: rgb(236, 238, 239) url('http://i57.servimg.com/u/f57/18/74/01/46/bg_bod10.png') repeat fixed;
+}
+
+.container {
+    background-color: #ffffff !important;
+    width: 1000px !important;
+    border-radius: 10px;
+}
+
+.footer {
+    width: 1000px !important;
+    background-color: #ffffff;
+    border-radius: 10px;
+    text-align: right;
+    text-decoration: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    line-height: 10px;
+}

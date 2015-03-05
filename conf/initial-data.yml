@@ -1,0 +1,20 @@
+tags:
+    - !!models.Tag
+        id:     1
+        name:   lightweight
+    - !!models.Tag
+        id:     2
+        name:   metal
+    - !!models.Tag
+        id:     3
+        name:   plastic
+user_accounts:
+    - !!models.UserAccount
+        email:  phongbm.it@gmail.com
+        password: phongbm94
+    - !!models.UserAccount
+        email: test@example.com
+        password: 123456
+    - !!models.UserAccount
+        email: warehouse@gmail.com
+        password: warehouse

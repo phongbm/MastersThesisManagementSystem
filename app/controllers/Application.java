@@ -4,10 +4,7 @@ import models.UserAccount;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.home2;
-import views.html.index;
-import views.html.login;
-import views.html.home;
+import views.html.*;
 
 import static play.data.Form.form;
 
@@ -17,20 +14,15 @@ public class Application extends Controller {
         return ok(index.render("Your new application is ready"));
     }
 
-    public static Result home() {
-        return ok(home.render());
-    }
-
-    public static Result home2() {
-        return ok(home2.render());
-    }
-
     public static class Login {
         public String email;
         public String password;
     }
 
     public static Result login() {
+        if(session().get("email") != null){
+            return redirect(routes.Application.index());
+        }
         return ok(login.render(form(Login.class)));
     }
 

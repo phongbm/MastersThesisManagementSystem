@@ -50,7 +50,8 @@
                 </tr>
             </thead>
 
-            <tbody>    @for(mastersStudent <- currentPage.getList()) {
+            <tbody>
+            @for(mastersStudent <- currentPage.getList()) {
                 <tr>
                     <td><a href="@routes.MastersStudents.details(mastersStudent)">
                     @mastersStudent.ean
@@ -80,11 +81,11 @@
                     <td>
                         <a href="@routes.MastersStudents.details(mastersStudent)">
                             <span class="glyphicon glyphicon-pencil"></span></a>
-                        <a onclick="javascript : del ( '       @routes.MastersStudents.delete(mastersStudent.ean) ')">
+                        <a onclick="javascript: del('@routes.MastersStudents.delete(mastersStudent.ean)')">
                             <span class="glyphicon glyphicon-trash"></span></a>
                     </td>
                 </tr>
-            }
+                }
             </tbody>
         </table>
 

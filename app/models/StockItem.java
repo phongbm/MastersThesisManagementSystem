@@ -15,13 +15,13 @@ public class StockItem extends Model {
     public Warehouse warehouse;
 
     @ManyToOne
-    public Product product;
+    public MastersStudent mastersStudent;
 
     public Long quantity;
 
     public String toString() {
         return String.format("StockItem %d - %d x product %s",
-                id, quantity, product == null ? null : product.id);
+                id, quantity, mastersStudent == null ? null : mastersStudent.id);
     }
 
     public static StockItem findById(Long id) {

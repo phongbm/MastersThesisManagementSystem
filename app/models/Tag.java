@@ -17,18 +17,18 @@ public class Tag extends Model {
     @Constraints.Required
     public String name;
     @ManyToMany(mappedBy = "tags")
-    public List<Product> products;
+    public List<MastersStudent> mastersStudents;
 
     public Tag() {
         // Left empty
     }
 
-    public Tag(Long id, String name, Collection<Product> products) {
+    public Tag(Long id, String name, Collection<MastersStudent> mastersStudents) {
         this.id = id;
         this.name = name;
-        this.products = new LinkedList<Product>(products);
-        for (Product product : products) {
-            product.tags.add(this);
+        this.mastersStudents = new LinkedList<MastersStudent>(mastersStudents);
+        for (MastersStudent mastersStudent : mastersStudents) {
+            mastersStudent.tags.add(this);
         }
     }
 

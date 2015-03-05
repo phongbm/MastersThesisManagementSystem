@@ -13,7 +13,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Product extends Model implements PathBindable<Product> {
+public class MastersStudent extends Model implements PathBindable<MastersStudent> {
+
     @Id
     public Long id;
 
@@ -23,11 +24,12 @@ public class Product extends Model implements PathBindable<Product> {
     @Constraints.Required
     public String name;
 
-    public String description;
+    @Constraints.Required
+    public String address;
 
-    public Date date;
+    public Date birthday;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "mastersStudent")
     public List<StockItem> stockItems;
 
     public byte[] picture;
@@ -35,36 +37,37 @@ public class Product extends Model implements PathBindable<Product> {
     @ManyToMany
     public List<Tag> tags;
 
-    public static Finder<Long, Product> find = new Finder<Long, Product>(
-            Long.class, Product.class
+    public static Finder<Long, MastersStudent> find = new Finder<Long, MastersStudent>(
+            Long.class, MastersStudent.class
     );
 
-    public Product() {
+    public MastersStudent() {
     }
 
-    public Product(String ean, String name, String description) {
+    public MastersStudent(String ean, String name, String address, Date birthday) {
         this.ean = ean;
         this.name = name;
-        this.description = description;
+        this.address = address;
+        this.birthday = birthday;
     }
 
     public String toString() {
         return String.format("%s - %s", ean, name);
     }
 
-    public static List<Product> findAll() {
+    public static List<MastersStudent> findAll() {
         return find.all();
     }
 
     public void delete() {
         for (Tag tag : tags) {
-            tag.products.remove(this);
+            tag.mastersStudents.remove(this);
             tag.save();
         }
         super.delete();
     }
 
-    public static Page<Product> find(int page) {
+    public static Page<MastersStudent> find(int page) {
         return find.where()
                 .orderBy("id asc")
                 .findPagingList(10)
@@ -72,16 +75,16 @@ public class Product extends Model implements PathBindable<Product> {
                 .getPage(page);
     }
 
-    public static Product findByEan(String ean) {
+    public static MastersStudent findByEan(String ean) {
         return find.where().eq("ean", ean).findUnique();
     }
 
-    public static List<Product> findByName(String term) {
+    public static List<MastersStudent> findByName(String term) {
         return find.where().eq("name", term).findList();
     }
 
     @Override
-    public Product bind(String key, String value) {
+    public MastersStudent bind(String key, String value) {
         return findByEan(value);
     }
 
@@ -94,4 +97,5 @@ public class Product extends Model implements PathBindable<Product> {
     public String javascriptUnbind() {
         return ean;
     }
+
 }

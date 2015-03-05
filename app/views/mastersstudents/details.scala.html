@@ -1,0 +1,38 @@
+@(mastersStudentForm: Form[MastersStudent])
+@import views.html.helper._
+@import views.html.helper.twitterBootstrap._
+
+@main("Product form") {
+    <h1>Masters Student form</h1>
+    @form(CSRF(routes.MastersStudents.save())) {
+        <input type="hidden" value="@mastersStudentForm("id").valueOr("")" name="id"/>
+        <fieldset>
+            <legend>MastersStudent (@mastersStudentForm("name").valueOr("New"))</legend>
+            @helper.inputText(mastersStudentForm("ean"), '_label -> "EAN")
+            @helper.inputText(mastersStudentForm("name"), '_label -> "Name")
+            @helper.textarea(mastersStudentForm("address"), '_label -> "Address")
+            @helper.inputDate(mastersStudentForm("birthday"), '_label -> "Birthday")
+            Birthday: yyyy-MM-dd
+            <br></br>
+        </fieldset>
+        <div class="control-group">
+            <div class="controls">
+                <input name="tags[0].id" value="1" type="checkbox"
+                @for(i <- 0 to 2) {
+                    @if(mastersStudentForm("tags[" + i + "].id").value == "1") { checked }
+                }> lightweight
+                <input name="tags[1].id" value="2" type="checkbox"
+                @for(i <- 0 to 2) {
+                    @if(mastersStudentForm("tags[" + i + "].id").value == "2") { checked }
+                }> metal
+                <input name="tags[2].id" value="3" type="checkbox"
+                @for(i <- 0 to 2) {
+                    @if(mastersStudentForm("tags[" + i + "].id").value == "3") { checked }
+                }> plastic
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Save">
+        <a class="btn btn-default" href="@routes.MastersStudents.list()">Cancel</a>
+        <br></br>
+    }
+}

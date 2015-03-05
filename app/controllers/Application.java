@@ -50,7 +50,7 @@ public class Application extends Controller {
             return redirect(routes.Application.login());
         }
         session("email", email);
-        return redirect(routes.Products.list(0));
+        return redirect(routes.MastersStudents.list(0));
     }
 
 }

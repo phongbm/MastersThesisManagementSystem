@@ -23,7 +23,7 @@ public class MastersStudents extends Controller {
 
     public static Result details(MastersStudent mastersStudent) {
         if (mastersStudent == null) {
-            return notFound(String.format("Masters Student does not exist."));
+            return notFound(String.format("Master's Student does not exist."));
         }
         Form<MastersStudent> filledForm = mastersStudentForm.fill(mastersStudent);
         return ok(details.render(filledForm));
@@ -79,11 +79,15 @@ public class MastersStudents extends Controller {
     */
 
     public static Result list(Integer page, String sortBy, String order, String filter) {
-        return ok(views.html.listmastersstudent.render(
-                        MastersStudent.page(page, 10, sortBy, order, filter),
-                        sortBy, order, filter
-                )
-        );
+        if (!session().get("email").equals("giaovu@vnu.edu.vn")) {
+            return redirect(routes.Application.index());
+        } else {
+            return ok(views.html.listmastersstudent.render(
+                            MastersStudent.page(page, 10, sortBy, order, filter),
+                            sortBy, order, filter
+                    )
+            );
+        }
     }
 
 }

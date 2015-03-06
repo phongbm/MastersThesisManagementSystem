@@ -1,5 +1,6 @@
 package controllers;
 
+import models.MastersStudent;
 import models.UserAccount;
 import play.data.Form;
 import play.mvc.Controller;
@@ -42,8 +43,14 @@ public class Application extends Controller {
             flash("error", "Invalid email and/or password");
             return redirect(routes.Application.login());
         }
+
         session("email", email);
-        return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
+        if (!email.equals("giaovu@vnu.edu.vn")) {
+            MastersStudent mastersStudent = MastersStudent.findByEmail(email);
+            return redirect(routes.MastersStudents.details(mastersStudent));
+        } else {
+            return redirect(routes.Application.index());
+        }
     }
 
 }

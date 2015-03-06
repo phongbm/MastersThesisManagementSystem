@@ -86,7 +86,7 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     }
 
     public static Page<MastersStudent> page(int page, int pageSize, String sortBy, String order, String filter) {
-        if (filter.matches("[0-9]*")) {
+        if (filter.matches("[\\d]*")) {
             return find.where()
                     .ilike("ean", "%" + filter + "%")
                     .orderBy(sortBy + " " + order)
@@ -94,7 +94,7 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
                     .setFetchAhead(false)
                     .getPage(page);
         } else {
-            if (filter.matches("[a-zA-Z]*")) {
+            if (filter.matches("[\\D]*")) {
                 return find.where()
                         .ilike("name", "%" + filter + "%")
                         .orderBy(sortBy + " " + order)
@@ -117,6 +117,10 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
                 .findPagingList(5)
                 .setFetchAhead(false)
                 .getPage(page);
+    }
+
+    public static MastersStudent findByEmail(String email) {
+        return find.where().eq("email", email).findUnique();
     }
 
     public static MastersStudent findByEan(String ean) {

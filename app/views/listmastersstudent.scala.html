@@ -53,7 +53,7 @@
                         <input class="form-control" type="search" id="searchbox" name="filter"
                         value="@currentFilter" placeholder="Filter By ID Or Name...">
                         <span class="input-group-btn">
-                            <input class="btn btn-default" type="submit" id="searchsubmit" value="Filter By ID">
+                            <input class="btn btn-default" type="submit" id="searchsubmit" value="Search">
                         </span>
                     </div>
                 </form>
@@ -103,7 +103,7 @@
                     <td>
                         <a href="@routes.MastersStudents.details(mastersStudent)">
                             <span class="glyphicon glyphicon-pencil"></span></a>
-                        <a onclick="javascript:del('@routes.MastersStudents.delete(mastersStudent.ean)')">
+                        <a onclick="javascript : del ( '  @routes.MastersStudents.delete(mastersStudent.ean) ')">
                             <span class="glyphicon glyphicon-trash"></span></a>
                     </td>
                 </tr>

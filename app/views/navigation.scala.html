@@ -17,7 +17,13 @@
                     <span class="glyphicon glyphicon-log-in"></span> Login
                 </a></li>
             } else {
-                <li><a href="">@session.get("email")</a></li>
+                @if(!session.get("email").equals("giaovu@vnu.edu.vn")) {
+                    <li><a href="@routes.MastersStudents.details(MastersStudent.findByEmail(session().get("email")))">
+                    @session.get("email")</a></li>
+                } else {
+                    <li><a href="">
+                    @session.get("email")</a></li>
+                }
                 <li><a href="@routes.Application.logout()">
                     <span class="glyphicon glyphicon-log-out">Logout</span>
                 </a></li>

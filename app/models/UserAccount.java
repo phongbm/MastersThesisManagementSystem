@@ -5,7 +5,6 @@ import play.db.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.validation.Constraint;
 
 @Entity
 public class UserAccount extends Model {

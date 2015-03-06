@@ -10,14 +10,8 @@ tags:
         name:   plastic
 user_accounts:
     - !!models.UserAccount
-        email:  phongbm.it@gmail.com
-        password: phongbm94
-    - !!models.UserAccount
-        email: test@example.com
-        password: 123456
-    - !!models.UserAccount
-        email: warehouse@gmail.com
-        password: warehouse
-    - !!models.UserAccount
         email: giaovu@vnu.edu.vn
         password: uet2015
+    - !!models.UserAccount
+        email: phongbm.it@gmail.com
+        password: phong2015

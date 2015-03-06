@@ -1,7 +1,7 @@
 @(currentPage: com.avaje.ebean.Page[MastersStudent])
 
-    @main("Masters Thesis Management System") {
-        <h2>Danh Sách Học Viên Cao Học</h2>
+    @main("Master's Thesis Management System") {
+        <h2>List Master's Student</h2>
         <script>
         function del ( urlToDelete ) {
         $.ajax ( {
@@ -89,6 +89,6 @@
             </tbody>
         </table>
 
-        <a href="@routes.MastersStudents.newMastersStudent()" class="btn btn-primary">Thêm Học Viên</a>
+        <a href="@routes.MastersStudents.newMastersStudent()" class="btn btn-primary">New Master's Student</a>
         <br></br>
     }

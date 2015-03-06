@@ -1,46 +1,50 @@
 @(mastersStudentForm: Form[MastersStudent])
-
     @import views.html.helper._
     @import views.html.helper.twitterBootstrap._
-
-    @main("Masters Student Form") {
-        <h1>Masters Student form</h1>
+    @main("Master's Student Form") {
+        <h1>Master's Student Form</h1>
+        <div class="col-lg-6">
         @form(CSRF(routes.MastersStudents.save())) {
             <input type="hidden" value="@mastersStudentForm("id").valueOr("")" name="id"/>
             <fieldset>
                 <legend>MastersStudent (@mastersStudentForm("name").valueOr("New"))</legend>
-                @helper.inputText(mastersStudentForm("ean"), '_label -> "EAN")
-                @helper.inputText(mastersStudentForm("name"), '_label -> "Name")
-                @helper.inputText(mastersStudentForm("address"), '_label -> "Address")
-                @helper.inputText(mastersStudentForm("phonenumber"), '_label -> "Phone Number")
-                @helper.inputText(mastersStudentForm("faculty"), '_label -> "Faculty")
-                @helper.inputText(mastersStudentForm("course"), '_label -> "Course")
-                @helper.inputText(mastersStudentForm("email"), '_label -> "Email")
-                @helper.inputDate(mastersStudentForm("birthday"), '_label -> "Birthday")
+                @helper.inputText(mastersStudentForm("ean"), '_label -> "ID", 'class -> "form-control")
+                @helper.inputText(mastersStudentForm("name"), '_label -> "Name", 'class -> "form-control")
+                @helper.inputText(mastersStudentForm("address"), '_label -> "Address", 'class -> "form-control")
+                @helper.inputText(mastersStudentForm("phonenumber"), '_label -> "Phone Number", 'class -> "form-control")
+                @helper.select(mastersStudentForm("faculty"),
+                    options = options(Seq("Select faculty", "Infomation Technology", "Electronics & Telecommunications",
+                        "Engineering Physics and Nanotechnology", "Engineering Mechanics and Automation")),
+                    '_label -> "Faculty", 'class -> "form-control")
+                @helper.inputText(mastersStudentForm("course"), '_label -> "Course", 'class -> "form-control")
+                @helper.inputText(mastersStudentForm("email"), '_label -> "Email", 'class -> "form-control")
+                @helper.inputDate(mastersStudentForm("birthday"), '_label -> "Birthday", 'class -> "form-control")
                 <p>Birthday: yyyy-MM-dd</p>
-
             </fieldset>
-
-            <br>
-            <div class="control-group">
-                <div class="controls">
-                    <input name="tags[0].id" value="1" type="checkbox"
-                    @for(i <- 0 to 2) {
-                        @if(mastersStudentForm("tags[" + i + "].id").value == "1") { checked }
-                    }> lightweight
-                    <input name="tags[1].id" value="2" type="checkbox"
-                    @for(i <- 0 to 2) {
-                        @if(mastersStudentForm("tags[" + i + "].id").value == "2") { checked }
-                    }> metal
-                    <input name="tags[2].id" value="3" type="checkbox"
-                    @for(i <- 0 to 2) {
-                        @if(mastersStudentForm("tags[" + i + "].id").value == "3") { checked }
-                    }> plastic
-                </div>
-            </div>
-            <br>
             <input type="submit" class="btn btn-primary" value="Save">
             <a class="btn btn-default" href="@routes.MastersStudents.list()">Cancel</a>
             <br></br>
         }
+        </div>
     }
+
+    <!--
+    <br>
+    <div class="control-group">
+        <div class="controls">
+            <input name="tags[0].id" value="1" type="checkbox"
+            for(i <- 0 to 2) {
+                if(mastersStudentForm("tags[" + i + "].id").value == "1") { checked }
+            }> lightweight
+            <input name="tags[1].id" value="2" type="checkbox"
+            for(i <- 0 to 2) {
+                if(mastersStudentForm("tags[" + i + "].id").value == "2") { checked }
+            }> metal
+            <input name="tags[2].id" value="3" type="checkbox"
+            for(i <- 0 to 2) {
+                if(mastersStudentForm("tags[" + i + "].id").value == "3") { checked }
+            }> plastic
+        </div>
+    </div>
+    <br>
+    -->

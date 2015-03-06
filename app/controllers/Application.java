@@ -46,5 +46,4 @@ public class Application extends Controller {
         return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
     }
 
-
 }

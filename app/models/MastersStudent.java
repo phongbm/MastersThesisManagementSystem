@@ -86,12 +86,29 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     }
 
     public static Page<MastersStudent> page(int page, int pageSize, String sortBy, String order, String filter) {
-        return find.where()
-                .ilike("ean", "%" + filter + "%")
-                .orderBy(sortBy + " " + order)
-                .findPagingList(pageSize)
-                .setFetchAhead(false)
-                .getPage(page);
+        if (filter.matches("[0-9]*")) {
+            return find.where()
+                    .ilike("ean", "%" + filter + "%")
+                    .orderBy(sortBy + " " + order)
+                    .findPagingList(pageSize)
+                    .setFetchAhead(false)
+                    .getPage(page);
+        } else {
+            if (filter.matches("[a-zA-Z]*")) {
+                return find.where()
+                        .ilike("name", "%" + filter + "%")
+                        .orderBy(sortBy + " " + order)
+                        .findPagingList(pageSize)
+                        .setFetchAhead(false)
+                        .getPage(page);
+            } else {
+                return find.where()
+                        .orderBy(sortBy + " " + order)
+                        .findPagingList(pageSize)
+                        .setFetchAhead(false)
+                        .getPage(page);
+            }
+        }
     }
 
     public static Page<MastersStudent> find(int page) {

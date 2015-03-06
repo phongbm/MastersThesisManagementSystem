@@ -80,7 +80,7 @@ public class MastersStudents extends Controller {
 
     public static Result list(Integer page, String sortBy, String order, String filter) {
         return ok(views.html.listmastersstudent.render(
-                        MastersStudent.page(page, 5, sortBy, order, filter),
+                        MastersStudent.page(page, 10, sortBy, order, filter),
                         sortBy, order, filter
                 )
         );

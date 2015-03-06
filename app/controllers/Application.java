@@ -3,12 +3,9 @@ package controllers;
 import models.UserAccount;
 import play.data.Form;
 import play.mvc.Controller;
-import play.mvc.Http;
 import play.mvc.Result;
 import views.html.index;
 import views.html.login;
-
-import java.io.File;
 
 import static play.data.Form.form;
 
@@ -46,7 +43,8 @@ public class Application extends Controller {
             return redirect(routes.Application.login());
         }
         session("email", email);
-        return redirect(routes.MastersStudents.list(0));
+        return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
     }
+
 
 }

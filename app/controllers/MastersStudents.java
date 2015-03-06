@@ -1,6 +1,5 @@
 package controllers;
 
-import com.avaje.ebean.Page;
 import models.MastersStudent;
 import models.StockItem;
 import models.Tag;
@@ -57,7 +56,7 @@ public class MastersStudents extends Controller {
         stockItem.save();
 
         flash("success", String.format("Successfully added product %s", mastersStudent));
-        return redirect(routes.MastersStudents.list(0));
+        return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
     }
 
     public static Result delete(String ean) {
@@ -69,12 +68,22 @@ public class MastersStudents extends Controller {
             stockItem.delete();
         }
         mastersStudent.delete();
-        return redirect(routes.MastersStudents.list(0));
+        return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
     }
 
+    /*
     public static Result list(Integer page) {
         Page<MastersStudent> mastersStudents = MastersStudent.find(page);
         return ok(views.html.listmastersstudent.render(mastersStudents));
+    }
+    */
+
+    public static Result list(Integer page, String sortBy, String order, String filter) {
+        return ok(views.html.listmastersstudent.render(
+                        MastersStudent.page(page, 5, sortBy, order, filter),
+                        sortBy, order, filter
+                )
+        );
     }
 
 }

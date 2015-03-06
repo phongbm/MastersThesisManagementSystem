@@ -85,10 +85,19 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
         super.delete();
     }
 
+    public static Page<MastersStudent> page(int page, int pageSize, String sortBy, String order, String filter) {
+        return find.where()
+                .ilike("ean", "%" + filter + "%")
+                .orderBy(sortBy + " " + order)
+                .findPagingList(pageSize)
+                .setFetchAhead(false)
+                .getPage(page);
+    }
+
     public static Page<MastersStudent> find(int page) {
         return find.where()
                 .orderBy("id asc")
-                .findPagingList(10)
+                .findPagingList(5)
                 .setFetchAhead(false)
                 .getPage(page);
     }

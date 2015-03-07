@@ -20,7 +20,7 @@ public class StockItem extends Model {
     public Long quantity;
 
     public String toString() {
-        return String.format("StockItem %d - %d x product %s",
+        return String.format("StockItem %d - %d x Master's Student %s",
                 id, quantity, mastersStudent == null ? null : mastersStudent.id);
     }
 

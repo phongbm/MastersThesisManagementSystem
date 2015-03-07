@@ -8,6 +8,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 import views.html.mastersstudents.details;
+import views.html.mastersstudents.detailsuser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,14 @@ public class MastersStudents extends Controller {
         }
         Form<MastersStudent> filledForm = mastersStudentForm.fill(mastersStudent);
         return ok(details.render(filledForm));
+    }
+
+    public static Result detailsReadOnly(MastersStudent mastersStudent) {
+        if (mastersStudent == null) {
+            return notFound(String.format("Master's Student does not exist."));
+        }
+        Form<MastersStudent> filledForm = mastersStudentForm.fill(mastersStudent);
+        return ok(detailsuser.render(filledForm));
     }
 
     public static Result save() {
@@ -55,14 +64,17 @@ public class MastersStudents extends Controller {
         stockItem.quantity = 0L;
         stockItem.save();
 
-        flash("success", String.format("Successfully added product %s", mastersStudent));
+        flash("success", String.format("Successfully added Master's Student %s", mastersStudent));
+        if (!session().get("email").equals("giaovu@vnu.edu.vn")) {
+            return redirect(routes.MastersStudents.detailsReadOnly(MastersStudent.findByEmail(session().get("email"))));
+        }
         return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
     }
 
     public static Result delete(String ean) {
         final MastersStudent mastersStudent = MastersStudent.findByEan(ean);
         if (mastersStudent == null) {
-            return notFound(String.format("Product %s does not exists.", ean));
+            return notFound(String.format("Master's Student %s does not exists.", ean));
         }
         for (StockItem stockItem : mastersStudent.stockItems) {
             stockItem.delete();
@@ -83,7 +95,7 @@ public class MastersStudents extends Controller {
             return redirect(routes.Application.index());
         } else {
             return ok(views.html.listmastersstudent.render(
-                            MastersStudent.page(page, 10, sortBy, order, filter),
+                            MastersStudent.page(page, 5, sortBy, order, filter),
                             sortBy, order, filter
                     )
             );

@@ -61,12 +61,12 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
                           String course, String email, Date birthday) {
         this.ean = ean;
         this.name = name;
+        this.birthday = birthday;
         this.address = address;
         this.phonenumber = phonenumber;
         this.faculty = faculty;
         this.course = course;
         this.email = email;
-        this.birthday = birthday;
     }
 
     public String toString() {

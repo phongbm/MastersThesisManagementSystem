@@ -13,7 +13,7 @@ import static play.data.Form.form;
 public class Application extends Controller {
 
     public static Result index() {
-        return ok(index.render("Your new application is ready"));
+        return ok(index.render("Master's Thesis Management System"));
     }
 
     public static class Login {
@@ -47,7 +47,7 @@ public class Application extends Controller {
         session("email", email);
         if (!email.equals("giaovu@vnu.edu.vn")) {
             MastersStudent mastersStudent = MastersStudent.findByEmail(email);
-            return redirect(routes.MastersStudents.details(mastersStudent));
+            return redirect(routes.MastersStudents.detailsReadOnly(mastersStudent));
         } else {
             return redirect(routes.Application.index());
         }

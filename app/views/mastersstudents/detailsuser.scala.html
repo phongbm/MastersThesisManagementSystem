@@ -15,8 +15,10 @@
             @helper.inputText(mastersStudentForm("name"), '_label -> "Name",
                 '_id -> "name",
                 'class -> "form-control",
-                '_help -> "")
+                '_help -> "",
+                'readonly -> "")
             @helper.inputDate(mastersStudentForm("birthday"), '_label -> "Birthday",
+                'readonly -> "",
                 '_id -> "birthdady",
                 'class -> "form-control",
                 '_help -> "",
@@ -32,21 +34,24 @@
             @helper.select(mastersStudentForm("faculty"),
                 options = options(Seq("Infomation Technology", "Electronics & Telecommunications",
                     "Engineering Physics and Nanotechnology", "Engineering Mechanics and Automation")),
+                'readonly -> "",
                 '_id -> "faculty",
                 '_label -> "Faculty",
                 'class -> "form-control",
                 '_default -> "-- Select Faculty --")
             @helper.inputText(mastersStudentForm("course"), '_label -> "Course",
+                'readonly -> "",
                 '_id -> "course",
                 'class -> "form-control",
                 '_help -> "")
             @helper.inputText(mastersStudentForm("email"), '_label -> "Email",
+                'readonly -> "",
                 '_id -> "email",
                 'class -> "form-control",
                 '_help -> "")
         </fieldset>
         <input type="submit" class="btn btn-primary" value="Save Master's Student"> or
-        <a class="btn btn-default" href="@routes.MastersStudents.list()">Cancel</a>
+        <a class="btn btn-default" href="@routes.MastersStudents.list(0, "id", "asc", "")">Cancel</a>
         <br></br>
     }
     </div>

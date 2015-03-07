@@ -11,6 +11,7 @@ GET           /assets/*file               controllers.Assets.at(path="/public", 
 # GET           /mastersstudent/            controllers.MastersStudents.list(page: Integer ?= 0)
 GET           /mastersstudent/            controllers.MastersStudents.list(pape: Integer ?= 0, sortBy ?= "id", order ?= "asc", filter ?= "")
 GET           /mastersstudent/new         controllers.MastersStudents.newMastersStudent()
+GET           /mastersstudent/user/:ean   controllers.MastersStudents.detailsReadOnly(ean: models.MastersStudent)
 GET           /mastersstudent/:ean        controllers.MastersStudents.details(ean: models.MastersStudent)
 POST          /mastersstudent/            controllers.MastersStudents.save()
 DELETE        /mastersstudent/:ean        controllers.MastersStudents.delete(ean: String)

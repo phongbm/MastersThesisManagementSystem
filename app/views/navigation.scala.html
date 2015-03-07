@@ -18,7 +18,7 @@
                 </a></li>
             } else {
                 @if(!session.get("email").equals("giaovu@vnu.edu.vn")) {
-                    <li><a href="@routes.MastersStudents.details(MastersStudent.findByEmail(session().get("email")))">
+                    <li><a href="@routes.MastersStudents.detailsReadOnly(MastersStudent.findByEmail(session().get("email")))">
                     @session.get("email")</a></li>
                 } else {
                     <li><a href="">

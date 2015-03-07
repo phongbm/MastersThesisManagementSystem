@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Page;
+import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 import play.mvc.PathBindable;
@@ -40,6 +41,7 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     public String email;
 
     @Constraints.Required
+    @Formats.DateTime(pattern = "YYYY-MM-DD")
     public Date birthday;
 
     @OneToMany(mappedBy = "mastersStudent")

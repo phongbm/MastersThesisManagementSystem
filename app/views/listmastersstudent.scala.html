@@ -93,7 +93,7 @@
                     <td><a href="@routes.MastersStudents.details(mastersStudent)">@mastersStudent.ean</a></td>
                     <td>@mastersStudent.name</td>
                     <td>@if(mastersStudent.birthday != null) {
-                        @mastersStudent.birthday.format("DD-MM-YYYY")
+                        @mastersStudent.birthday.format("dd-MM-yyyy")
                     }</td>
                     <td>@mastersStudent.address</td>
                     <td>@mastersStudent.phonenumber</td>
@@ -103,7 +103,7 @@
                     <td>
                         <a href="@routes.MastersStudents.details(mastersStudent)">
                             <span class="glyphicon glyphicon-pencil"></span></a>
-                        <a onclick="javascript : del ( '  @routes.MastersStudents.delete(mastersStudent.ean) ')">
+                        <a onclick="javascript: del('@routes.MastersStudents.delete(mastersStudent.ean)')">
                             <span class="glyphicon glyphicon-trash"></span></a>
                     </td>
                 </tr>

@@ -16,6 +16,10 @@ public class Application extends Controller {
         return ok(index.render("Master's Thesis Management System"));
     }
 
+    public static Result home() {
+        return ok(views.html.home.render());
+    }
+
     public static class Login {
         public String email;
         public String password;
@@ -45,11 +49,24 @@ public class Application extends Controller {
         }
 
         session("email", email);
+        /*
         if (!email.equals("giaovu@vnu.edu.vn")) {
             MastersStudent mastersStudent = MastersStudent.findByEmail(email);
             return redirect(routes.MastersStudents.detailsReadOnly(mastersStudent));
         } else {
             return redirect(routes.Application.index());
+        }
+        */
+        UserAccount userAccount = UserAccount.findByEmail(email);
+        if (userAccount.isAdministrator()) {
+            return redirect(routes.Application.index());
+        } else {
+            if (userAccount.isUser()) {
+                MastersStudent mastersStudent = MastersStudent.findByEmail(email);
+                return redirect(routes.MastersStudents.detailsReadOnly(mastersStudent));
+            } else {
+                return ok();
+            }
         }
     }
 

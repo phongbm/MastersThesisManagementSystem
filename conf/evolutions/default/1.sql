@@ -45,6 +45,7 @@ create table user_account (
   id                        bigint not null,
   email                     varchar(255),
   password                  varchar(255),
+  permission                varchar(255),
   constraint pk_user_account primary key (id))
 ;
 

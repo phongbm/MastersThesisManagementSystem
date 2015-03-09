@@ -12,9 +12,12 @@ user_accounts:
     - !!models.UserAccount
         email: giaovu@vnu.edu.vn
         password: uet2015
+        permission: Administrator
     - !!models.UserAccount
         email: phongbm.it@gmail.com
         password: phong2015
+        permission: User
     - !!models.UserAccount
         email: hongnhung.tester@gmail.com
-        password: nhung2015		
+        password: nhung2015
+        permission: User

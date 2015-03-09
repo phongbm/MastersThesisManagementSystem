@@ -3,6 +3,7 @@ package controllers;
 import models.MastersStudent;
 import models.StockItem;
 import models.Tag;
+import models.UserAccount;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -65,10 +66,22 @@ public class MastersStudents extends Controller {
         stockItem.save();
 
         flash("success", String.format("Successfully added Master's Student %s", mastersStudent));
+        /*
         if (!session().get("email").equals("giaovu@vnu.edu.vn")) {
             return redirect(routes.MastersStudents.detailsReadOnly(MastersStudent.findByEmail(session().get("email"))));
         }
         return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
+        */
+        UserAccount userAccount = UserAccount.findByEmail(session().get("email"));
+        if (userAccount.isAdministrator()) {
+            return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
+        } else {
+            if (userAccount.isUser()) {
+                return redirect(routes.MastersStudents.detailsReadOnly(MastersStudent.findByEan(userAccount.email)));
+            } else {
+                return ok();
+            }
+        }
     }
 
     public static Result delete(String ean) {
@@ -91,14 +104,19 @@ public class MastersStudents extends Controller {
     */
 
     public static Result list(Integer page, String sortBy, String order, String filter) {
-        if (!session().get("email").equals("giaovu@vnu.edu.vn")) {
+        UserAccount userAccount = UserAccount.findByEmail(session().get("email"));
+        if (userAccount.isUser()) {
             return redirect(routes.Application.index());
         } else {
-            return ok(views.html.listmastersstudent.render(
-                            MastersStudent.page(page, 5, sortBy, order, filter),
-                            sortBy, order, filter
-                    )
-            );
+            if (userAccount.isAdministrator()) {
+                return ok(views.html.listmastersstudent.render(
+                                MastersStudent.page(page, 5, sortBy, order, filter),
+                                sortBy, order, filter
+                        )
+                );
+            } else {
+                return ok();
+            }
         }
     }
 

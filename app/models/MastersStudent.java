@@ -41,7 +41,7 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     public String email;
 
     @Constraints.Required
-    @Formats.DateTime(pattern = "YYYY-MM-DD")
+    @Formats.DateTime(pattern = "yyyy-MM-dd")
     public Date birthday;
 
     @OneToMany(mappedBy = "mastersStudent")

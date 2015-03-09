@@ -5,32 +5,49 @@ import models.UserAccount;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.home;
 import views.html.index;
-import views.html.login;
+import views.html.listaccount;
 
 import static play.data.Form.form;
 
 public class Application extends Controller {
-
-    public static Result index() {
-        return ok(index.render("Master's Thesis Management System"));
-    }
-
-    public static Result home() {
-        return ok(views.html.home.render());
-    }
 
     public static class Login {
         public String email;
         public String password;
     }
 
+    public static Result index() {
+        if (session().get("email") != null) {
+            return ok(home.render("Master's Thesis Management System"));
+        } else {
+            return ok(index.render(form(Login.class)));
+        }
+    }
+
+    public static Result home() {
+        return ok(home.render("Master's Thesis Management System"));
+    }
+
+    /*
     public static Result login() {
         if (session().get("email") != null) {
             return redirect(routes.Application.index());
         }
         return ok(login.render(form(Login.class)));
     }
+    */
+
+    /*
+    public static Result testLogin() {
+        if (session().get("email") != null) {
+            return redirect(routes.Application.index());
+        }
+        return ok(testlogin.render(form(Login.class)));
+
+    }
+    */
 
     public static Result logout() {
         session().clear();
@@ -45,7 +62,7 @@ public class Application extends Controller {
         session().clear();
         if (UserAccount.authenticate(email, password) == null) {
             flash("error", "Invalid email and/or password");
-            return redirect(routes.Application.login());
+            return redirect(routes.Application.index());
         }
 
         session("email", email);
@@ -59,7 +76,7 @@ public class Application extends Controller {
         */
         UserAccount userAccount = UserAccount.findByEmail(email);
         if (userAccount.isAdministrator()) {
-            return redirect(routes.Application.index());
+            return redirect(routes.Application.home());
         } else {
             if (userAccount.isUser()) {
                 MastersStudent mastersStudent = MastersStudent.findByEmail(email);
@@ -68,6 +85,10 @@ public class Application extends Controller {
                 return ok();
             }
         }
+    }
+
+    public static Result listAccount() {
+        return ok(listaccount.render());
     }
 
 }

@@ -1,33 +1,34 @@
 @()
-<nav class="navbar navbar-inverse " id="navigation">
+
+<link href="@routes.Assets.at("bootstrap/css/scrolling-nav.css")" rel="stylesheet" media="screen">
+<script src="@routes.Assets.at("bootstrap/js/jquery.easing.min.js")" type="text/javascript"></script>
+<script src="@routes.Assets.at("bootstrap/js/scrolling-nav.js")" type="text/javascript"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top" id="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="@routes.Application.index()">
+            <a class="navbar-brand" href="@routes.Application.home()">
                 Master's Thesis Management System</a>
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <li><a href="@routes.Application.index()">Home</a></li>
-                <li><a href="@routes.MastersStudents.list()">Master's Student</a></li>
+                <li><a href="@routes.Application.home()">Home</a></li>
+                <li><a href="@routes.MastersStudents.list(0, "id", "asc", "")">Master's Students</a></li>
                 <li><a href="">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-            @if(session.get("email") == null) {
-                <li><a href="@routes.Application.login()">
-                    <span class="glyphicon glyphicon-log-in"></span> Login
-                </a></li>
-            } else {
-                @if(!session.get("email").equals("giaovu@vnu.edu.vn")) {
-                    <li><a href="@routes.MastersStudents.detailsReadOnly(MastersStudent.findByEmail(session().get("email")))">
-                    @session.get("email")</a></li>
+                @if(session.get("email") == null) {
                 } else {
-                    <li><a href="">
-                    @session.get("email")</a></li>
+                    @if(UserAccount.findByEmail(session().get("email")).isUser()) {
+                        <li><a href="@routes.MastersStudents.detailsReadOnly(MastersStudent.findByEmail(session().get("email")))">
+                            <span class="glyphicon glyphicon-user">@session.get("email")</span></a>
+                        </li>
+                    } else {
+                        <li><a href=""><span class="glyphicon glyphicon-user">@session.get("email")</span></a></li>
+                    }
                 }
                 <li><a href="@routes.Application.logout()">
-                    <span class="glyphicon glyphicon-log-out">Logout</span>
-                </a></li>
-            }
+                    <span class="glyphicon glyphicon-log-out">Logout</span></a></li>
             </ul>
         </div>
     </div>

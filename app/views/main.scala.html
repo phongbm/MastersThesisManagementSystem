@@ -18,31 +18,40 @@
     </head>
 
     <body>
-        @navigation()
-    <div class="container">
-        @if(flash.containsKey("success")) {
-            <div class="alert alert-success">
-            @flash.get("success")
+        <div id="container">
+            <div id="head">
+            @navigation()
             </div>
-        }
-        @if(flash.containsKey("error")) {
-            <div class="alert alert-error">
-            @flash.get("error")
+
+            <div id="body" style="padding-top: 50px;">
+                <div class="container">
+                    @if(flash.containsKey("success")) {
+                        <div class="alert alert-success">
+                        @flash.get("success")
+                        </div>
+                    }
+                    @if(flash.containsKey("error")) {
+                        <div class="alert alert-error">
+                        @flash.get("error")
+                        </div>
+                    }
+                    @content
+                </div>
             </div>
-        }
-        @content
-    </div>
 
-    </body>
+            <div id="footer">
+                <footer class="container-fluid">
+                    <div class="row" style="height: 100px; background: #3572B0; border-top: 2px solid #3572B0;">
+                        <div class="col-md-4 col-md-offset-4" style="margin-top: 30px; font-size: 12px; text-align: center; color: white">
+                            © 2015 Master's Thesis Management System – All Rights Reserved<br>
+                            Developed By SE Team - Software Engineering
+                        </div>
+                    </div>
+                </footer>
+            </div>
 
-    <br></br>
-
-    <footer>
-        <div class="footer">
-            <p>@@Masters Thesis Management System</p>
-            <p>Copyright ©2015 SE Team</p>
         </div>
-    </footer>
+    </body>
 
         <!-- Back to top -->
     <div class="ontop" style="position: fixed;

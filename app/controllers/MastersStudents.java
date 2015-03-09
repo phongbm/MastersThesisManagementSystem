@@ -77,7 +77,7 @@ public class MastersStudents extends Controller {
             return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
         } else {
             if (userAccount.isUser()) {
-                return redirect(routes.MastersStudents.detailsReadOnly(MastersStudent.findByEan(userAccount.email)));
+                return redirect(routes.MastersStudents.detailsReadOnly(MastersStudent.findByEmail(userAccount.email)));
             } else {
                 return ok();
             }
@@ -106,12 +106,11 @@ public class MastersStudents extends Controller {
     public static Result list(Integer page, String sortBy, String order, String filter) {
         UserAccount userAccount = UserAccount.findByEmail(session().get("email"));
         if (userAccount.isUser()) {
-            return redirect(routes.Application.index());
+            return redirect(routes.Application.home());
         } else {
             if (userAccount.isAdministrator()) {
-                return ok(views.html.listmastersstudent.render(
-                                MastersStudent.page(page, 5, sortBy, order, filter),
-                                sortBy, order, filter
+                return ok(views.html.listmastersstudents.render(
+                                MastersStudent.page(page, 5, sortBy, order, filter), sortBy, order, filter
                         )
                 );
             } else {

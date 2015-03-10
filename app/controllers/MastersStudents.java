@@ -11,6 +11,7 @@ import play.mvc.Security;
 import views.html.mastersstudents.details;
 import views.html.mastersstudents.detailsuser;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,12 +108,14 @@ public class MastersStudents extends Controller {
         UserAccount userAccount = UserAccount.findByEmail(session().get("email"));
         if (userAccount.isUser()) {
             return redirect(routes.Application.home());
+            // return ok(views.html.listmastersstudents.render(
+                    // MastersStudent.page(page, 5, sortBy, order, filter), sortBy, order, filter
+            // ));
         } else {
             if (userAccount.isAdministrator()) {
                 return ok(views.html.listmastersstudents.render(
                                 MastersStudent.page(page, 5, sortBy, order, filter), sortBy, order, filter
-                        )
-                );
+                        ));
             } else {
                 return ok();
             }

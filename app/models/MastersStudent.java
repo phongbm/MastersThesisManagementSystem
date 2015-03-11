@@ -29,7 +29,7 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     public String address;
 
     @Constraints.Required
-    public String phonenumber;
+    public String phoneNumber;
 
     @Constraints.Required
     public String faculty;
@@ -59,13 +59,13 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     public MastersStudent() {
     }
 
-    public MastersStudent(String ean, String name, String address, String phonenumber, String faculty,
+    public MastersStudent(String ean, String name, String address, String phoneNumber, String faculty,
                           String course, String email, Date birthday) {
         this.ean = ean;
         this.name = name;
         this.birthday = birthday;
         this.address = address;
-        this.phonenumber = phonenumber;
+        this.phoneNumber = phoneNumber;
         this.faculty = faculty;
         this.course = course;
         this.email = email;

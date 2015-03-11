@@ -18,7 +18,7 @@ create table masters_student (
   ean                       varchar(255),
   name                      varchar(255),
   address                   varchar(255),
-  phonenumber               varchar(255),
+  phone_number              varchar(255),
   faculty                   varchar(255),
   course                    varchar(255),
   email                     varchar(255),

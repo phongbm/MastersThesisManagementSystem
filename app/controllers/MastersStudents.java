@@ -26,7 +26,7 @@ public class MastersStudents extends Controller {
 
     public static Result details(MastersStudent mastersStudent) {
         if (mastersStudent == null) {
-            return notFound(String.format("Master's Student does not exist."));
+            return notFound(String.format("Master's Student does not exist!"));
         }
         Form<MastersStudent> filledForm = mastersStudentForm.fill(mastersStudent);
         return ok(details.render(filledForm));
@@ -34,7 +34,7 @@ public class MastersStudents extends Controller {
 
     public static Result detailsReadOnly(MastersStudent mastersStudent) {
         if (mastersStudent == null) {
-            return notFound(String.format("Master's Student does not exist."));
+            return notFound(String.format("Master's Student does not exist!"));
         }
         Form<MastersStudent> filledForm = mastersStudentForm.fill(mastersStudent);
         return ok(detailsuser.render(filledForm));
@@ -43,10 +43,26 @@ public class MastersStudents extends Controller {
     public static Result save() {
         Form<MastersStudent> boundForm = mastersStudentForm.bindFromRequest();
         if (boundForm.hasErrors()) {
-            flash("error", "Please correct the form below.");
+            flash("error", "Please correct the form below!");
             return badRequest(details.render(boundForm));
         }
         MastersStudent mastersStudent = boundForm.get();
+
+        List<MastersStudent> mastersStudents = MastersStudent.findAll();
+
+        if (mastersStudent.id == null) {
+            for (int i = 0; i < mastersStudents.size(); i++) {
+                if (mastersStudents.get(i).ean.equals(mastersStudent.ean)) {
+                    flash("error", "That ID already exists!");
+                    return badRequest(details.render(boundForm));
+                }
+                if (mastersStudents.get(i).email.equals(mastersStudent.email)) {
+                    flash("error", "That Email already exists!");
+                    return badRequest(details.render(boundForm));
+                }
+            }
+        }
+
         List<Tag> tags = new ArrayList<Tag>();
         for (Tag tag : mastersStudent.tags) {
             if (tag.id != null) {
@@ -66,7 +82,7 @@ public class MastersStudents extends Controller {
         stockItem.quantity = 0L;
         stockItem.save();
 
-        flash("success", String.format("Successfully added Master's Student %s", mastersStudent));
+        flash("success", String.format("Successfully added Master's Student %s!", mastersStudent));
         /*
         if (!session().get("email").equals("giaovu@vnu.edu.vn")) {
             return redirect(routes.MastersStudents.detailsReadOnly(MastersStudent.findByEmail(session().get("email"))));
@@ -88,7 +104,7 @@ public class MastersStudents extends Controller {
     public static Result delete(String ean) {
         final MastersStudent mastersStudent = MastersStudent.findByEan(ean);
         if (mastersStudent == null) {
-            return notFound(String.format("Master's Student %s does not exists.", ean));
+            return notFound(String.format("Master's Student %s does not exists!", ean));
         }
         for (StockItem stockItem : mastersStudent.stockItems) {
             stockItem.delete();
@@ -109,13 +125,13 @@ public class MastersStudents extends Controller {
         if (userAccount.isUser()) {
             return redirect(routes.Application.home());
             // return ok(views.html.listmastersstudents.render(
-                    // MastersStudent.page(page, 5, sortBy, order, filter), sortBy, order, filter
+            // MastersStudent.page(page, 5, sortBy, order, filter), sortBy, order, filter
             // ));
         } else {
             if (userAccount.isAdministrator()) {
                 return ok(views.html.listmastersstudents.render(
-                                MastersStudent.page(page, 5, sortBy, order, filter), sortBy, order, filter
-                        ));
+                        MastersStudent.page(page, 5, sortBy, order, filter), sortBy, order, filter
+                ));
             } else {
                 return ok();
             }

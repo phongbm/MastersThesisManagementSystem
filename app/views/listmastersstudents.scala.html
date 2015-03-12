@@ -1,5 +1,7 @@
 @(currentPage: com.avaje.ebean.Page[MastersStudent], currentSortBy: String, currentOrder: String, currentFilter: String)
 
+@import java.lang.String; var id1 = new String("#"); var id2 = new String("");
+
 @link(newPage: Integer, newSortBy: String) = @{
     var sortBy = currentSortBy
     var order = currentOrder
@@ -41,6 +43,7 @@
     }
     </script>
 
+    <!--
     <script>
     function showConfirmDelete ( ean ) {
     var answer = confirm ( "Are you sure to delete?" ) ;
@@ -51,6 +54,7 @@
     }
     }
     </script>
+    -->
 
     @if(currentPage.getTotalRowCount == 0) {
         <div class="well"><em>Nothing to display</em></div>
@@ -120,11 +124,36 @@
                             <button class="btn btn-success btn-xs glyphicon glyphicon-edit">Edit</button></a>
                             <!--
                         <a onclick="javascript:del('routes.MastersStudents.delete(mastersStudent.ean)')">
-                            <button class="btn btn-danger btn-xs glyphicon glyphicon-trash">Delete</button>
-                        </a>
-                            -->
-                        <a onclick="javascript : showConfirmDelete ( @mastersStudent.ean )">
                             <button class="btn btn-danger btn-xs glyphicon glyphicon-trash">Delete</button></a>
+                        <a onclick="javascript : showConfirmDelete (mastersStudent.ean)">
+                        <button class="btn btn-danger btn-xs glyphicon glyphicon-trash">Delete</button> </a>
+                            -->
+                        @{
+                            id1 = id1 + mastersStudent.id
+                        }
+                        @{
+                            id2 = id2 + mastersStudent.id
+                        }
+                        <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=@id1>Delete </button>
+                        <div class="modal fade" id=@id2 tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Delete</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure to delete?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        <a onclick="javascript: del('@routes.MastersStudents.delete(mastersStudent.ean)')">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             }
@@ -132,7 +161,8 @@
         </table>
     }
 
-    <a href="@routes.MastersStudents.newMastersStudent()" class="btn btn-primary glyphicon-plus">New Master's Student</a>
+    <a href="@routes.MastersStudents.newMastersStudent()" class="btn btn-primary">+ New Master's Student</a>
     <br></br>
+
 
 }

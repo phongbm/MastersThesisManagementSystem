@@ -56,6 +56,12 @@
     </script>
     -->
 
+    <style>
+        .modal-dialog {
+            margin-top: 150px;
+        }
+    </style>
+
     @if(currentPage.getTotalRowCount == 0) {
         <div class="well"><em>Nothing to display</em></div>
         <a href="@routes.MastersStudents.list(0, "id", "asc", "")" class="btn btn-default">Back</a>
@@ -66,7 +72,7 @@
                 <form action="@link(0, "id")" method="GET">
                     <div class="input-group">
                         <input class="form-control" type="search" id="searchbox" name="filter"
-                        value="@currentFilter" placeholder="Filter By ID Or Name...">
+                        value="@currentFilter" placeholder="Filter by id or name...">
                         <span class="input-group-btn">
                             <input class="btn btn-default" type="submit" id="searchsubmit" value="Search">
                         </span>
@@ -90,7 +96,7 @@
         </div>
 
         <table class="table table-striped table-bordered">
-            <thead>
+            <thead style="color: #0000ff;">
                 <tr>
                     @header("id", "ID")
                     <th>Name</th>
@@ -121,7 +127,7 @@
                     <td><b>@mastersStudent.email</b></td>
                     <td>
                         <a href="@routes.MastersStudents.details(mastersStudent)">
-                            <button class="btn btn-success btn-xs glyphicon glyphicon-edit">Edit</button></a>
+                            <button class="btn btn-success btn-xs fa fa-edit">&nbsp;Edit</button></a>
                             <!--
                         <a onclick="javascript:del('routes.MastersStudents.delete(mastersStudent.ean)')">
                             <button class="btn btn-danger btn-xs glyphicon glyphicon-trash">Delete</button></a>
@@ -134,7 +140,9 @@
                         @{
                             id2 = id2 + mastersStudent.id
                         }
-                        <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=@id1>Delete </button>
+                        <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=@id1>
+                            <i class="fa fa-trash">&nbsp;Delete</i>
+                        </button>
                         <div class="modal fade" id=@id2 tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -161,7 +169,7 @@
         </table>
     }
 
-    <a href="@routes.MastersStudents.newMastersStudent()" class="btn btn-primary">+ New Master's Student</a>
+    <a href="@routes.MastersStudents.newMastersStudent()" class="btn btn-primary fa fa-plus">&nbsp;New Master's Student</a>
     <br></br>
 
 

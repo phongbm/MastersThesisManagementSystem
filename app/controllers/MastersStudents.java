@@ -46,22 +46,39 @@ public class MastersStudents extends Controller {
             flash("error", "Please correct the form below!");
             return badRequest(details.render(boundForm));
         }
+
         MastersStudent mastersStudent = boundForm.get();
 
-        List<MastersStudent> mastersStudents = MastersStudent.findAll();
 
         if (mastersStudent.id == null) {
+            MastersStudent student1 = MastersStudent.findByEan(mastersStudent.ean);
+            if (student1 != null && mastersStudent.ean.equals(student1.ean)) {
+                flash("error", "That ID already exists!");
+                return badRequest(details.render(boundForm));
+            }
+            MastersStudent student2 = MastersStudent.findByEmail(mastersStudent.email);
+            if (student2 != null && mastersStudent.email.equals(student2.email)) {
+                flash("error", "That Email already exists!");
+                return badRequest(details.render(boundForm));
+            }
+        }
+
+        if (mastersStudent.id != null) {
+            List<MastersStudent> mastersStudents = MastersStudent.findAll();
             for (int i = 0; i < mastersStudents.size(); i++) {
-                if (mastersStudents.get(i).ean.equals(mastersStudent.ean)) {
+                if (mastersStudents.get(i).ean.equals(mastersStudent.ean) &&
+                        !mastersStudents.get(i).id.equals(mastersStudent.id)) {
                     flash("error", "That ID already exists!");
                     return badRequest(details.render(boundForm));
                 }
-                if (mastersStudents.get(i).email.equals(mastersStudent.email)) {
+                if (mastersStudents.get(i).email.equals(mastersStudent.email) &&
+                        !mastersStudents.get(i).id.equals(mastersStudent.id)) {
                     flash("error", "That Email already exists!");
                     return badRequest(details.render(boundForm));
                 }
             }
         }
+
 
         List<Tag> tags = new ArrayList<Tag>();
         for (Tag tag : mastersStudent.tags) {

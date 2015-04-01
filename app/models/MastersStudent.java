@@ -13,7 +13,6 @@ import java.util.List;
 
 @Entity
 public class MastersStudent extends Model implements PathBindable<MastersStudent> {
-
     @Id
     public Long id;
 

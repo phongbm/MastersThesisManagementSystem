@@ -10,10 +10,13 @@ import javax.persistence.Id;
 public class UserAccount extends Model {
     @Id
     public Long id;
+
     @Constraints.Required
     public String email;
+
     @Constraints.Required
     public String password;
+
     public String permission;
 
     public static Finder<Long, UserAccount> finder = new Finder<Long, UserAccount>(Long.class, UserAccount.class);

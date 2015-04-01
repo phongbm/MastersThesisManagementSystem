@@ -42,10 +42,7 @@ public class MastersStudents extends Controller {
             flash("error", "Please correct the form below!");
             return badRequest(details.render(boundForm));
         }
-
         MastersStudent mastersStudent = boundForm.get();
-
-
         if (mastersStudent.id == null) {
             MastersStudent student1 = MastersStudent.findByEan(mastersStudent.ean);
             if (student1 != null && mastersStudent.ean.equals(student1.ean)) {
@@ -58,7 +55,6 @@ public class MastersStudents extends Controller {
                 return badRequest(details.render(boundForm));
             }
         }
-
         if (mastersStudent.id != null) {
             List<MastersStudent> mastersStudents = MastersStudent.findAll();
             for (int i = 0; i < mastersStudents.size(); i++) {

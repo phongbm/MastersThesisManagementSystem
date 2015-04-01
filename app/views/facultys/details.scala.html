@@ -1,0 +1,25 @@
+@(facultyForm: Form[Faculty])
+
+@import views.html.helper._
+@import views.html.helper.twitterBootstrap._
+
+@main("Faculty Form") {
+    <h1>Faculty Form</h1>
+
+    @form(CSRF(routes.Facultys.save())) {
+        <input type="hidden" value="@facultyForm("id").valueOr("")" name="id"/>
+        <fieldset>
+            <legend>Faculty (@facultyForm("name").valueOr("New"))</legend>
+            <div class="row">
+                <div class="col-xs-5">
+                </div>
+                <div class="col-xs-5">
+                </div>
+            </div>
+        </fieldset>
+        <input type="submit" class="btn btn-primary" value="Save Faculty"> or
+        <a class="btn btn-default" href="@routes.Facultys.list(0, "id", "asc", "")">Cancel</a>
+        <br></br>
+    }
+
+}

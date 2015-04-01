@@ -1,81 +1,62 @@
 @(mastersStudentForm: Form[MastersStudent])
-    @import views.html.helper._
-    @import views.html.helper.twitterBootstrap._
-    @main("Master's Student Form") {
-        <h1>Master's Student Form</h1>
 
-        @form(CSRF(routes.MastersStudents.save())) {
-            <input type="hidden" value="@mastersStudentForm("id").valueOr("")" name="id"/>
-            <fieldset>
-                <legend>MastersStudent (@mastersStudentForm("name").valueOr("New"))</legend>
-                <div class="row">
-                    <div class="col-xs-5">
-                        @helper.inputText(mastersStudentForm("ean"), '_label -> "ID",
-                            '_id -> "ean",
-                            'class -> "form-control",
-                            '_help -> "")
-                        @helper.inputText(mastersStudentForm("name"), '_label -> "Name",
-                            '_id -> "name",
-                            'class -> "form-control",
-                            '_help -> "")
-                        @helper.inputDate(mastersStudentForm("birthday"), '_label -> "Birthday",
-                            '_id -> "birthdady",
-                            'class -> "form-control",
-                            '_help -> "",
-                            'placeholder -> "YYYY-MM-DD")
-                        @helper.inputText(mastersStudentForm("address"), '_label -> "Address",
-                            '_id -> "address",
-                            'class -> "form-control",
-                            '_help -> "")
-                    </div>
-                    <div class="col-xs-5">
-                        @helper.inputText(mastersStudentForm("phoneNumber"), '_label -> "Phone Number",
-                            '_id -> "phoneNumber",
-                            'class -> "form-control",
-                            '_help -> "")
-                        @helper.select(mastersStudentForm("faculty"),
-                            options = options(Seq("Infomation Technology", "Electronics & Telecommunications",
-                                "Engineering Physics and Nanotechnology", "Engineering Mechanics and Automation")),
-                            '_id -> "faculty",
-                            '_label -> "Faculty",
-                            'class -> "form-control",
-                            '_default -> "-- Select Faculty --",
-                            '_help -> "")
-                        @helper.inputText(mastersStudentForm("course"), '_label -> "Course",
-                            '_id -> "course",
-                            'class -> "form-control",
-                            '_help -> "")
-                        @helper.inputText(mastersStudentForm("email"), '_label -> "Email",
-                            '_id -> "email",
-                            'class -> "form-control",
-                            '_help -> "",
-                            'type -> "email")
-                    </div>
+@import views.html.helper._
+@import views.html.helper.twitterBootstrap._
+
+@main("Master's Student Form") {
+    <h1>Master's Student Form</h1>
+
+    @form(CSRF(routes.MastersStudents.save())) {
+        <input type="hidden" value="@mastersStudentForm("id").valueOr("")" name="id"/>
+        <fieldset>
+            <legend>MastersStudent (@mastersStudentForm("name").valueOr("New"))</legend>
+            <div class="row">
+                <div class="col-xs-5">
+                    @helper.inputText(mastersStudentForm("ean"), '_label -> "ID",
+                        '_id -> "ean",
+                        'class -> "form-control",
+                        '_help -> "")
+                    @helper.inputText(mastersStudentForm("name"), '_label -> "Name",
+                        '_id -> "name",
+                        'class -> "form-control",
+                        '_help -> "")
+                    @helper.inputDate(mastersStudentForm("birthday"), '_label -> "Birthday",
+                        '_id -> "birthdady",
+                        'class -> "form-control",
+                        '_help -> "",
+                        'placeholder -> "YYYY-MM-DD")
+                    @helper.inputText(mastersStudentForm("address"), '_label -> "Address",
+                        '_id -> "address",
+                        'class -> "form-control",
+                        '_help -> "")
                 </div>
-            </fieldset>
-            <input type="submit" class="btn btn-primary" value="Save Master's Student"> or
-            <a class="btn btn-default" href="@routes.MastersStudents.list(0, "id", "asc", "")">Cancel</a>
-            <br></br>
-        }
+                <div class="col-xs-5">
+                    @helper.inputText(mastersStudentForm("phoneNumber"), '_label -> "Phone Number",
+                        '_id -> "phoneNumber",
+                        'class -> "form-control",
+                        '_help -> "")
+                    @helper.select(mastersStudentForm("faculty"),
+                        options = options(Seq("Infomation Technology", "Electronics & Telecommunications",
+                            "Engineering Physics and Nanotechnology", "Engineering Mechanics and Automation")),
+                        '_id -> "faculty",
+                        '_label -> "Faculty",
+                        'class -> "form-control",
+                        '_default -> "-- Select Faculty --",
+                        '_help -> "")
+                    @helper.inputText(mastersStudentForm("course"), '_label -> "Course",
+                        '_id -> "course",
+                        'class -> "form-control",
+                        '_help -> "")
+                    @helper.inputText(mastersStudentForm("email"), '_label -> "Email",
+                        '_id -> "email",
+                        'class -> "form-control",
+                        '_help -> "",
+                        'type -> "email")
+                </div>
+            </div>
+        </fieldset>
+        <input type="submit" class="btn btn-primary" value="Save Master's Student"> or
+        <a class="btn btn-default" href="@routes.MastersStudents.list(0, "id", "asc", "")">Cancel</a>
+        <br></br>
     }
-
-    <!--
-    <br>
-    <div class="control-group">
-        <div class="controls">
-            <input name="tags[0].id" value="1" type="checkbox"
-            for(i <- 0 to 2) {
-                if(mastersStudentForm("tags[" + i + "].id").value == "1") { checked }
-            }> lightweight
-            <input name="tags[1].id" value="2" type="checkbox"
-            for(i <- 0 to 2) {
-                if(mastersStudentForm("tags[" + i + "].id").value == "2") { checked }
-            }> metal
-            <input name="tags[2].id" value="3" type="checkbox"
-            for(i <- 0 to 2) {
-                if(mastersStudentForm("tags[" + i + "].id").value == "3") { checked }
-            }> plastic
-        </div>
-    </div>
-    <br>
-    -->
+}

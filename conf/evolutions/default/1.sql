@@ -13,6 +13,15 @@ create table address (
   constraint pk_address primary key (id))
 ;
 
+create table faculty (
+  id                        bigint not null,
+  name                      varchar(255),
+  address                   varchar(255),
+  email                     varchar(255),
+  phone_number              varchar(255),
+  constraint pk_faculty primary key (id))
+;
+
 create table masters_student (
   id                        bigint not null,
   ean                       varchar(255),
@@ -64,6 +73,8 @@ create table masters_student_tag (
 ;
 create sequence address_seq;
 
+create sequence faculty_seq;
+
 create sequence masters_student_seq;
 
 create sequence stock_item_seq;
@@ -91,6 +102,8 @@ alter table masters_student_tag add constraint fk_masters_student_tag_tag_02 for
 
 drop table if exists address cascade;
 
+drop table if exists faculty cascade;
+
 drop table if exists masters_student cascade;
 
 drop table if exists masters_student_tag cascade;
@@ -104,6 +117,8 @@ drop table if exists user_account cascade;
 drop table if exists warehouse cascade;
 
 drop sequence if exists address_seq;
+
+drop sequence if exists faculty_seq;
 
 drop sequence if exists masters_student_seq;
 

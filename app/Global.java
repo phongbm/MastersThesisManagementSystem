@@ -1,5 +1,4 @@
 import com.avaje.ebean.Ebean;
-import models.Tag;
 import models.UserAccount;
 import play.Application;
 import play.GlobalSettings;
@@ -22,9 +21,6 @@ public class Global extends GlobalSettings {
         public static void insert(Application app) {
             Map<String, List<Object>> all =
                     (Map<String, List<Object>>) Yaml.load("initial-data.yml");
-            if (Ebean.find(Tag.class).findRowCount() == 0) {
-                Ebean.save(all.get("tags"));
-            }
             if (Ebean.find(UserAccount.class).findRowCount() == 0) {
                 Ebean.save(all.get("user_accounts"));
             }

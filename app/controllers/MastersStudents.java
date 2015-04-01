@@ -2,7 +2,6 @@ package controllers;
 
 import models.MastersStudent;
 import models.StockItem;
-import models.Tag;
 import models.UserAccount;
 import play.data.Form;
 import play.mvc.Controller;
@@ -11,7 +10,6 @@ import play.mvc.Security;
 import views.html.mastersstudents.details;
 import views.html.mastersstudents.detailsuser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Security.Authenticated(Secured.class)
@@ -78,15 +76,6 @@ public class MastersStudents extends Controller {
             }
         }
 
-
-        List<Tag> tags = new ArrayList<Tag>();
-        for (Tag tag : mastersStudent.tags) {
-            if (tag.id != null) {
-                tags.add(Tag.findById(tag.id));
-            }
-        }
-        mastersStudent.tags = tags;
-
         if (mastersStudent.id == null) {
             mastersStudent.save();
         } else {
@@ -99,12 +88,7 @@ public class MastersStudents extends Controller {
         stockItem.save();
 
         flash("success", String.format("Successfully added Master's Student %s!", mastersStudent));
-        /*
-        if (!session().get("email").equals("giaovu@vnu.edu.vn")) {
-            return redirect(routes.MastersStudents.detailsReadOnly(MastersStudent.findByEmail(session().get("email"))));
-        }
-        return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
-        */
+
         UserAccount userAccount = UserAccount.findByEmail(session().get("email"));
         if (userAccount.isAdministrator()) {
             return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
@@ -129,20 +113,10 @@ public class MastersStudents extends Controller {
         return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
     }
 
-    /*
-    public static Result list(Integer page) {
-        Page<MastersStudent> mastersStudents = MastersStudent.find(page);
-        return ok(views.html.listmastersstudent.render(mastersStudents));
-    }
-    */
-
     public static Result list(Integer page, String sortBy, String order, String filter) {
         UserAccount userAccount = UserAccount.findByEmail(session().get("email"));
         if (userAccount.isUser()) {
             return redirect(routes.Application.home());
-            // return ok(views.html.listmastersstudents.render(
-            // MastersStudent.page(page, 5, sortBy, order, filter), sortBy, order, filter
-            // ));
         } else {
             if (userAccount.isAdministrator()) {
                 return ok(views.html.listmastersstudents.render(

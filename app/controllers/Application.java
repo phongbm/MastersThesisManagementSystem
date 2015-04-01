@@ -30,25 +30,6 @@ public class Application extends Controller {
         return ok(home.render("Master's Thesis Management System"));
     }
 
-    /*
-    public static Result login() {
-        if (session().get("email") != null) {
-            return redirect(routes.Application.index());
-        }
-        return ok(login.render(form(Login.class)));
-    }
-    */
-
-    /*
-    public static Result testLogin() {
-        if (session().get("email") != null) {
-            return redirect(routes.Application.index());
-        }
-        return ok(testlogin.render(form(Login.class)));
-
-    }
-    */
-
     public static Result logout() {
         session().clear();
         return redirect(routes.Application.index());
@@ -66,14 +47,6 @@ public class Application extends Controller {
         }
 
         session("email", email);
-        /*
-        if (!email.equals("giaovu@vnu.edu.vn")) {
-            MastersStudent mastersStudent = MastersStudent.findByEmail(email);
-            return redirect(routes.MastersStudents.detailsReadOnly(mastersStudent));
-        } else {
-            return redirect(routes.Application.index());
-        }
-        */
         UserAccount userAccount = UserAccount.findByEmail(email);
         if (userAccount.isAdministrator()) {
             return redirect(routes.Application.home());

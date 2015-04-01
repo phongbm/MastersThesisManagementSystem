@@ -8,7 +8,6 @@ import play.mvc.PathBindable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.util.Date;
 import java.util.List;
@@ -49,9 +48,6 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
 
     public byte[] picture;
 
-    @ManyToMany
-    public List<Tag> tags;
-
     public static Finder<Long, MastersStudent> find = new Finder<Long, MastersStudent>(
             Long.class, MastersStudent.class
     );
@@ -80,10 +76,6 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     }
 
     public void delete() {
-        for (Tag tag : tags) {
-            tag.mastersStudents.remove(this);
-            tag.save();
-        }
         super.delete();
     }
 

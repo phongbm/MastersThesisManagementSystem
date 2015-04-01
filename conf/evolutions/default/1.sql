@@ -44,12 +44,6 @@ create table stock_item (
   constraint pk_stock_item primary key (id))
 ;
 
-create table tag (
-  id                        bigint not null,
-  name                      varchar(255),
-  constraint pk_tag primary key (id))
-;
-
 create table user_account (
   id                        bigint not null,
   email                     varchar(255),
@@ -65,12 +59,6 @@ create table warehouse (
   constraint pk_warehouse primary key (id))
 ;
 
-
-create table masters_student_tag (
-  masters_student_id             bigint not null,
-  tag_id                         bigint not null,
-  constraint pk_masters_student_tag primary key (masters_student_id, tag_id))
-;
 create sequence address_seq;
 
 create sequence faculty_seq;
@@ -78,8 +66,6 @@ create sequence faculty_seq;
 create sequence masters_student_seq;
 
 create sequence stock_item_seq;
-
-create sequence tag_seq;
 
 create sequence user_account_seq;
 
@@ -94,10 +80,6 @@ create index ix_warehouse_address_3 on warehouse (address_id);
 
 
 
-alter table masters_student_tag add constraint fk_masters_student_tag_master_01 foreign key (masters_student_id) references masters_student (id);
-
-alter table masters_student_tag add constraint fk_masters_student_tag_tag_02 foreign key (tag_id) references tag (id);
-
 # --- !Downs
 
 drop table if exists address cascade;
@@ -106,11 +88,7 @@ drop table if exists faculty cascade;
 
 drop table if exists masters_student cascade;
 
-drop table if exists masters_student_tag cascade;
-
 drop table if exists stock_item cascade;
-
-drop table if exists tag cascade;
 
 drop table if exists user_account cascade;
 
@@ -123,8 +101,6 @@ drop sequence if exists faculty_seq;
 drop sequence if exists masters_student_seq;
 
 drop sequence if exists stock_item_seq;
-
-drop sequence if exists tag_seq;
 
 drop sequence if exists user_account_seq;
 

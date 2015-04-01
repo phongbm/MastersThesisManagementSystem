@@ -19,9 +19,6 @@ public class Warehouse extends Model {
     @OneToOne
     public Address address;
 
-    @OneToMany(mappedBy = "warehouse")
-    public List<StockItem> stock = new ArrayList();
-
     public String toString() {
         return name;
     }

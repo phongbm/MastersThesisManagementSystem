@@ -8,7 +8,6 @@ import play.mvc.PathBindable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import java.util.Date;
 import java.util.List;
 
@@ -42,9 +41,6 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     @Constraints.Required
     @Formats.DateTime(pattern = "yyyy-MM-dd")
     public Date birthday;
-
-    @OneToMany(mappedBy = "mastersStudent")
-    public List<StockItem> stockItems;
 
     public byte[] picture;
 

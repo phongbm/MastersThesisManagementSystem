@@ -1,7 +1,6 @@
 package controllers;
 
 import models.MastersStudent;
-import models.StockItem;
 import models.UserAccount;
 import play.data.Form;
 import play.mvc.Controller;
@@ -75,20 +74,12 @@ public class MastersStudents extends Controller {
                 }
             }
         }
-
         if (mastersStudent.id == null) {
             mastersStudent.save();
         } else {
             mastersStudent.update();
         }
-
-        StockItem stockItem = new StockItem();
-        stockItem.mastersStudent = mastersStudent;
-        stockItem.quantity = 0L;
-        stockItem.save();
-
         flash("success", String.format("Successfully added Master's Student %s!", mastersStudent));
-
         UserAccount userAccount = UserAccount.findByEmail(session().get("email"));
         if (userAccount.isAdministrator()) {
             return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
@@ -105,9 +96,6 @@ public class MastersStudents extends Controller {
         final MastersStudent mastersStudent = MastersStudent.findByEan(ean);
         if (mastersStudent == null) {
             return notFound(String.format("Master's Student %s does not exists!", ean));
-        }
-        for (StockItem stockItem : mastersStudent.stockItems) {
-            stockItem.delete();
         }
         mastersStudent.delete();
         return redirect(routes.MastersStudents.list(0, "id", "asc", ""));

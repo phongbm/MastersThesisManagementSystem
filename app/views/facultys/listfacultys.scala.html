@@ -21,7 +21,7 @@
 }
 
 @header(key: String, title: String) = {
-    <th class="@key.replace("../../../public", "_") header @if(currentSortBy == key) @{
+    <th class="@key.replace(".", "_") header @if(currentSortBy == key) @{
         if(currentOrder == "asc") "headerSortDown" else "headerSortUp"
     }">
         <a href="@link(0, key)">@title</a>
@@ -61,7 +61,8 @@
                 </form>
             </div>
         </div>
-        <br></br>
+        <br><br>
+
         <div id="pagination" class="pagination">
             @if(currentPage.hasPrev) {
                 <li><a href="@routes.Facultys.list(currentPage.getPageIndex - 1)">&larr;</a></li>

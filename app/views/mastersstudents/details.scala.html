@@ -12,8 +12,8 @@
             <legend>MastersStudent (@mastersStudentForm("name").valueOr("New"))</legend>
             <div class="row">
                 <div class="col-xs-5">
-                    @helper.inputText(mastersStudentForm("ean"), '_label -> "ID",
-                        '_id -> "ean",
+                    @helper.inputText(mastersStudentForm("code"), '_label -> "Code",
+                        '_id -> "code",
                         'class -> "form-control",
                         '_help -> "")
                     @helper.inputText(mastersStudentForm("name"), '_label -> "Name",
@@ -36,8 +36,7 @@
                         'class -> "form-control",
                         '_help -> "")
                     @helper.select(mastersStudentForm("faculty"),
-                        options = options(Seq("Infomation Technology", "Electronics & Telecommunications",
-                            "Engineering Physics and Nanotechnology", "Engineering Mechanics and Automation")),
+                        options = options(MastersStudent.options()),
                         '_id -> "faculty",
                         '_label -> "Faculty",
                         'class -> "form-control",
@@ -57,6 +56,6 @@
         </fieldset>
         <input type="submit" class="btn btn-primary" value="Save Master's Student"> or
         <a class="btn btn-default" href="@routes.MastersStudents.list(0, "id", "asc", "")">Cancel</a>
-        <br></br>
+        <br>
     }
 }

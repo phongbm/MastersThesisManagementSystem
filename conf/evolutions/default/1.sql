@@ -5,7 +5,9 @@
 
 create table faculty (
   id                        bigint not null,
+  code                      varchar(255),
   name                      varchar(255),
+  degree                    varchar(255),
   address                   varchar(255),
   email                     varchar(255),
   phone_number              varchar(255),
@@ -14,7 +16,7 @@ create table faculty (
 
 create table masters_student (
   id                        bigint not null,
-  ean                       varchar(255),
+  code                      varchar(255),
   name                      varchar(255),
   address                   varchar(255),
   phone_number              varchar(255),

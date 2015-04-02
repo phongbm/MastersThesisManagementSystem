@@ -8,6 +8,7 @@ import play.mvc.PathBindable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     public Long id;
 
     @Constraints.Required
-    public String ean;
+    public String code;
 
     @Constraints.Required
     public String name;
@@ -47,12 +48,21 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
             Long.class, MastersStudent.class
     );
 
+    public static List<String> options(){
+        List<String> options = new ArrayList<String>();
+        options.add("Infomation Technology");
+        options.add("Electronics & Telecommunications");
+        options.add("Engineering Physics and Nanotechnology");
+        options.add("Engineering Mechanics and Automation");
+        return options;
+    }
+
     public MastersStudent() {
     }
 
-    public MastersStudent(String ean, String name, String address, String phoneNumber, String faculty,
+    public MastersStudent(String code, String name, String address, String phoneNumber, String faculty,
                           String course, String email, Date birthday) {
-        this.ean = ean;
+        this.code = code;
         this.name = name;
         this.birthday = birthday;
         this.address = address;
@@ -63,7 +73,7 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     }
 
     public String toString() {
-        return String.format("%s - %s", ean, name);
+        return String.format("%s - %s", code, name);
     }
 
     public static List<MastersStudent> findAll() {
@@ -77,7 +87,7 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     public static Page<MastersStudent> page(int page, int pageSize, String sortBy, String order, String filter) {
         if (filter.matches("[\\d]*")) {
             return find.where()
-                    .ilike("ean", "%" + filter + "%")
+                    .ilike("code", "%" + filter + "%")
                     .orderBy(sortBy + " " + order)
                     .findPagingList(pageSize)
                     .setFetchAhead(false)
@@ -113,11 +123,11 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     }
 
     public static MastersStudent findByEan(String ean) {
-        return find.where().eq("ean", ean).findUnique();
+        return find.where().eq("code", ean).findUnique();
     }
 
-    public static List<MastersStudent> findByName(String term) {
-        return find.where().eq("name", term).findList();
+    public static List<MastersStudent> findByName(String name) {
+        return find.where().eq("name", name).findList();
     }
 
     @Override
@@ -127,12 +137,12 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
 
     @Override
     public String unbind(String key) {
-        return ean;
+        return code;
     }
 
     @Override
     public String javascriptUnbind() {
-        return ean;
+        return code;
     }
 
 }

@@ -12,8 +12,36 @@
             <legend>Faculty (@facultyForm("name").valueOr("New"))</legend>
             <div class="row">
                 <div class="col-xs-5">
+                    @helper.inputText(facultyForm("code"), '_label -> "Code",
+                        '_id -> "code",
+                        'class -> "form-control",
+                        '_help -> "")
+                    @helper.inputText(facultyForm("name"), '_label -> "Name",
+                        '_id -> "name",
+                        'class -> "form-control",
+                        '_help -> "")
+                    @helper.select(facultyForm("degree"),
+                        options = options(Faculty.options()),
+                        '_id -> "degree",
+                        '_label -> "Degree",
+                        'class -> "form-control",
+                        '_default -> "-- Select Degree --",
+                        '_help -> "")
                 </div>
                 <div class="col-xs-5">
+                    @helper.inputText(facultyForm("address"), '_label -> "Address",
+                        '_id -> "address",
+                        'class -> "form-control",
+                        '_help -> "")
+                    @helper.inputText(facultyForm("email"), '_label -> "Email",
+                        '_id -> "email",
+                        'class -> "form-control",
+                        '_help -> "",
+                        'type -> "email")
+                    @helper.inputText(facultyForm("phoneNumber"), '_label -> "Phone Number",
+                        '_id -> "phoneNumber",
+                        'class -> "form-control",
+                        '_help -> "")
                 </div>
             </div>
         </fieldset>

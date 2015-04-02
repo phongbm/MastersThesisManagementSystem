@@ -44,8 +44,8 @@ public class MastersStudents extends Controller {
         }
         MastersStudent mastersStudent = boundForm.get();
         if (mastersStudent.id == null) {
-            MastersStudent student1 = MastersStudent.findByEan(mastersStudent.ean);
-            if (student1 != null && mastersStudent.ean.equals(student1.ean)) {
+            MastersStudent student1 = MastersStudent.findByEan(mastersStudent.code);
+            if (student1 != null && mastersStudent.code.equals(student1.code)) {
                 flash("error", "That ID already exists!");
                 return badRequest(details.render(boundForm));
             }
@@ -58,7 +58,7 @@ public class MastersStudents extends Controller {
         if (mastersStudent.id != null) {
             List<MastersStudent> mastersStudents = MastersStudent.findAll();
             for (int i = 0; i < mastersStudents.size(); i++) {
-                if (mastersStudents.get(i).ean.equals(mastersStudent.ean) &&
+                if (mastersStudents.get(i).code.equals(mastersStudent.code) &&
                         !mastersStudents.get(i).id.equals(mastersStudent.id)) {
                     flash("error", "That ID already exists!");
                     return badRequest(details.render(boundForm));
@@ -103,7 +103,7 @@ public class MastersStudents extends Controller {
             return redirect(routes.Application.home());
         } else {
             if (userAccount.isAdministrator()) {
-                return ok(views.html.listmastersstudents.render(
+                return ok(views.html.mastersstudents.listmastersstudents.render(
                         MastersStudent.page(page, 5, sortBy, order, filter), sortBy, order, filter
                 ));
             } else {

@@ -3,20 +3,27 @@
 # ~~~~
 
 # Home page
-GET           /                                 controllers.Application.index()
+GET           /                                  controllers.Application.index()
 
 # Map static resources from the /public folder to the /assets URL path
-GET           /assets/*file                     controllers.Assets.at(path="/public", file)
+GET           /assets/*file                      controllers.Assets.at(path="/public", file)
 
-GET           /home                             controllers.Application.home()
-GET           /mastersstudents/                 controllers.MastersStudents.list(pape: Integer ?= 0, sortBy ?= "id", order ?= "asc", filter ?= "")
-GET           /mastersstudents/new              controllers.MastersStudents.newMastersStudent()
-GET           /mastersstudents/:ean             controllers.MastersStudents.details(ean: models.MastersStudent)
-GET           /mastersstudents/user/:ean        controllers.MastersStudents.detailsReadOnly(ean: models.MastersStudent)
-POST          /mastersstudents/                 controllers.MastersStudents.save()
-DELETE        /mastersstudents/:ean             controllers.MastersStudents.delete(ean: String)
-GET           /facultys/                        controllers.Facultys.list(pape: Integer ?= 0, sortBy ?= "id", order ?= "asc", filter ?= "")
-GET           /facultys/new                     controllers.Facultys.newFaculty()
-GET           /logout                           controllers.Application.logout()
-POST          /authenticate                     controllers.Application.authenticate()
-GET           /listaccount                      controllers.Application.listAccount()
+GET           /home                              controllers.Application.home()
+
+GET           /mastersstudents/                  controllers.MastersStudents.list(pape: Integer ?= 0, sortBy ?= "id", order ?= "asc", filter ?= "")
+GET           /mastersstudents/new               controllers.MastersStudents.newMastersStudent()
+POST          /mastersstudents/                  controllers.MastersStudents.save()
+GET           /mastersstudents/:code             controllers.MastersStudents.details(code: models.MastersStudent)
+GET           /mastersstudents/user/:code        controllers.MastersStudents.detailsReadOnly(code: models.MastersStudent)
+DELETE        /mastersstudents/:code             controllers.MastersStudents.delete(code: String)
+
+GET           /facultys/                         controllers.Facultys.list(pape: Integer ?= 0, sortBy ?= "id", order ?= "asc", filter ?= "")
+GET           /facultys/new                      controllers.Facultys.newFaculty()
+POST          /facultys/                         controllers.Facultys.save()
+GET           /facultys/:code                    controllers.Facultys.details(code: models.Faculty)
+DELETE        /facultys/:code                    controllers.Facultys.delete(code: String)
+GET           /facultys/user/:code               controllers.Facultys.info(code: models.Faculty)
+
+GET           /logout                            controllers.Application.logout()
+POST          /authenticate                      controllers.Application.authenticate()
+GET           /listaccount                       controllers.Application.listAccount()

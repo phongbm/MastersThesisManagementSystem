@@ -7,45 +7,48 @@ import play.mvc.PathBindable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Entity
 public class Faculty extends Model implements PathBindable<Faculty> {
     @Id
-    public long id;
+    public Long id;
+
+    @Constraints.Required
+    public String code;
 
     @Constraints.Required
     public String name;
 
-    @Constraints.Required
     public String degree;
 
-    @Constraints.Required
     public String address;
 
-    @Constraints.Required
     public String email;
 
-    @Constraints.Required
     public String phoneNumber;
 
-    public static Map<String, String> options() {
-        LinkedHashMap<String, String> options = new LinkedHashMap<String, String>();
-        options.put("1", "Master of Science");
-        options.put("2", "Doctor of Philosophy");
-        options.put("3", "Doctor of Science");
-        options.put("3", "Asscociate Professor");
-        options.put("4", "Professor");
+    public static List<String> options() {
+        List<String> options = new ArrayList<String>();
+        options.add("Master of Science");
+        options.add("Doctor of Philosophy");
+        options.add("Doctor of Science");
+        options.add("Asscociate Professor");
+        options.add("Professor");
         return options;
     }
+
 
     public static Finder<Long, Faculty> find = new Finder<Long, Faculty>(Long.class, Faculty.class);
 
     public Faculty() {
     }
 
-    public Faculty(String name, String degree, String address, String email, String phoneNumber) {
+    public Faculty(String code, String name, String degree, String address, String email, String phoneNumber) {
+        this.code = code;
         this.name = name;
         this.degree = degree;
         this.address = address;
@@ -53,10 +56,14 @@ public class Faculty extends Model implements PathBindable<Faculty> {
         this.phoneNumber = phoneNumber;
     }
 
+    public String toString() {
+        return String.format("%s - %s", code, name);
+    }
+
     public static Page<Faculty> page(int page, int pageSize, String sortBy, String order, String filter) {
         if (filter.matches("[\\d]*")) {
             return find.where()
-                    .ilike("ean", "%" + filter + "%")
+                    .ilike("code", "%" + filter + "%")
                     .orderBy(sortBy + " " + order)
                     .findPagingList(pageSize)
                     .setFetchAhead(false)
@@ -79,22 +86,30 @@ public class Faculty extends Model implements PathBindable<Faculty> {
         }
     }
 
-    public static Faculty findByName(String name) {
-        return find.where().eq("name", name).findUnique();
+    public static List<Faculty> findAll(){
+        return find.all();
+    }
+
+    public static Faculty findByCode(String code) {
+        return find.where().eq("code", code).findUnique();
+    }
+
+    public static Faculty findByEmail(String email) {
+        return find.where().eq("email", email).findUnique();
     }
 
     @Override
     public Faculty bind(String key, String value) {
-        return findByName(value);
+        return findByCode(value);
     }
 
     @Override
     public String unbind(String s) {
-        return name;
+        return code;
     }
 
     @Override
     public String javascriptUnbind() {
-        return name;
+        return code;
     }
 }

@@ -1,0 +1,62 @@
+@(mastersStudent: MastersStudent)
+
+@main("Master's Thesis Management System") {
+    <div class="container">
+        <hr class=""/>
+        <div class="row">
+            <div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">@mastersStudent.name</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3 col-lg-3" align="center">
+                                <img alt="User Pic" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="img-circle">
+                            </div>
+                            <div class="col-md-9 col-lg-9">
+                                <table class="table table-user-information">
+                                    <tbody>
+                                        <tr>
+                                            <td>Address</td>
+                                            <td>@mastersStudent.address</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Phone Number</td>
+                                            <td>@mastersStudent.phoneNumber</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Faculty</td>
+                                            <td>@mastersStudent.faculty</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Course</td>
+                                            <td>@mastersStudent.course</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td>@mastersStudent.email</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Birthday</td>
+                                            <td>@mastersStudent.birthday.format("dd-MM-yyyy")</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer">
+                        <a href="@routes.MastersStudents.details(mastersStudent)" title="Edit" class="btn btn-sm btn-warning">
+                            <i class="fa fa-edit">&nbsp;Edit Profile</i>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+}

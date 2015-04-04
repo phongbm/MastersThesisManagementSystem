@@ -46,9 +46,9 @@
             UserAccount.findByEmail(session().get("email")).isFaculty()) {
         <script>
             $(function(){
-                $("#edit").addClass('disabled');
-                $("#delete").addClass('disabled');
-                $("#new-masters-student").addClass('disabled');
+                $("a#edit").addClass('disabled');
+                $("button#delete").addClass('disabled');
+                $("a#new-masters-student").addClass('disabled');
             });
         </script>
     }
@@ -104,14 +104,12 @@
             <tbody>
             @for(mastersStudent <- currentPage.getList()) {
                 <tr>
-                    <td><a href="@routes.MastersStudents.details(mastersStudent)">
+                    <td><a href="@routes.MastersStudents.info(mastersStudent)">
                         <button class="btn btn-info btn-xs">@mastersStudent.code</button>
                     </a>
                     </td>
                     <td>@mastersStudent.name</td>
-                    <td>@if(mastersStudent.birthday != null) {
-                        @mastersStudent.birthday.format("dd-MM-yyyy")
-                    }</td>
+                    <td>@mastersStudent.birthday.format("dd-MM-yyyy")</td>
                     <td>@mastersStudent.address</td>
                     <td>@mastersStudent.phoneNumber</td>
                     <td>@mastersStudent.faculty</td>
@@ -157,5 +155,4 @@
 
     <a id="new-masters-student" href="@routes.MastersStudents.newMastersStudent()" class="btn btn-primary fa fa-plus">&nbsp;New Master's Student</a>
     <br>
-
 }

@@ -23,7 +23,7 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         @if(UserAccount.findByEmail(session().get("email")).isMastersStudent()) {
-                            <li><a href="@routes.MastersStudents.details(MastersStudent.findByEmail(session().get("email")))">
+                            <li><a href="@routes.MastersStudents.info(MastersStudent.findByEmail(session().get("email")))">
                                 <i class="fa fa-eye"><b>&nbsp;View Profile</b></i></a></li>
                         } else {
                             <li><a href=""><i class="fa fa-eye"><b>&nbsp;View Profile</b></i></a></li>

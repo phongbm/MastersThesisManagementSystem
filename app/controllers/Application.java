@@ -1,6 +1,5 @@
 package controllers;
 
-import models.MastersStudent;
 import models.UserAccount;
 import play.data.Form;
 import play.mvc.Controller;
@@ -46,19 +45,6 @@ public class Application extends Controller {
         }
         session("email", email);
         return redirect(routes.Application.home());
-        /*
-        UserAccount userAccount = UserAccount.findByEmail(email);
-        if (userAccount.isAdministrator()) {
-            return redirect(routes.Application.home());
-        } else {
-            if (userAccount.isMastersStudent()) {
-                MastersStudent mastersStudent = MastersStudent.findByEmail(email);
-                return redirect(routes.MastersStudents.detailsReadOnly(mastersStudent));
-            } else {
-                return ok();
-            }
-        }
-        */
     }
 
     public static Result listAccount() {

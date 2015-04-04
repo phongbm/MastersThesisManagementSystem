@@ -81,23 +81,13 @@ public class MastersStudents extends Controller {
     }
 
     public static Result list(Integer page, String sortBy, String order, String filter) {
-        /*
-        UserAccount userAccount = UserAccount.findByEmail(session().get("email"));
-        if (userAccount.isMastersStudent()) {
-            return redirect(routes.Application.home());
-        } else {
-            if (userAccount.isAdministrator()) {
-                return ok(views.html.mastersstudents.listmastersstudents.render(
-                        MastersStudent.page(page, 5, sortBy, order, filter), sortBy, order, filter
-                ));
-            } else {
-                return ok();
-            }
-        }
-        */
         return ok(views.html.mastersstudents.listmastersstudents.render(
                 MastersStudent.page(page, 5, sortBy, order, filter), sortBy, order, filter
         ));
+    }
+
+    public static Result info(MastersStudent mastersStudent){
+        return ok(views.html.mastersstudents.info.render(mastersStudent));
     }
 
 }

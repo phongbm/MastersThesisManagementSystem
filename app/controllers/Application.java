@@ -45,17 +45,20 @@ public class Application extends Controller {
             return redirect(routes.Application.index());
         }
         session("email", email);
+        return redirect(routes.Application.home());
+        /*
         UserAccount userAccount = UserAccount.findByEmail(email);
         if (userAccount.isAdministrator()) {
             return redirect(routes.Application.home());
         } else {
-            if (userAccount.isUser()) {
+            if (userAccount.isMastersStudent()) {
                 MastersStudent mastersStudent = MastersStudent.findByEmail(email);
                 return redirect(routes.MastersStudents.detailsReadOnly(mastersStudent));
             } else {
                 return ok();
             }
         }
+        */
     }
 
     public static Result listAccount() {

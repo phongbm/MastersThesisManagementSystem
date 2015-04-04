@@ -53,8 +53,16 @@ public class UserAccount extends Model {
         }
     }
 
-    public boolean isUser() {
-        if (permission.equals("User")) {
+    public boolean isMastersStudent() {
+        if (permission.equals("MastersStudent")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isFaculty() {
+        if (permission.equals("Faculty")) {
             return true;
         } else {
             return false;

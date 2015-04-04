@@ -59,3 +59,7 @@ body {
 .modal-dialog {
     margin-top : 150px;
 }
+
+.disable-link {
+    pointer-events: none;
+}

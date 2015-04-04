@@ -6,6 +6,18 @@
 @main("Master's Student Form") {
     <h1>Master's Student Form</h1>
 
+    @if(UserAccount.findByEmail(session().get("email")).isMastersStudent()) {
+        <script>
+            $(function(){
+                $('select').attr('disabled', '');
+                $('input#name').attr('readonly', '');
+                $('input#course').attr('readonly', '');
+                $('input#email').attr('readonly', '');
+                $('input#birthday').attr('readonly', '');
+            });
+        </script>
+    }
+
     @form(CSRF(routes.MastersStudents.save())) {
         <input type="hidden" value="@mastersStudentForm("id").valueOr("")" name="id"/>
         <fieldset>
@@ -13,25 +25,30 @@
             <div class="row">
                 <div class="col-xs-5">
                     @helper.inputText(mastersStudentForm("code"), '_label -> "Code",
+                        'type -> "code",
                         '_id -> "code",
                         'class -> "form-control",
                         '_help -> "")
                     @helper.inputText(mastersStudentForm("name"), '_label -> "Name",
+                        'type -> "name",
                         '_id -> "name",
                         'class -> "form-control",
                         '_help -> "")
-                    @helper.inputDate(mastersStudentForm("birthday"), '_label -> "Birthday",
+                    @helper.inputText(mastersStudentForm("birthday"), '_label -> "Birthday",
+                        'type -> "birthday",
                         '_id -> "birthdady",
                         'class -> "form-control",
                         '_help -> "",
                         'placeholder -> "YYYY-MM-DD")
                     @helper.inputText(mastersStudentForm("address"), '_label -> "Address",
+                        'type -> "address",
                         '_id -> "address",
                         'class -> "form-control",
                         '_help -> "")
                 </div>
                 <div class="col-xs-5">
                     @helper.inputText(mastersStudentForm("phoneNumber"), '_label -> "Phone Number",
+                        'type -> "phone-number",
                         '_id -> "phoneNumber",
                         'class -> "form-control",
                         '_help -> "")
@@ -43,14 +60,15 @@
                         '_default -> "-- Select Faculty --",
                         '_help -> "")
                     @helper.inputText(mastersStudentForm("course"), '_label -> "Course",
+                        'type -> "course",
                         '_id -> "course",
                         'class -> "form-control",
                         '_help -> "")
                     @helper.inputText(mastersStudentForm("email"), '_label -> "Email",
+                        'type -> "email",
                         '_id -> "email",
                         'class -> "form-control",
-                        '_help -> "",
-                        'type -> "email")
+                        '_help -> "")
                 </div>
             </div>
         </fieldset>

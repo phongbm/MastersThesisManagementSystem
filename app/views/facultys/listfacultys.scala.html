@@ -43,6 +43,16 @@
     }
     </script>
 
+    @if(UserAccount.findByEmail(session().get("email")).isMastersStudent()) {
+        <script>
+            $(function(){
+                $("#edit").addClass('disabled');
+                $("#delete").addClass('disabled');
+                $("#new-masters-student").addClass('disabled');
+            });
+        </script>
+    }
+
     @if(currentPage.getTotalRowCount == 0) {
         <div class="well"><em>Nothing to display</em></div>
         <a href="@routes.Facultys.list(0, "id", "asc", "")" class="btn btn-default">Back</a>
@@ -61,7 +71,7 @@
                 </form>
             </div>
         </div>
-        <br><br>
+        <br> <br>
 
         <div id="pagination" class="pagination">
             @if(currentPage.hasPrev) {
@@ -78,7 +88,7 @@
         </div>
 
         <table class="table table-striped table-bordered">
-            <thead style="color : #0000ff ;">
+            <thead>
                 <tr>
                     @header("id", "Code")
                     <th>Name</th>
@@ -101,15 +111,17 @@
                     <td><b>@faculty.email</b></td>
                     <td>@faculty.phoneNumber</td>
                     <td>
-                        <a href="@routes.Facultys.details(faculty)">
-                            <button class="btn btn-success btn-xs fa fa-edit">&nbsp;Edit</button></a>
+
+                        <a id="edit" href="@routes.Facultys.details(faculty)" class="btn btn-success btn-xs fa fa-edit">
+                            &nbsp;Edit</a>
+
                         @{
                             id1 = id1 + faculty.id
                         }
                         @{
                             id2 = id2 + faculty.id
                         }
-                        <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=@id1>
+                        <button id="delete" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=@id1>
                             <i class="fa fa-trash">&nbsp;Delete</i>
                         </button>
                         <div class="modal fade" id=@id2 tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -138,7 +150,7 @@
         </table>
     }
 
-    <a href="@routes.Facultys.newFaculty()" class="btn btn-primary fa fa-plus">&nbsp;New Faculty</a>
+    <a id="new-masters-student" href="@routes.Facultys.newFaculty()" class="btn btn-primary fa fa-plus">&nbsp;New Faculty</a>
     <br>
 
 

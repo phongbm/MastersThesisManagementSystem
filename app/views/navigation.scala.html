@@ -22,8 +22,8 @@
                         <i class="fa fa-bars"></i>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        @if(UserAccount.findByEmail(session().get("email")).isUser()) {
-                            <li><a href="@routes.MastersStudents.detailsReadOnly(MastersStudent.findByEmail(session().get("email")))">
+                        @if(UserAccount.findByEmail(session().get("email")).isMastersStudent()) {
+                            <li><a href="@routes.MastersStudents.details(MastersStudent.findByEmail(session().get("email")))">
                                 <i class="fa fa-eye"><b>&nbsp;View Profile</b></i></a></li>
                         } else {
                             <li><a href=""><i class="fa fa-eye"><b>&nbsp;View Profile</b></i></a></li>

@@ -6,8 +6,12 @@ user_accounts:
     - !!models.UserAccount
         email: phongbm.it@gmail.com
         password: phong2015
-        permission: User
+        permission: MastersStudent
     - !!models.UserAccount
         email: hongnhung.tester@gmail.com
         password: nhung2015
-        permission: User
+        permission: MastersStudent
+    - !!models.UserAccount
+        email: chauttm@vnu.edu.vn
+        password: chauttm2015
+        permission: Faculty

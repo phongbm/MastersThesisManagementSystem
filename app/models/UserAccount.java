@@ -24,11 +24,6 @@ public class UserAccount extends Model {
     public UserAccount() {
     }
 
-    public UserAccount(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-
     public UserAccount(String email, String password, String permission) {
         this.email = email;
         this.password = password;
@@ -69,4 +64,11 @@ public class UserAccount extends Model {
         }
     }
 
+    public String getPermission(){
+        return permission;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }

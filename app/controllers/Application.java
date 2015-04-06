@@ -44,11 +44,21 @@ public class Application extends Controller {
             return redirect(routes.Application.index());
         }
         session("email", email);
+        if(UserAccount.findByEmail(session().get("email")).isAdministrator()){
+            return redirect(routes.Application.admin());
+        }
         return redirect(routes.Application.home());
     }
 
     public static Result listAccount() {
         return ok(listaccount.render());
+    }
+
+    public static Result admin(){
+        if(!UserAccount.findByEmail(session().get("email")).isAdministrator()){
+            return redirect(routes.Application.home());
+        }
+        return ok(views.html.dashboard.render());
     }
 
 }

@@ -1,4 +1,5 @@
 import com.avaje.ebean.Ebean;
+import models.MastersStudent;
 import models.UserAccount;
 import play.Application;
 import play.GlobalSettings;

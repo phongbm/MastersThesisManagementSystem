@@ -24,6 +24,10 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     public String name;
 
     @Constraints.Required
+    @Formats.DateTime(pattern = "yyyy-MM-dd")
+    public Date birthday;
+
+    @Constraints.Required
     public String address;
 
     @Constraints.Required
@@ -38,10 +42,6 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     @Constraints.Required
     public String email;
 
-    @Constraints.Required
-    @Formats.DateTime(pattern = "yyyy-MM-dd")
-    public Date birthday;
-
     public byte[] picture;
 
     public static Finder<Long, MastersStudent> find = new Finder<Long, MastersStudent>(
@@ -52,8 +52,8 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
         List<String> options = new ArrayList<String>();
         options.add("Infomation Technology");
         options.add("Electronics & Telecommunications");
-        options.add("Engineering Physics and Nanotechnology");
-        options.add("Engineering Mechanics and Automation");
+        options.add("Engineering Physics & Nanotechnology");
+        options.add("Engineering Mechanics & Automation");
         return options;
     }
 
@@ -116,6 +116,10 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
                 .findPagingList(5)
                 .setFetchAhead(false)
                 .getPage(page);
+    }
+
+    public static int getTotalRowCount(){
+        return find.where().findPagingList(5).getTotalRowCount();
     }
 
     public static MastersStudent findByEmail(String email) {

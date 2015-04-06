@@ -86,7 +86,11 @@ public class Faculty extends Model implements PathBindable<Faculty> {
         }
     }
 
-    public static List<Faculty> findAll(){
+    public static int getTotalRowCount() {
+        return find.where().findPagingList(5).getTotalRowCount();
+    }
+
+    public static List<Faculty> findAll() {
         return find.all();
     }
 

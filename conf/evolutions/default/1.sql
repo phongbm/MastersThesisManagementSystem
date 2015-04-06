@@ -18,12 +18,12 @@ create table masters_student (
   id                        bigint not null,
   code                      varchar(255),
   name                      varchar(255),
+  birthday                  timestamp,
   address                   varchar(255),
   phone_number              varchar(255),
   faculty                   varchar(255),
   course                    varchar(255),
   email                     varchar(255),
-  birthday                  timestamp,
   picture                   bytea,
   constraint pk_masters_student primary key (id))
 ;

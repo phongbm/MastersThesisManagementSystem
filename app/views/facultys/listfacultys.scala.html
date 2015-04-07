@@ -43,12 +43,24 @@
     }
     </script>
 
-    @if(UserAccount.findByEmail(session().get("email")).isMastersStudent()) {
+    <!--
+    if(UserAccount.findByEmail(session().get("email")).isMastersStudent()) {
         <script>
             $(function(){
                 $("#edit").addClass('disabled');
                 $("#delete").addClass('disabled');
                 $("#new-masters-student").addClass('disabled');
+            });
+        </script>
+    }
+    -->
+
+    @if(!UserAccount.findByEmail(session().get("email")).isAdministrator()){
+        <script>
+            $(function(){
+                $("th#actions").css('display', 'none');
+                $("td#actions").css('display', 'none');
+                $("a#new-faculty").css('display', 'none');
             });
         </script>
     }
@@ -96,7 +108,7 @@
                     <th>Address</th>
                     <th>Email</th>
                     <th>Phone Number</th>
-                    <th>Actions</th>
+                    <th id="actions">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -110,7 +122,7 @@
                     <td>@faculty.address</td>
                     <td><b>@faculty.email</b></td>
                     <td>@faculty.phoneNumber</td>
-                    <td>
+                    <td id="actions">
 
                         <a id="edit" href="@routes.Facultys.details(faculty)" class="btn btn-success btn-xs fa fa-edit">
                             &nbsp;Edit</a>
@@ -150,7 +162,7 @@
         </table>
     }
 
-    <a id="new-masters-student" href="@routes.Facultys.newFaculty()" class="btn btn-primary fa fa-plus">&nbsp;New Faculty</a>
+    <a id="new-faculty" href="@routes.Facultys.newFaculty()" class="btn btn-primary fa fa-plus">&nbsp;New Faculty</a>
     <br>
 
 

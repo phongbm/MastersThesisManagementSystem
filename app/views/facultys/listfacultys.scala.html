@@ -43,18 +43,6 @@
     }
     </script>
 
-    <!--
-    if(UserAccount.findByEmail(session().get("email")).isMastersStudent()) {
-        <script>
-            $(function(){
-                $("#edit").addClass('disabled');
-                $("#delete").addClass('disabled');
-                $("#new-masters-student").addClass('disabled');
-            });
-        </script>
-    }
-    -->
-
     @if(!UserAccount.findByEmail(session().get("email")).isAdministrator()){
         <script>
             $(function(){
@@ -114,10 +102,10 @@
             <tbody>
             @for(faculty <- currentPage.getList()) {
                 <tr>
-                    <td><a href="@routes.Facultys.info(faculty)">
-                        <button class="btn btn-info btn-xs">@faculty.code</button>
-                    </a>
-                    <td>@faculty.name</td>
+                    <td><button class="btn btn-info btn-xs">@faculty.code</button></td>
+                    <td>
+                        <a href="@routes.Facultys.info(faculty)">@faculty.name</a>
+                    </td>
                     <td>@faculty.degree</td>
                     <td>@faculty.address</td>
                     <td><b>@faculty.email</b></td>

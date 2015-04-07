@@ -19,14 +19,17 @@ public class Application extends Controller {
 
     public static Result index() {
         if (session().get("email") != null) {
-            return ok(home.render("Master's Thesis Management System"));
+            return ok(home.render("Hệ Thống Quản Lý Luận Văn Cao Học"));
         } else {
             return ok(index.render(form(Login.class)));
         }
     }
 
     public static Result home() {
-        return ok(home.render("Master's Thesis Management System"));
+        if (session().get("email") == null) {
+            return redirect(routes.Application.index());
+        }
+        return ok(home.render("Hệ Thống Quản Lý Luận Văn Cao Học"));
     }
 
     public static Result logout() {
@@ -44,7 +47,7 @@ public class Application extends Controller {
             return redirect(routes.Application.index());
         }
         session("email", email);
-        if(UserAccount.findByEmail(session().get("email")).isAdministrator()){
+        if (UserAccount.findByEmail(session().get("email")).isAdministrator()) {
             return redirect(routes.Application.admin());
         }
         return redirect(routes.Application.home());
@@ -54,8 +57,11 @@ public class Application extends Controller {
         return ok(listaccount.render());
     }
 
-    public static Result admin(){
-        if(!UserAccount.findByEmail(session().get("email")).isAdministrator()){
+    public static Result admin() {
+        if (session().get("email") == null) {
+            return redirect(routes.Application.index());
+        }
+        if (!UserAccount.findByEmail(session().get("email")).isAdministrator()) {
             return redirect(routes.Application.home());
         }
         return ok(views.html.dashboard.render());

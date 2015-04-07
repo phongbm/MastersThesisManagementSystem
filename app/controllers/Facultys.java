@@ -2,6 +2,7 @@ package controllers;
 
 import com.avaje.ebean.Ebean;
 import models.Faculty;
+import models.UserAccount;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -14,6 +15,12 @@ public class Facultys extends Controller {
     private static final Form<Faculty> facultyForm = Form.form(Faculty.class);
 
     public static Result newFaculty() {
+        if (session().get("email") == null) {
+            return redirect(routes.Application.index());
+        }
+        if (!UserAccount.findByEmail(session().get("email")).isAdministrator()) {
+            return redirect(routes.Application.index());
+        }
         return ok(details.render(facultyForm));
     }
 

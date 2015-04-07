@@ -42,13 +42,12 @@
     }
     </script>
 
-    @if(UserAccount.findByEmail(session().get("email")).isMastersStudent() ||
-            UserAccount.findByEmail(session().get("email")).isFaculty()) {
+    @if(!UserAccount.findByEmail(session().get("email")).isAdministrator()) {
         <script>
             $(function(){
-                $("a#edit").addClass('disabled');
-                $("button#delete").addClass('disabled');
-                $("a#new-masters-student").addClass('disabled');
+                $("th#actions").css('display', 'none');
+                $("td#actions").css('display', 'none');
+                $("a#new-masters-student").css('display', 'none');
             });
         </script>
     }
@@ -98,24 +97,23 @@
                     <th>Faculty</th>
                     <th>Course</th>
                     <th>Email</th>
-                    <th>Actions</th>
+                    <th id="actions">Actions</th>
                 </tr>
             </thead>
             <tbody>
             @for(mastersStudent <- currentPage.getList()) {
                 <tr>
-                    <td><a href="@routes.MastersStudents.info(mastersStudent)">
-                        <button class="btn btn-info btn-xs">@mastersStudent.code</button>
-                    </a>
+                    <td><button class="btn btn-info btn-xs">@mastersStudent.code</button></td>
+                    <td>
+                        <a href="@routes.MastersStudents.info(mastersStudent)">@mastersStudent.name</a>
                     </td>
-                    <td>@mastersStudent.name</td>
                     <td>@mastersStudent.birthday.format("dd-MM-yyyy")</td>
                     <td>@mastersStudent.address</td>
                     <td>@mastersStudent.phoneNumber</td>
                     <td>@mastersStudent.faculty</td>
                     <td>@mastersStudent.course</td>
                     <td><b>@mastersStudent.email</b></td>
-                    <td>
+                    <td id="actions">
                         <a href="@routes.MastersStudents.details(mastersStudent)" id="edit" class="btn btn-success btn-xs fa fa-edit">
                            &nbsp;Edit</a>
                         @{

@@ -75,20 +75,35 @@
                                 </p>
                             </li>
 
+                            <li class="user-body">
+                                @{
+                                    userAccount = UserAccount.findByEmail(session().get("email"))
+                                }
+                                @if(userAccount.isFaculty()) {
+                                    <div class="col-xs-6 text-center">
+                                        <a href="@routes.Facultys.info(Faculty.findByEmail(userAccount.getEmail()))">
+                                            View Profile</a>
+                                    </div>
+                                    <div class="col-xs-6 text-center">
+                                        <a href="@routes.Facultys.details(Faculty.findByEmail(userAccount.getEmail()))">
+                                            Edit Profile</a>
+                                    </div>
+                                } else {
+                                    @if(userAccount.isMastersStudent()) {
+                                        <div class="col-xs-6 text-center">
+                                            <a href="@routes.MastersStudents.info(MastersStudent.findByEmail(userAccount.getEmail))">
+                                                View Profile</a>
+                                        </div>
+                                        <div class="col-xs-6 text-center">
+                                            <a href="@routes.MastersStudents.details(MastersStudent.findByEmail(userAccount.getEmail))">
+                                                Edit Profile</a>
+                                        </div>
+                                    }
+                                }
+                            </li>
+
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    @{
-                                        userAccount = UserAccount.findByEmail(session().get("email"))
-                                    }
-                                    @if(userAccount.isFaculty()) {
-                                        <a href="@routes.Facultys.info(Faculty.findByEmail(userAccount.getEmail()))" class="btn btn-default btn-flat">
-                                            Profiles</a>
-                                    } else {
-                                        @if(userAccount.isMastersStudent()) {
-                                            <a href="@routes.MastersStudents.info(MastersStudent.findByEmail(userAccount.getEmail))" class="btn btn-default btn-flat">
-                                                Profiles</a>
-                                        }
-                                    }
                                 </div>
                                 <div class="pull-right">
                                     <a href="@routes.Application.logout()" class="btn btn-default btn-flat">

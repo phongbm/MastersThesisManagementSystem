@@ -3,50 +3,59 @@
 @import views.html.helper._
 @import views.html.helper.twitterBootstrap._
 
-@main("Faculty Form") {
-    <h1>Faculty Form</h1>
+@main("Hệ Thống Quản Lý Luận Văn Cao Học") {
+    <h1>Thông Tin Tài Khoản</h1>
+
+    @if(UserAccount.findByEmail(session().get("email")).isFaculty()) {
+        <script>
+            $(function(){
+                $('input#name').attr('readonly', '');
+                $('input#email').attr('readonly', '');
+            });
+        </script>
+    }
 
     @form(CSRF(routes.Facultys.save())) {
         <input type="hidden" value="@facultyForm("id").valueOr("")" name="id"/>
         <fieldset>
-            <legend>Faculty (@facultyForm("name").valueOr("New"))</legend>
+            <legend>Giảng Viên (@facultyForm("name").valueOr("New"))</legend>
             <div class="row">
                 <div class="col-xs-5">
-                    @helper.inputText(facultyForm("code"), '_label -> "Code",
+                    @helper.inputText(facultyForm("code"), '_label -> "Mã Số",
                         '_id -> "code",
                         'class -> "form-control",
                         '_help -> "")
-                    @helper.inputText(facultyForm("name"), '_label -> "Name",
+                    @helper.inputText(facultyForm("name"), '_label -> "Họ Tên",
                         '_id -> "name",
                         'class -> "form-control",
                         '_help -> "")
                     @helper.select(facultyForm("degree"),
                         options = options(Faculty.options()),
                         '_id -> "degree",
-                        '_label -> "Degree",
+                        '_label -> "Chức Danh",
                         'class -> "form-control",
                         '_default -> "-- Select Degree --",
                         '_help -> "")
                 </div>
                 <div class="col-xs-5">
-                    @helper.inputText(facultyForm("address"), '_label -> "Address",
+                    @helper.inputText(facultyForm("address"), '_label -> "Địa Chỉ",
                         '_id -> "address",
                         'class -> "form-control",
                         '_help -> "")
-                    @helper.inputText(facultyForm("email"), '_label -> "Email",
+                    @helper.inputText(facultyForm("email"), '_label -> "Địa Chỉ Email",
                         '_id -> "email",
                         'class -> "form-control",
                         '_help -> "",
                         'type -> "email")
-                    @helper.inputText(facultyForm("phoneNumber"), '_label -> "Phone Number",
+                    @helper.inputText(facultyForm("phoneNumber"), '_label -> "Số Điện Thoại",
                         '_id -> "phoneNumber",
                         'class -> "form-control",
                         '_help -> "")
                 </div>
             </div>
         </fieldset>
-        <input type="submit" class="btn btn-primary" value="Save Faculty"> or
-        <a class="btn btn-default" href="@routes.Facultys.list(0, "id", "asc", "")">Cancel</a>
+        <input type="submit" class="btn btn-primary" value="Lưu Lại"> hoặc
+        <a class="btn btn-default" href="@routes.Facultys.list(0, "id", "asc", "")">Trở Lại</a>
         <br>
     }
 

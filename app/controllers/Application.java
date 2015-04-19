@@ -46,7 +46,7 @@ public class Application extends Controller {
         String password = loginForm.get().password;
         session().clear();
         if (UserAccount.authenticate(email, password) == null) {
-            flash("error", "Invalid email and/or password");
+            flash("error", "Địa chỉ email hoặc mật khẩu không đúng!");
             return redirect(routes.Application.index());
         }
         session("email", email);

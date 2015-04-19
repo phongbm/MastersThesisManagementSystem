@@ -8,6 +8,7 @@ import play.mvc.PathBindable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,18 +43,22 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     @Constraints.Required
     public String email;
 
-    public byte[] picture;
+    @OneToOne
+    public MastersThesis mastersThesis;
 
     public static Finder<Long, MastersStudent> find = new Finder<Long, MastersStudent>(
             Long.class, MastersStudent.class
     );
 
-    public static List<String> options(){
+    public static List<String> options() {
         List<String> options = new ArrayList<String>();
-        options.add("Infomation Technology");
-        options.add("Electronics & Telecommunications");
-        options.add("Engineering Physics & Nanotechnology");
-        options.add("Engineering Mechanics & Automation");
+        options.add("Công nghệ Thông tin");
+        options.add("Khoa học Máy tính");
+        options.add("Công nghệ Điện tử - Viễn thông");
+        options.add("Vật lý Kỹ thuật");
+        options.add("Cơ học kỹ thuật");
+        options.add("Công nghệ Cơ Điện tử");
+        options.add("Hệ thống Thông Tin");
         return options;
     }
 
@@ -118,7 +123,7 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
                 .getPage(page);
     }
 
-    public static int getTotalRowCount(){
+    public static int getTotalRowCount() {
         return find.where().findPagingList(5).getTotalRowCount();
     }
 
@@ -126,8 +131,8 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
         return find.where().eq("email", email).findUnique();
     }
 
-    public static MastersStudent findByEan(String ean) {
-        return find.where().eq("code", ean).findUnique();
+    public static MastersStudent findByCode(String code) {
+        return find.where().eq("code", code).findUnique();
     }
 
     public static List<MastersStudent> findByName(String name) {
@@ -136,7 +141,7 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
 
     @Override
     public MastersStudent bind(String key, String value) {
-        return findByEan(value);
+        return findByCode(value);
     }
 
     @Override

@@ -27,17 +27,18 @@ public class Faculty extends Model implements PathBindable<Faculty> {
 
     public String address;
 
+    @Constraints.Required
     public String email;
 
     public String phoneNumber;
 
     public static List<String> options() {
         List<String> options = new ArrayList<String>();
-        options.add("Master of Science");
-        options.add("Doctor of Philosophy");
-        options.add("Doctor of Science");
-        options.add("Asscociate Professor");
-        options.add("Professor");
+        options.add("Thạc Sĩ");
+        options.add("Tiến Sĩ");
+        options.add("Tiến Sĩ Khoa Học");
+        options.add("Phó Giáo Sư");
+        options.add("Giáo Sư");
         return options;
     }
 

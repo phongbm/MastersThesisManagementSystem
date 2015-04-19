@@ -27,7 +27,7 @@ public class Facultys extends Controller {
     public static Result delete(String code) {
         final Faculty faculty = Faculty.findByCode(code);
         if (faculty == null) {
-            return notFound(String.format("Faculty %s does not exists!", code));
+            return notFound(String.format("Giảng viên %s không tồn tại!", code));
         }
         faculty.delete();
         return redirect(routes.Facultys.list(0, "id", "asc", ""));
@@ -35,7 +35,7 @@ public class Facultys extends Controller {
 
     public static Result details(Faculty faculty) {
         if (faculty == null) {
-            return notFound(String.format("Faculty does not exist!"));
+            return notFound(String.format("Giảng viên không tồn tại!"));
         }
         Form<Faculty> filledForm = facultyForm.fill(faculty);
         return ok(details.render(filledForm));
@@ -44,19 +44,19 @@ public class Facultys extends Controller {
     public static Result save() {
         Form<Faculty> boundForm = facultyForm.bindFromRequest();
         if (boundForm.hasErrors()) {
-            flash("error", "Please correct the form below!");
+            flash("error", "Vui lòng hoàn thành đúng mẫu!");
             return badRequest(details.render(boundForm));
         }
         Faculty faculty = boundForm.get();
         if (faculty.id == null) {
             Faculty faculty1 = Faculty.findByCode(faculty.code);
             if (faculty1 != null && faculty.code.equals(faculty1.code)) {
-                flash("error", "That ID already exists!");
+                flash("error", "Tài khoản với mã số này đã tồn tại!");
                 return badRequest(details.render(boundForm));
             }
             Faculty faculty2 = Faculty.findByEmail(faculty.email);
             if (faculty2 != null && faculty.email.equals(faculty.email)) {
-                flash("error", "That Email already exists!");
+                flash("error", "Tài khoản với địa chỉ email này đã tồn tại!");
                 return badRequest(details.render(boundForm));
             }
         }
@@ -65,12 +65,12 @@ public class Facultys extends Controller {
             for (int i = 0; i < facultyList.size(); i++) {
                 if (facultyList.get(i).code.equals(faculty.code) &&
                         !facultyList.get(i).id.equals(faculty.id)) {
-                    flash("error", "That ID already exists!");
+                    flash("error", "Tài khoản với mã số này đã tồn tại!");
                     return badRequest(details.render(boundForm));
                 }
                 if (facultyList.get(i).email.equals(faculty.email) &&
                         !facultyList.get(i).id.equals(faculty.id)) {
-                    flash("error", "That Email already exists!");
+                    flash("error", "Tài khoản với địa chỉ email này đã tồn tại!");
                     return badRequest(details.render(boundForm));
                 }
             }
@@ -80,7 +80,7 @@ public class Facultys extends Controller {
         } else {
             faculty.update();
         }
-        flash("success", String.format("Successfully added Master's Student %s!", faculty));
+        flash("success", String.format("Thêm tài khoản giảng viên thành công %s!", faculty));
         return redirect(routes.Facultys.list(0, "id", "asc", ""));
     }
 

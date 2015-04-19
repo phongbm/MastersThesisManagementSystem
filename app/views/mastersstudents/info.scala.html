@@ -1,13 +1,13 @@
 @(mastersStudent: MastersStudent)
 
-@main("Master's Students") {
+@main("Hệ Thống Quản Lý Luận Văn Cao Học") {
     <div class="container">
         <hr class=""/>
         <div class="row">
             <div>
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Profiles</h3>
+                        <h3 class="panel-title">Hồ Sơ</h3>
                     </div>
 
                     <div class="panel-body">
@@ -20,27 +20,27 @@
                                 <table class="table table-user-information">
                                     <tbody>
                                         <tr>
-                                            <td>Address</td>
+                                            <td>Địa Chỉ</td>
                                             <td>@mastersStudent.address</td>
                                         </tr>
                                         <tr>
-                                            <td>Phone Number</td>
+                                            <td>Số Điện Thoại</td>
                                             <td>@mastersStudent.phoneNumber</td>
                                         </tr>
                                         <tr>
-                                            <td>Faculty</td>
+                                            <td>Ngành</td>
                                             <td>@mastersStudent.faculty</td>
                                         </tr>
                                         <tr>
-                                            <td>Course</td>
+                                            <td>Khóa</td>
                                             <td>@mastersStudent.course</td>
                                         </tr>
                                         <tr>
-                                            <td>Email</td>
+                                            <td>Địa Chỉ Email</td>
                                             <td>@mastersStudent.email</td>
                                         </tr>
                                         <tr>
-                                            <td>Birthday</td>
+                                            <td>Ngày Sinh</td>
                                             <td>@mastersStudent.birthday.format("dd-MM-yyyy")</td>
                                         </tr>
                                     </tbody>

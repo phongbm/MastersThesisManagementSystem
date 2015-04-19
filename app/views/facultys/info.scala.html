@@ -1,6 +1,6 @@
 @(faculty: Faculty)
 
-@main("Facultys") {
+@main("Hệ Thống Quản Lý Luận Văn Cao Học") {
     <div class="container">
         <hr class=""/>
         <div class="row" style="padding-top: 30px;">
@@ -18,13 +18,13 @@
         <div class="row">
             <div class="col-sm-3">
                 <ul class="list-group">
-                    <li class="list-group-item text-muted" contenteditable="false">Profile</li>
+                    <li class="list-group-item text-muted" contenteditable="false">Hồ Sơ</li>
                     <li class="list-group-item text-right"><span class="pull-left"><strong class="">
-                        Name</strong></span>
+                        Họ Tên</strong></span>
                         @faculty.name</li>
 
                     <li class="list-group-item text-right">
-                        <span class="pull-left"><strong>Degree</strong></span>
+                        <span class="pull-left"><strong>Chức Danh</strong></span>
                         @if(!faculty.degree.equals("")) {
                             @faculty.degree
                         } else {
@@ -33,7 +33,7 @@
                     </li>
 
                     <li class="list-group-item text-right">
-                        <span class="pull-left"><strong>Address</strong></span>
+                        <span class="pull-left"><strong>Địa Chỉ</strong></span>
                         @if(!faculty.address.equals("")) {
                             @faculty.address
                         } else {
@@ -42,7 +42,7 @@
                     </li>
 
                     <li class="list-group-item text-right">
-                        <span class="pull-left"><strong>Email</strong></span>
+                        <span class="pull-left"><strong>Địa Chỉ Email</strong></span>
                         @if(!faculty.email.equals("")) {
                             @faculty.email
                         } else {
@@ -51,7 +51,7 @@
                     </li>
 
                     <li class="list-group-item text-right">
-                        <span class="pull-left"><strong>Phone Number</strong></span>
+                        <span class="pull-left"><strong>Số Điện Thoại</strong></span>
                         @if(!faculty.phoneNumber.equals("")) {
                             @faculty.phoneNumber
                         } else {
@@ -86,7 +86,7 @@
                 </div>
 
                 <div class="panel panel-default target">
-                    <div class="panel-heading" contenteditable="false">The research</div>
+                    <div class="panel-heading" contenteditable="false">Các Hướng Nghiên Cứu</div>
                     <div class="panel-body">
                         <div class="row">
                         </div>

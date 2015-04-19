@@ -4,7 +4,7 @@
 
 <html>
     <head>
-        <title>Master's Thesis Management System</title>
+        <title>Hệ Thống Quản Lý Luận Văn Cao Học</title>
             <!-- CSS -->
         <link href="@routes.Assets.at("bootstrap/css/bootstrap.min.css")" rel="stylesheet" media="screen">
 
@@ -13,7 +13,7 @@
         <script src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
 
             <!-- Icon -->
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/uet-icon.ico")">
 
         <style type="text/css">
         html,
@@ -57,7 +57,7 @@
                             line-height: 20px;
                             color: #ffffff;
                             ">
-                                <span><b>University of Engineering and Technology</b></span>
+                                <span><b>Trường Đại học Công Nghệ - ĐHQGHN</b></span>
                             </div>
                         </div>
 
@@ -74,15 +74,8 @@
                         <div class="row" style="background: #205081; color: #EEEEEE;">
                             <div class="col-md-12" style="height: 42px;">
                                 <div class="pull-right" style="margin-right: 30px;">
-                                    <span style="padding-right: 8px; vertical-align: text-top; font-size: 12px;">
-                                        SE Team Member</span>
-                                    <img class="agency-gird" alt="SE Team" title="SE Team" src="@routes.Assets.at("images/SER1.jpg")"/>
-                                    <img class="agency-gird" alt="SE Team" title="SE Team" src="@routes.Assets.at("images/SER2.jpg")"/>
-                                    <img class="agency-gird" alt="SE Team" title="SE Team" src="@routes.Assets.at("images/SER3.jpg")"/>
-                                    <img class="agency-gird" alt="SE Team" title="SE Team" src="@routes.Assets.at("images/SER4.jpg")"/>
-                                    <img class="agency-gird" alt="SE Team" title="SE Team" src="@routes.Assets.at("images/SER5.jpg")"/>
-                                    <img class="agency-gird" alt="SE Team" title="SE Team" src="@routes.Assets.at("images/SER6.jpg")"/>
-                                    <img class="agency-gird" alt="SE Team" title="SE Team" src="@routes.Assets.at("images/SER7.jpg")"/>
+                                    <span style="padding-right: 8px; vertical-align: text-top; font-size: 12px;"></span>
+                                    <img class="agency-gird" alt="UET" title="UET" src="@routes.Assets.at("images/logoUET.png")"/>
                                 </div>
                             </div>
                         </div>
@@ -108,7 +101,7 @@
                             <div class="col-md-10 col-md-offset-2 col-sm-10 col-sm-offset-1 col-sx-12">
                                 <div style="margin-top: 15px; height: 80px; width: 850px ;">
                                     <span class="headertext">
-                                        Master's Thesis Management System
+                                        Hệ Thống Quản lý Luận Văn Cao Học
                                     </span>
                                 </div>
                             </div>
@@ -118,7 +111,7 @@
                         <div class="row ">
                             <div class="col-md-6 col-sm-10 col-xs-12">
                                 <div class="panel panel-default">
-                                    <div class="panel-heading">New Notifications</div>
+                                    <div class="panel-heading">Thông Báo Mới</div>
                                     <div class="panel-body">
                                         <div class="panel-group" id="accordion">
 
@@ -126,7 +119,7 @@
                                                 <div class="panel-heading">
                                                     <h4 class="panel-title">
                                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed">
-                                                            #1. Notifications
+                                                            #1. Thông Báo
                                                         </a>
                                                     </h4>
                                                 </div>
@@ -144,7 +137,7 @@
                                                 <div class="panel-heading">
                                                     <h4 class="panel-title">
                                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed">
-                                                            #2. Notifications
+                                                            #2. Thông Báo
                                                         </a>
                                                     </h4>
                                                 </div>
@@ -158,7 +151,7 @@
                                                 <div class="panel-heading">
                                                     <h4 class="panel-title">
                                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="collapsed">
-                                                            #3. Notifications
+                                                            #3. Thông Báo
                                                         </a>
                                                     </h4>
                                                 </div>
@@ -176,7 +169,7 @@
                             @helper.form(helper.CSRF(routes.Application.authenticate)) {
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <strong>Sign In</strong>
+                                        <strong>Đăng Nhập</strong>
                                     </div>
                                     <div class="panel-body">
                                         <form role="form">
@@ -198,16 +191,16 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="checkbox-inline">
-                                                    <input type="checkbox">Remember
+                                                    <input type="checkbox">Ghi nhớ
                                                 </label>
                                                 <span class="pull-right">
-                                                    <a href="#">Forgot your password?</a>
+                                                    <a href="#">Quên mật khẩu?</a>
                                                 </span>
                                             </div>
-                                            <button class="btn btn-primary" type="submit">Sign In</button>
+                                            <button class="btn btn-primary" type="submit">Đăng nhập</button>
                                             <hr>
-                                            Login problems&nbsp
-                                            <a href="@routes.Application.listAccount()" target="_blank">Click here</a>
+                                            Các vấn đề đăng nhập&nbsp
+                                            <a href="@routes.Application.listAccount()" target="_blank">Bấm vào đây</a>
                                         </form>
                                     </div>
                                 </div>
@@ -221,8 +214,8 @@
                 <footer class="container-fluid">
                     <div class="row" style="height: 100px; background: #3572B0; border-top: 2px solid #3572B0;">
                         <div class="col-md-4 col-md-offset-4" style="margin-top: 30px; font-size: 12px; text-align: center; color: white">
-                            Master's Thesis Management System - © 2015 All Rights Reserved<br>
-                            Designed And Developed By SE Team - Software Engineering
+                            Hệ Thống Quản Lý Luận Văn Cao học <br>
+                            © 2015 All Rights Reserved - Thiết Kế Và Phát Triển Bởi SE Team
                         </div>
                     </div>
                 </footer>

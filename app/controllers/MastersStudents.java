@@ -1,6 +1,7 @@
 package controllers;
 
 import models.MastersStudent;
+import models.MastersThesis;
 import models.UserAccount;
 import play.data.Form;
 import play.mvc.Controller;
@@ -16,6 +17,12 @@ public class MastersStudents extends Controller {
     private static final Form<MastersStudent> mastersStudentForm = Form.form(MastersStudent.class);
 
     public static Result newMastersStudent() {
+        if (session().get("email") == null) {
+            return redirect(routes.Application.index());
+        }
+        if (!UserAccount.findByEmail(session().get("email")).isAdministrator()) {
+            return redirect(routes.Application.home());
+        }
         return ok(details.render(mastersStudentForm));
     }
 
@@ -67,7 +74,6 @@ public class MastersStudents extends Controller {
             mastersStudent.update();
         }
         flash("success", String.format("Thêm tài khoản học viên thành công %s!", mastersStudent));
-        UserAccount userAccount = UserAccount.findByEmail(session().get("email"));
         return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
     }
 
@@ -75,6 +81,12 @@ public class MastersStudents extends Controller {
         final MastersStudent mastersStudent = MastersStudent.findByCode(code);
         if (mastersStudent == null) {
             return notFound(String.format("Học viên %s không tồn tại!", code));
+        }
+        if(mastersStudent.mastersThesis != null) {
+            MastersThesis mastersThesis = MastersThesis.findByCode(mastersStudent.mastersThesis.code);
+            mastersStudent.delete();
+            mastersThesis.delete();
+            return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
         }
         mastersStudent.delete();
         return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
@@ -86,7 +98,7 @@ public class MastersStudents extends Controller {
         ));
     }
 
-    public static Result info(MastersStudent mastersStudent){
+    public static Result info(MastersStudent mastersStudent) {
         return ok(views.html.mastersstudents.info.render(mastersStudent));
     }
 

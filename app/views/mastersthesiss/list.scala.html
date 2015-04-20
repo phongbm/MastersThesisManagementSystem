@@ -1,0 +1,110 @@
+@(currentPage: com.avaje.ebean.Page[MastersThesis])
+
+@import java.lang.String; var id1 = new String("#"); var id2 = new String("");
+
+@main("Hệ Thống Quản Lý Luận Văn Cao Học") {
+    <h2>Danh Sách Luận Văn</h2>
+
+    <script>
+    function del ( urlToDelete ) {
+    $.ajax ( {
+    url : urlToDelete,
+    type : 'DELETE',
+    success : function ( results ) {
+    location.reload ( ) ;
+    }
+    } ) ;
+    }
+    </script>
+
+    @if(!UserAccount.findByEmail(session().get("email")).isAdministrator()) {
+        <script>
+            $(function(){
+            $('th#actions').css('display', 'none');
+            $('td#actions').css('display', 'none');
+        });
+
+        </script>
+    }
+
+    @if(currentPage.getTotalRowCount == 0) {
+        <div class="well"><em>Danh Sách Trống</em></div>
+        <a href="@routes.MastersThesiss.list(0)" class="btn btn-default">Trở Lại</a>
+    } else {
+
+        <div id="pagination" class="pagination">
+            @if(currentPage.hasPrev) {
+                <li><a href="@routes.MastersStudents.list(currentPage.getPageIndex - 1)">&larr;</a></li>
+            } else {
+                <li class="disabled"><a>&larr;</a></li>
+            }
+            <li class="active"><a>Displaying @currentPage.getDisplayXtoYofZ(" to ", " of ")</a></li>
+            @if(currentPage.hasNext) {
+                <li><a href="@routes.MastersStudents.list(currentPage.getPageIndex + 1)">&rarr;</a></li>
+            } else {
+                <li class="disabled"><a>&rarr;</a></li>
+            }
+        </div>
+
+        <table class="table table-striped table-bordered">
+            <thead style="color: #0000ff;">
+                <tr>
+                    <th>Mã Số</th>
+                    <th>Đề Tài</th>
+                    <th>Học Viên</th>
+                    <th>Mô Tả</th>
+                    <th id="actions">Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+            @for(mastersThesis <- currentPage.getList()) {
+                <tr>
+                    <td><button class="btn btn-xs btn-info">@mastersThesis.code</button></td>
+                    <td>@mastersThesis.name</td>
+                    <td>@mastersThesis.mastersStudent.name</td>
+                    <td>@mastersThesis.description</td>
+                    <td id="actions">
+                        <a href="@routes.MastersThesiss.details(mastersThesis)" class="btn btn-success btn-xs fa fa-edit">
+                                &nbsp;Sửa</a>
+                        @{
+                            id1 = id1 + mastersThesis.id
+                        }
+                        @{
+                            id2 = id2 + mastersThesis.id
+                        }
+                        <button id="delete" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=@id1>
+                            <i class="fa fa-trash">&nbsp;Xóa</i>
+                        </button>
+                        <div class="modal fade" id=@id2 tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Xóa Luận Văn</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Bạn Có Chắc Chắn Muốn Xóa?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Trở Lại</button>
+                                        <a onclick="javascript: del('@routes.MastersStudents.delete(mastersThesis.code)')">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Xóa</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+
+    @if(UserAccount.findByEmail(session().get("email")).isMastersStudent() &&
+            MastersStudent.findByEmail(session().get("email")).mastersThesis == null) {
+        <a href="@routes.MastersThesiss.newMastersThesis()" class="btn btn-primary fa fa-plus">
+                &nbsp;Đăng Ký Luận Văn</a>
+    }
+    <br>
+}

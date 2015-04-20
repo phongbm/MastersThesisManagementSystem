@@ -87,7 +87,7 @@
         </div>
 
         <table class="table table-striped table-bordered">
-            <thead style="color: #0000ff ;">
+            <thead style="color: #0000ff;">
                 <tr>
                     @header("id", "Mã Số")
                     <th>Họ Tên</th>
@@ -114,7 +114,7 @@
                     <td>@mastersStudent.course</td>
                     <td><b>@mastersStudent.email</b></td>
                     <td id="actions">
-                        <a href="@routes.MastersStudents.details(mastersStudent)" id="edit" class="btn btn-success btn-xs fa fa-edit">
+                        <a href="@routes.MastersStudents.details(mastersStudent)" class="btn btn-success btn-xs fa fa-edit">
                            &nbsp;Sửa</a>
                         @{
                             id1 = id1 + mastersStudent.id

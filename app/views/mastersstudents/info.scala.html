@@ -17,14 +17,35 @@
                                 <br><br><b>@mastersStudent.name</b>
                             </div>
                             <div class="col-md-9 col-lg-9">
+                                <p><b>Thông tin về luận văn</b></p>
+                                <table class="table table-user-ifnormation">
+                                    <tbody>
+                                    @if(mastersStudent.mastersThesis != null) {
+                                        <tr>
+                                            <td>Mã số luận văn</td>
+                                            <td>@mastersStudent.mastersThesis.code</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tên đề tài</td>
+                                            <td>@mastersStudent.mastersThesis.name</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mô tả ngắn gọn về đề tài</td>
+                                            <td>@mastersStudent.mastersThesis.description</td>
+                                        </tr>
+                                    }
+                                    </tbody>
+                                </table>
+
+                                <p><b>Thông tin cá nhân</b></p>
                                 <table class="table table-user-information">
                                     <tbody>
                                         <tr>
-                                            <td>Địa Chỉ</td>
+                                            <td>Địa chỉ</td>
                                             <td>@mastersStudent.address</td>
                                         </tr>
                                         <tr>
-                                            <td>Số Điện Thoại</td>
+                                            <td>Số điện thoại</td>
                                             <td>@mastersStudent.phoneNumber</td>
                                         </tr>
                                         <tr>
@@ -36,13 +57,14 @@
                                             <td>@mastersStudent.course</td>
                                         </tr>
                                         <tr>
-                                            <td>Địa Chỉ Email</td>
+                                            <td>Địa chỉ Email</td>
                                             <td>@mastersStudent.email</td>
                                         </tr>
                                         <tr>
-                                            <td>Ngày Sinh</td>
+                                            <td>Ngày sinh</td>
                                             <td>@mastersStudent.birthday.format("dd-MM-yyyy")</td>
                                         </tr>
+
                                     </tbody>
                                 </table>
                             </div>

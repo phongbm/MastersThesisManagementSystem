@@ -26,6 +26,12 @@ GET           /facultys/edit/:code               controllers.Facultys.details(co
 DELETE        /facultys/:code                    controllers.Facultys.delete(code: String)
 GET           /facultys/user/:code               controllers.Facultys.info(code: models.Faculty)
 
+GET           /mastersthesiss/                   controllers.MastersThesiss.list(page: Integer ?= 0)
+GET           /mastersthesiss/new                controllers.MastersThesiss.newMastersThesis()
+POST          /mastersthesiss/                   controllers.MastersThesiss.save()
+GET           /mastersthesiss/edit/:code         controllers.MastersThesiss.details(code: models.MastersThesis)
+DELETE        /mastersthesiss/:code              controllers.MastersThesiss.delete(code: String)
+
 GET           /logout                            controllers.Application.logout()
 POST          /authenticate                      controllers.Application.authenticate()
 GET           /listaccount                       controllers.Application.listAccount()

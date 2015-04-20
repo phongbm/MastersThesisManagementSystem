@@ -1,0 +1,34 @@
+@(mastersThesisForm: Form[MastersThesis])
+
+@import views.html.helper._
+@import views.html.helper.twitterBootstrap._
+
+@main("Hệ Thống Quản Lý Luận Văn Cao Học") {
+    <h1>Thông Tin Luận Văn</h1>
+
+    @form(CSRF(routes.MastersThesiss.save())) {
+        <input type="hidden" value="@mastersThesisForm("id").valueOr("")" name="id"/>
+        <fieldset>
+            <legend>Luận Văn (@mastersThesisForm("name").valueOr("New"))</legend>
+            <div class="row">
+                <div class="col-xs-5">
+                @helper.inputText(mastersThesisForm("code"),
+                    '_label -> "Mã Số *",
+                    'class -> "form-control")
+                </div>
+                <div class="col-xs-10">
+                    @helper.inputText(mastersThesisForm("name"),
+                        '_label -> "Đề Tài *",
+                        'class -> "form-control")
+                    @helper.textarea(mastersThesisForm("description"),
+                        '_label -> "Mô Tả Ngắn Gọn Về Đề Tài",
+                        'class -> "form-control")
+                </div>
+            </div>
+        </fieldset>
+        <input type="submit" class="btn btn-primary" value="Lưu Lại"> hoặc
+        <a class="btn btn-default" href="@routes.MastersThesiss.list(0)">Trở Lại</a>
+        <br>
+    }
+
+}

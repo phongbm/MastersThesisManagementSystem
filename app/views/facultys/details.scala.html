@@ -30,12 +30,12 @@
                         'class -> "form-control",
                         '_help -> "")
                     @helper.select(facultyForm("degree"),
-                        options = options(Faculty.options()),
-                        '_id -> "degree",
-                        '_label -> "Chức Danh",
-                        'class -> "form-control",
-                        '_default -> "-- Select Degree --",
-                        '_help -> "")
+                    options = options(Faculty.options()),
+                    '_id -> "degree",
+                    '_label -> "Chức Danh",
+                    'class -> "form-control",
+                    '_default -> "-- Chọn --",
+                    '_help -> "")
                 </div>
                 <div class="col-xs-5">
                     @helper.inputText(facultyForm("address"), '_label -> "Địa Chỉ",

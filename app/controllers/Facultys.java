@@ -1,15 +1,16 @@
 package controllers;
 
-import com.avaje.ebean.Ebean;
 import models.Faculty;
 import models.UserAccount;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 import views.html.facultys.details;
 
 import java.util.List;
 
+@Security.Authenticated(Secured.class)
 public class Facultys extends Controller {
 
     private static final Form<Faculty> facultyForm = Form.form(Faculty.class);
@@ -19,7 +20,7 @@ public class Facultys extends Controller {
             return redirect(routes.Application.index());
         }
         if (!UserAccount.findByEmail(session().get("email")).isAdministrator()) {
-            return redirect(routes.Application.index());
+            return redirect(routes.Application.home());
         }
         return ok(details.render(facultyForm));
     }

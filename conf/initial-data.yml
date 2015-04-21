@@ -39,7 +39,7 @@ user_accounts:
         email: phuonghd@vnu.edu.vn
         password: phuonghd2015
         permission: Faculty
-    - !!model.UserAccount
+    - !!models.UserAccount
         email: hanv@vnu.edu.vn
         password: hanv2015
         permission: Faculty

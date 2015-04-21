@@ -39,6 +39,12 @@ public class Faculties extends Controller {
         if (faculty == null) {
             return notFound(String.format("Giảng viên không tồn tại!"));
         }
+        if (UserAccount.findByEmail(session().get("email")).isMastersStudent()) {
+            return redirect(routes.Application.home());
+        }
+        if (!Faculty.findByEmail(session().get("email")).code.equals(faculty.code)) {
+            return redirect(routes.Application.home());
+        }
         Form<Faculty> filledForm = facultyForm.fill(faculty);
         return ok(details.render(filledForm));
     }

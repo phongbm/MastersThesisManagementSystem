@@ -31,6 +31,12 @@ public class MastersStudents extends Controller {
         if (mastersStudent == null) {
             return notFound(String.format("Học viên không tồn tại!"));
         }
+        if(UserAccount.findByEmail(session().get("email")).isFaculty()){
+            return redirect(routes.Application.home());
+        }
+        if (!MastersStudent.findByEmail(session().get("email")).code.equals(mastersStudent.code)) {
+            return redirect(routes.Application.home());
+        }
         Form<MastersStudent> filledForm = mastersStudentForm.fill(mastersStudent);
         return ok(details.render(filledForm));
     }

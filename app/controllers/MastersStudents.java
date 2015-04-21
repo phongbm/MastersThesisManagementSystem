@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Faculty;
 import models.MastersStudent;
 import models.MastersThesis;
 import models.UserAccount;
@@ -41,6 +42,13 @@ public class MastersStudents extends Controller {
             return badRequest(details.render(boundForm));
         }
         MastersStudent mastersStudent = boundForm.get();
+        List<Faculty> faculties = Faculty.findAll();
+        for (int i = 0; i < faculties.size(); i++) {
+            if (mastersStudent.email.equals(faculties.get(i).email)) {
+                flash("error", "Địa chỉ email trùng với tài khoản giảng viên!");
+                return badRequest(details.render(boundForm));
+            }
+        }
         if (mastersStudent.id == null) {
             MastersStudent student1 = MastersStudent.findByCode(mastersStudent.code);
             if (student1 != null && mastersStudent.code.equals(student1.code)) {
@@ -82,7 +90,7 @@ public class MastersStudents extends Controller {
         if (mastersStudent == null) {
             return notFound(String.format("Học viên %s không tồn tại!", code));
         }
-        if(mastersStudent.mastersThesis != null) {
+        if (mastersStudent.mastersThesis != null) {
             MastersThesis mastersThesis = MastersThesis.findByCode(mastersStudent.mastersThesis.code);
             mastersStudent.delete();
             mastersThesis.delete();

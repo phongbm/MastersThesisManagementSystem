@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.Constraint;
+import java.util.List;
 
 @Entity
 public class MastersThesis extends Model implements PathBindable<MastersThesis> {
@@ -61,6 +62,10 @@ public class MastersThesis extends Model implements PathBindable<MastersThesis> 
 
     public static int getTotalRowCount() {
         return find.where().findPagingList(5).getTotalRowCount();
+    }
+
+    public static List<MastersThesis> findAll(){
+        return find.all();
     }
 
     @Override

@@ -35,7 +35,7 @@ public class Application extends Controller {
             return redirect(routes.Application.index());
         }
         if (UserAccount.findByEmail(session().get("email")).isFaculty()) {
-            return redirect(routes.Facultys.info(Faculty.findByEmail(session().get("email"))));
+            return redirect(routes.Faculties.info(Faculty.findByEmail(session().get("email"))));
         }
         if (UserAccount.findByEmail(session().get("email")).isMastersStudent()) {
             return redirect(routes.MastersStudents.info(MastersStudent.findByEmail(session().get("email"))));

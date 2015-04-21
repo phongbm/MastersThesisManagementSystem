@@ -86,7 +86,7 @@ public class Facultys extends Controller {
     }
 
     public static Result list(Integer page, String sortBy, String order, String filter) {
-        return ok(views.html.facultys.listfacultys.render(
+        return ok(views.html.facultys.list.render(
                 Faculty.page(page, 5, sortBy, order, filter), sortBy, order, filter
         ));
     }

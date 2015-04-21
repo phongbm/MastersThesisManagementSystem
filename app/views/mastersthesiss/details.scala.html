@@ -13,22 +13,27 @@
             <div class="row">
                 <div class="col-xs-5">
                 @helper.inputText(mastersThesisForm("code"),
-                    '_label -> "Mã Số *",
+                    '_label -> "Mã số đề tài *",
                     'class -> "form-control")
-                </div>
-                <div class="col-xs-10">
                     @helper.inputText(mastersThesisForm("name"),
-                        '_label -> "Đề Tài *",
+                        '_label -> "Tên đề tài *",
                         'class -> "form-control")
+                    @helper.select(mastersThesisForm("facultyName"),
+                        options = options(Faculty.optionsName()),
+                        '_label -> "Giảng viên hướng dẫn *",
+                        'class -> "form-control",
+                        '_default -> "-- Chọn --")
+                </div>
+                <div class="col-xs-5">
                     @helper.textarea(mastersThesisForm("description"),
-                        '_label -> "Mô Tả Ngắn Gọn Về Đề Tài",
+                        '_label -> "Mô tả ngắn gọn về đề tài",
                         'class -> "form-control")
                 </div>
             </div>
         </fieldset>
         <input type="submit" class="btn btn-primary" value="Lưu Lại"> hoặc
         <a class="btn btn-default" href="@routes.MastersThesiss.list(0)">Trở Lại</a>
-        <br>
+        <br><br>
     }
 
 }

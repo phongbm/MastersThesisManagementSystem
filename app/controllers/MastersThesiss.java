@@ -11,6 +11,8 @@ import play.mvc.Security;
 import views.html.mastersthesiss.details;
 import views.html.mastersthesiss.list;
 
+import java.util.List;
+
 @Security.Authenticated(Secured.class)
 public class MastersThesiss extends Controller {
     private static final Form<MastersThesis> mastersThesisForm = Form.form(MastersThesis.class);
@@ -37,6 +39,13 @@ public class MastersThesiss extends Controller {
         } else {
             mastersThesis.update();
         }
+        if(UserAccount.findByEmail(session().get("email")).isAdministrator()) {
+            List<MastersStudent> mastersStudents = MastersStudent.findAll();
+            for (MastersStudent mastersStudent : mastersStudents) {
+                mastersStudent.update();
+            }
+            return redirect(routes.MastersThesiss.list(0));
+        }
         MastersStudent mastersStudent = MastersStudent.findByEmail(session().get("email"));
         mastersStudent.mastersThesis = mastersThesis;
         mastersStudent.update();
@@ -58,12 +67,7 @@ public class MastersThesiss extends Controller {
     }
 
     public static Result delete(String code) {
-        final MastersThesis mastersThesis = MastersThesis.findByCode(code);
-        if (mastersThesis == null) {
-            return notFound(String.format("Luận văn %s không tồn tại!", code));
-        }
-        mastersThesis.delete();
-        return redirect(routes.MastersThesiss.list(0));
+        return ok();
     }
 
 }

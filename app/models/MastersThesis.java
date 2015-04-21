@@ -8,6 +8,7 @@ import play.mvc.PathBindable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.Constraint;
 
 @Entity
 public class MastersThesis extends Model implements PathBindable<MastersThesis> {
@@ -19,6 +20,9 @@ public class MastersThesis extends Model implements PathBindable<MastersThesis> 
 
     @Constraints.Required
     public String name;
+
+    @Constraints.Required
+    public String facultyName;
 
     public String description;
 
@@ -32,9 +36,10 @@ public class MastersThesis extends Model implements PathBindable<MastersThesis> 
     public MastersThesis() {
     }
 
-    public MastersThesis(String code, String name, String description) {
+    public MastersThesis(String code, String name, String facultyName, String description) {
         this.code = code;
         this.name = name;
+        this.facultyName = facultyName;
         this.description = description;
     }
 

@@ -65,17 +65,18 @@
                     <td>@mastersThesis.description</td>
                     <td id="actions">
                         <a href="@routes.MastersThesiss.details(mastersThesis)" class="btn btn-success btn-xs fa fa-edit">
-                                &nbsp;Sửa</a>
-                        @{
+                            &nbsp;Sửa</a>
+                        <!--
+                        {
                             id1 = id1 + mastersThesis.id
                         }
-                        @{
+                        {
                             id2 = id2 + mastersThesis.id
                         }
-                        <button id="delete" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=@id1>
+                        <button id="delete" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=id1>
                             <i class="fa fa-trash">&nbsp;Xóa</i>
                         </button>
-                        <div class="modal fade" id=@id2 tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal fade" id=id2 tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -87,13 +88,14 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Trở Lại</button>
-                                        <a onclick="javascript: del('@routes.MastersStudents.delete(mastersThesis.code)')">
+                                        <a onclick="javascript: del('routes.MastersThesiss.delete(mastersThesis.code)')">
                                             <button type="button" class="btn btn-danger" data-dismiss="modal">Xóa</button>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        -->
                     </td>
                 </tr>
             }

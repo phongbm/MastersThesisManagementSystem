@@ -24,56 +24,48 @@
             <legend>Học Viên (@mastersStudentForm("name").valueOr("New"))</legend>
             <div class="row">
                 <div class="col-xs-5">
-                    @helper.inputText(mastersStudentForm("code"), '_label -> "Mã Số",
+                    @helper.inputText(mastersStudentForm("code"), '_label -> "Mã số *",
                         'type -> "code",
                         '_id -> "code",
-                        'class -> "form-control",
-                        '_help -> "")
-                    @helper.inputText(mastersStudentForm("name"), '_label -> "Họ Tên",
+                        'class -> "form-control")
+                    @helper.inputText(mastersStudentForm("name"), '_label -> "Họ tên *",
                         'type -> "name",
                         '_id -> "name",
-                        'class -> "form-control",
-                        '_help -> "")
-                    @helper.inputDate(mastersStudentForm("birthday"), '_label -> "Ngày Sinh",
+                        'class -> "form-control")
+                    @helper.inputDate(mastersStudentForm("birthday"), '_label -> "Ngày sinh *",
                         'type -> "birthday",
                         '_id -> "birthdady",
                         'class -> "form-control",
-                        '_help -> "",
                         'placeholder -> "YYYY-MM-DD")
-                    @helper.inputText(mastersStudentForm("address"), '_label -> "Địa Chỉ",
+                    @helper.inputText(mastersStudentForm("address"), '_label -> "Địa chỉ *",
                         'type -> "address",
                         '_id -> "address",
-                        'class -> "form-control",
-                        '_help -> "")
+                        'class -> "form-control")
                 </div>
                 <div class="col-xs-5">
-                    @helper.inputText(mastersStudentForm("phoneNumber"), '_label -> "Số Điện Thoại",
+                    @helper.inputText(mastersStudentForm("phoneNumber"), '_label -> "Số điện thoại *",
                         'type -> "phone-number",
                         '_id -> "phoneNumber",
-                        'class -> "form-control",
-                        '_help -> "")
+                        'class -> "form-control")
                     @helper.select(mastersStudentForm("faculty"),
                         options = options(MastersStudent.options()),
                         '_id -> "faculty",
-                        '_label -> "Ngành",
+                        '_label -> "Ngành *",
                         'class -> "form-control",
-                        '_default -> "-- Chọn --",
-                        '_help -> "")
-                    @helper.inputText(mastersStudentForm("course"), '_label -> "Khóa",
+                        '_default -> "-- Chọn ngành --")
+                    @helper.inputText(mastersStudentForm("course"), '_label -> "Khóa *",
                         'type -> "course",
                         '_id -> "course",
-                        'class -> "form-control",
-                        '_help -> "")
-                    @helper.inputText(mastersStudentForm("email"), '_label -> "Địa chỉ Email",
+                        'class -> "form-control")
+                    @helper.inputText(mastersStudentForm("email"), '_label -> "Địa chỉ Email *",
                         'type -> "email",
                         '_id -> "email",
-                        'class -> "form-control",
-                        '_help -> "")
+                        'class -> "form-control")
                 </div>
             </div>
         </fieldset>
         <input type="submit" class="btn btn-primary" value="Lưu Lại"> hoặc
         <a class="btn btn-default" href="@routes.MastersStudents.list(0, "id", "asc", "")">Trở Lại</a>
-        <br>
+        <br><br>
     }
 }

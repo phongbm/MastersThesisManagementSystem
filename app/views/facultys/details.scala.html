@@ -21,42 +21,36 @@
             <legend>Giảng Viên (@facultyForm("name").valueOr("New"))</legend>
             <div class="row">
                 <div class="col-xs-5">
-                    @helper.inputText(facultyForm("code"), '_label -> "Mã Số",
+                    @helper.inputText(facultyForm("code"), '_label -> "Mã số *",
                         '_id -> "code",
-                        'class -> "form-control",
-                        '_help -> "")
-                    @helper.inputText(facultyForm("name"), '_label -> "Họ Tên",
+                        'class -> "form-control")
+                    @helper.inputText(facultyForm("name"), '_label -> "Họ tên *",
                         '_id -> "name",
-                        'class -> "form-control",
-                        '_help -> "")
+                        'class -> "form-control")
                     @helper.select(facultyForm("degree"),
-                    options = options(Faculty.options()),
+                    options = options(Faculty.optionsDegree()),
                     '_id -> "degree",
-                    '_label -> "Chức Danh",
+                    '_label -> "Chức danh",
                     'class -> "form-control",
-                    '_default -> "-- Chọn --",
-                    '_help -> "")
+                    '_default -> "-- Chọn chức danh --")
                 </div>
                 <div class="col-xs-5">
-                    @helper.inputText(facultyForm("address"), '_label -> "Địa Chỉ",
+                    @helper.inputText(facultyForm("address"), '_label -> "Địa chỉ",
                         '_id -> "address",
-                        'class -> "form-control",
-                        '_help -> "")
-                    @helper.inputText(facultyForm("email"), '_label -> "Địa Chỉ Email",
+                        'class -> "form-control")
+                    @helper.inputText(facultyForm("email"), '_label -> "Địa chỉ Email *",
                         '_id -> "email",
                         'class -> "form-control",
-                        '_help -> "",
                         'type -> "email")
-                    @helper.inputText(facultyForm("phoneNumber"), '_label -> "Số Điện Thoại",
+                    @helper.inputText(facultyForm("phoneNumber"), '_label -> "Số điện thoại",
                         '_id -> "phoneNumber",
-                        'class -> "form-control",
-                        '_help -> "")
+                        'class -> "form-control")
                 </div>
             </div>
         </fieldset>
         <input type="submit" class="btn btn-primary" value="Lưu Lại"> hoặc
         <a class="btn btn-default" href="@routes.Facultys.list(0, "id", "asc", "")">Trở Lại</a>
-        <br>
+        <br><br>
     }
 
 }

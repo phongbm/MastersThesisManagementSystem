@@ -32,7 +32,7 @@ public class Faculty extends Model implements PathBindable<Faculty> {
 
     public String phoneNumber;
 
-    public static List<String> options() {
+    public static List<String> optionsDegree() {
         List<String> options = new ArrayList<String>();
         options.add("Thạc Sĩ");
         options.add("Tiến Sĩ");
@@ -42,6 +42,14 @@ public class Faculty extends Model implements PathBindable<Faculty> {
         return options;
     }
 
+    public static List<String> optionsName() {
+        List<String> facultysName = new ArrayList<String>();
+        List<Faculty> facultys = Faculty.findAll();
+        for (Faculty faculty : facultys) {
+            facultysName.add(faculty.name);
+        }
+        return facultysName;
+    }
 
     public static Finder<Long, Faculty> find = new Finder<Long, Faculty>(Long.class, Faculty.class);
 

@@ -1,0 +1,157 @@
+@(currentPage: com.avaje.ebean.Page[MastersStudent], currentSortBy: String, currentOrder: String, currentFilter: String)
+
+@import java.lang.String; var id1 = new String("#"); var id2 = new String("");
+
+@link(newPage: Integer, newSortBy: String) = @{
+    var sortBy = currentSortBy
+    var order = currentOrder
+    if(newSortBy != null) {
+        sortBy = newSortBy
+        if(currentSortBy == newSortBy) {
+            if(currentOrder == "asc") {
+                order = "desc"
+            } else {
+                order = "asc"
+            }
+        } else {
+            order = "asc"
+        }
+    }
+    routes.MastersStudents.list(newPage, sortBy, order, currentFilter)
+}
+
+@header(key: String, title: String) = {
+    <th class="@key.replace(".", "_") header @if(currentSortBy == key) @{
+        if(currentOrder == "asc") "headerSortDown" else "headerSortUp"
+    }">
+        <a href="@link(0, key)">@title</a>
+    </th>
+}
+
+@main("Hệ Thống Quản Lý Luận Văn Cao Học") {
+    <h2>Danh Sách Học Viên</h2>
+    <script>
+    function del ( urlToDelete ) {
+    $.ajax ( {
+    url : urlToDelete,
+    type : 'DELETE',
+    success : function ( results ) {
+    location.reload ( ) ;
+    }
+    } ) ;
+    }
+    </script>
+
+    @if(!UserAccount.findByEmail(session().get("email")).isAdministrator()) {
+        <script>
+            $(function(){
+                $("th#actions").css('display', 'none');
+                $("td#actions").css('display', 'none');
+                $("a#new-masters-student").css('display', 'none');
+            });
+        </script>
+    }
+
+    @if(currentPage.getTotalRowCount == 0) {
+        <div class="well"><em>Danh Sách Trống</em></div>
+        <a href="@routes.MastersStudents.list(0, "id", "asc", "")" class="btn btn-default">Trở Lại</a>
+    } else {
+
+        <div class="col-lg-6">
+            <div id="actions">
+                <form action="@link(0, "id")" method="GET">
+                    <div class="input-group">
+                        <input class="form-control" type="search" id="searchbox" name="filter"
+                        value="@currentFilter" placeholder="Tìm theo mã số hoặc tên...">
+                        <span class="input-group-btn">
+                            <input class="btn btn-default" type="submit" id="searchsubmit" value="Search">
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br> <br>
+
+        <div id="pagination" class="pagination">
+            @if(currentPage.hasPrev) {
+                <li><a href="@routes.MastersStudents.list(currentPage.getPageIndex - 1)">&larr;</a></li>
+            } else {
+                <li class="disabled"><a>&larr;</a></li>
+            }
+            <li class="active"><a>Displaying @currentPage.getDisplayXtoYofZ(" to ", " of ")</a></li>
+            @if(currentPage.hasNext) {
+                <li><a href="@routes.MastersStudents.list(currentPage.getPageIndex + 1)">&rarr;</a></li>
+            } else {
+                <li class="disabled"><a>&rarr;</a></li>
+            }
+        </div>
+
+        <table class="table table-striped table-bordered">
+            <thead style="color: #0000ff;">
+                <tr>
+                    @header("id", "Mã Số")
+                    <th>Họ Tên</th>
+                    <th>Ngày Sinh</th>
+                    <th>Địa Chỉ</th>
+                    <th>Số Điện Thoại</th>
+                    <th>Ngành - Khoa</th>
+                    <th>Khóa</th>
+                    <th>Địa Chỉ Email</th>
+                    <th id="actions">Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+            @for(mastersStudent <- currentPage.getList()) {
+                <tr>
+                    <td><button class="btn btn-info btn-xs">@mastersStudent.code</button></td>
+                    <td>
+                        <a href="@routes.MastersStudents.info(mastersStudent)">@mastersStudent.name</a>
+                    </td>
+                    <td>@mastersStudent.birthday.format("dd-MM-yyyy")</td>
+                    <td>@mastersStudent.address</td>
+                    <td>@mastersStudent.phoneNumber</td>
+                    <td>@mastersStudent.faculty</td>
+                    <td>@mastersStudent.course</td>
+                    <td><b>@mastersStudent.email</b></td>
+                    <td id="actions">
+                        <a href="@routes.MastersStudents.details(mastersStudent)" class="btn btn-success btn-xs fa fa-edit">
+                           &nbsp;Sửa</a>
+                        @{
+                            id1 = id1 + mastersStudent.id
+                        }
+                        @{
+                            id2 = id2 + mastersStudent.id
+                        }
+                        <button id="delete" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=@id1>
+                            <i class="fa fa-trash">&nbsp;Xóa</i>
+                        </button>
+                        <div class="modal fade" id=@id2 tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Xóa Tài Khoản</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Bạn Có Chắc Chắn Muốn Xóa?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Trở Lại</button>
+                                        <a onclick="javascript: del('@routes.MastersStudents.delete(mastersStudent.code)')">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Xóa</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+
+    <a id="new-masters-student" href="@routes.MastersStudents.newMastersStudent()" class="btn btn-primary fa fa-plus">
+            &nbsp;Thêm Tài Khoản</a>
+    <br>
+}

@@ -32,6 +32,7 @@ create table masters_thesis (
   id                        bigint not null,
   code                      varchar(255),
   name                      varchar(255),
+  faculty_name              varchar(255),
   description               varchar(255),
   constraint pk_masters_thesis primary key (id))
 ;

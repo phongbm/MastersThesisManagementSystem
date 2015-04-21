@@ -34,7 +34,8 @@ public class MastersStudents extends Controller {
         if(UserAccount.findByEmail(session().get("email")).isFaculty()){
             return redirect(routes.Application.home());
         }
-        if (!MastersStudent.findByEmail(session().get("email")).code.equals(mastersStudent.code)) {
+        if (UserAccount.findByEmail(session().get("email")).isMastersStudent() &&
+                !MastersStudent.findByEmail(session().get("email")).code.equals(mastersStudent.code)) {
             return redirect(routes.Application.home());
         }
         Form<MastersStudent> filledForm = mastersStudentForm.fill(mastersStudent);

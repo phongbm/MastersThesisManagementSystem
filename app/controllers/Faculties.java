@@ -42,7 +42,8 @@ public class Faculties extends Controller {
         if (UserAccount.findByEmail(session().get("email")).isMastersStudent()) {
             return redirect(routes.Application.home());
         }
-        if (!Faculty.findByEmail(session().get("email")).code.equals(faculty.code)) {
+        if (UserAccount.findByEmail(session().get("email")).isFaculty() &&
+                !Faculty.findByEmail(session().get("email")).code.equals(faculty.code)) {
             return redirect(routes.Application.home());
         }
         Form<Faculty> filledForm = facultyForm.fill(faculty);

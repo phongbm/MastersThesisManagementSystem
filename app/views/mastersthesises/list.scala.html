@@ -61,7 +61,11 @@
                 <tr>
                     <td><button class="btn btn-xs btn-info">@mastersThesis.code</button></td>
                     <td>@mastersThesis.name</td>
-                    <td>@mastersThesis.mastersStudent.name</td>
+                    <td>
+                        <a href="@routes.MastersStudents.info(mastersThesis.mastersStudent)">
+                            @mastersThesis.mastersStudent.name
+                        </a>
+                    </td>
                     <td>@mastersThesis.description</td>
                     <td id="actions">
                         <a href="@routes.MastersThesises.details(mastersThesis)" class="btn btn-success btn-xs fa fa-edit">

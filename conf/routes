@@ -9,8 +9,10 @@ GET           /                                  controllers.Application.index()
 GET           /assets/*file                      controllers.Assets.at(path="/public", file)
 
 GET           /admin                             controllers.Application.admin()
-
+GET           /logout                            controllers.Application.logout()
+POST          /authenticate                      controllers.Application.authenticate()
 GET           /home                              controllers.Application.home()
+GET           /listaccount                       controllers.Application.listAccount()
 
 GET           /mastersstudents/                  controllers.MastersStudents.list(pape: Integer ?= 0, sortBy ?= "id", order ?= "asc", filter ?= "")
 GET           /mastersstudents/new               controllers.MastersStudents.newMastersStudent()
@@ -19,19 +21,15 @@ GET           /mastersstudents/edit/:code        controllers.MastersStudents.det
 DELETE        /mastersstudents/:code             controllers.MastersStudents.delete(code: String)
 GET           /mastersstudents/user/:code        controllers.MastersStudents.info(code: models.MastersStudent)
 
-GET           /faculties/                         controllers.Faculties.list(pape: Integer ?= 0, sortBy ?= "id", order ?= "asc", filter ?= "")
-GET           /faculties/new                      controllers.Faculties.newFaculty()
-POST          /faculties/                         controllers.Faculties.save()
-GET           /faculties/edit/:code               controllers.Faculties.details(code: models.Faculty)
-DELETE        /faculties/:code                    controllers.Faculties.delete(code: String)
-GET           /faculties/user/:code               controllers.Faculties.info(code: models.Faculty)
+GET           /faculties/                        controllers.Faculties.list(pape: Integer ?= 0, sortBy ?= "id", order ?= "asc", filter ?= "")
+GET           /faculties/new                     controllers.Faculties.newFaculty()
+POST          /faculties/                        controllers.Faculties.save()
+GET           /faculties/edit/:code              controllers.Faculties.details(code: models.Faculty)
+DELETE        /faculties/:code                   controllers.Faculties.delete(code: String)
+GET           /faculties/user/:code              controllers.Faculties.info(code: models.Faculty)
 
 GET           /mastersthesises/                  controllers.MastersThesises.list(page: Integer ?= 0)
 GET           /mastersthesises/new               controllers.MastersThesises.newMastersThesis()
 POST          /mastersthesises/                  controllers.MastersThesises.save()
 GET           /mastersthesises/edit/:code        controllers.MastersThesises.details(code: models.MastersThesis)
 DELETE        /mastersthesises/:code             controllers.MastersThesises.delete(code: String)
-
-GET           /logout                            controllers.Application.logout()
-POST          /authenticate                      controllers.Application.authenticate()
-GET           /listaccount                       controllers.Application.listAccount()

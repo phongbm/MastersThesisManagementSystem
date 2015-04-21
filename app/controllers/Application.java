@@ -5,13 +5,9 @@ import models.MastersStudent;
 import models.UserAccount;
 import play.data.Form;
 import play.mvc.Controller;
-import play.mvc.Http;
 import play.mvc.Result;
-import views.html.home;
 import views.html.index;
 import views.html.listaccount;
-
-import java.io.File;
 
 import static play.data.Form.form;
 
@@ -24,7 +20,7 @@ public class Application extends Controller {
 
     public static Result index() {
         if (session().get("email") != null) {
-            return ok(home.render("Hệ Thống Quản Lý Luận Văn Cao Học"));
+            return redirect(routes.Application.home());
         } else {
             return ok(index.render(form(Login.class)));
         }
@@ -58,9 +54,6 @@ public class Application extends Controller {
             return redirect(routes.Application.index());
         }
         session("email", email);
-        if (UserAccount.findByEmail(session().get("email")).isAdministrator()) {
-            return redirect(routes.Application.admin());
-        }
         return redirect(routes.Application.home());
     }
 

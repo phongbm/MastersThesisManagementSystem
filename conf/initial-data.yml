@@ -8,7 +8,7 @@ user_accounts:
         password: phong2015
         permission: MastersStudent
     - !!models.UserAccount
-        email: thinhnv.58gmail.com
+        email: thinhnv.58@gmail.com
         password: thinh2015
         permission: MastersStudent
     - !!models.UserAccount

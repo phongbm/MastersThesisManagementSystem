@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title>Administrator | Control Panel</title>
+        <title>Hệ Thống Quản Lý Luận Văn Cao Học - Bảng Điều Khiển</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
         <link href="@routes.Assets.at("bootstrap/css/bootstrap.min.css")" rel="stylesheet" media="screen">
@@ -18,15 +18,15 @@
 
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/uet-icon.ico")">
 
-        <style>
-            body {
-                overflow-x: hidden !important;
-            }
-        </style>
+        @*<style>*@
+            @*body {*@
+                @*overflow-x: hidden !important;*@
+            @*}*@
+        @*</style>*@
 
     </head>
 
-    <body class="skin-blue">
+    <body class="skin-blue" style="overflow-x: hidden !important;">
 
         <header class="header">
             <a href="@routes.Application.admin()" class="logo navbar-fixed-top">UET-VNU</a>
@@ -46,12 +46,12 @@
                                 <span class="label label-success">0</span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="header">My Messages</li>
+                                <li class="header">Tin Nhắn</li>
                                 <li>
                                     <ul class="menu">
                                     </ul>
                                 </li>
-                                <li class="footer"><a href="#">See All Messages</a></li>
+                                <li class="footer"><a href="#">Xem Tất Cả</a></li>
                             </ul>
                         </li>
 
@@ -61,12 +61,12 @@
                                 <span class="label label-warning">0</span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="header">My Notifications</li>
+                                <li class="header">Thông Báo</li>
                                 <li>
                                     <ul class="menu">
                                     </ul>
                                 </li>
-                                <li class="footer"><a href="#">View all</a></li>
+                                <li class="footer"><a href="#">Xem Tất Cả</a></li>
                             </ul>
                         </li>
 
@@ -76,12 +76,12 @@
                                 <span class="label label-danger">0</span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="header">My Tasks</li>
+                                <li class="header">Công Việc</li>
                                 <li>
                                     <ul class="menu">
                                     </ul>
                                 </li>
-                                <li class="footer"><a href="#">View all tasks</a></li>
+                                <li class="footer"><a href="#">Xem Tất Cả</a></li>
                             </ul>
                         </li>
 
@@ -102,7 +102,7 @@
                                 <li class="user-footer">
                                     <div class="pull-right">
                                         <a href="@routes.Application.logout()" class="btn btn-default btn-flat">
-                                            Sign out</a>
+                                            Đăng Xuất</a>
                                     </div>
                                 </li>
                             </ul>
@@ -146,41 +146,47 @@
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-list"></i>
-                                <span>Facultys</span>
+                                <span>Giảng viên</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="@routes.Facultys.list(0, "id", "asc", "")" target="_blank">
-                                    <i class="fa fa-angle-double-right"></i>List Facultys</a></li>
+                                    <i class="fa fa-angle-double-right"></i>Danh sách giảng viên</a></li>
                                 <li><a href="@routes.Facultys.newFaculty()" target="_blank">
-                                    <i class="fa fa-angle-double-right"></i>New Faculty</a></li>
+                                    <i class="fa fa-angle-double-right"></i>Thêm tài khoản</a></li>
                             </ul>
                         </li>
 
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-list"></i>
-                                <span>Master's Students</span>
+                                <span>Học viên</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="@routes.MastersStudents.list(0, "id", "asc", "")" target="_blank">
-                                    <i class="fa fa-angle-double-right"></i>List Master's Students</a></li>
+                                    <i class="fa fa-angle-double-right"></i>Danh sách học viên</a></li>
                                 <li><a href="@routes.MastersStudents.newMastersStudent()" target="_blank">
-                                    <i class="fa fa-angle-double-right"></i>New Master's Student</a></li>
+                                    <i class="fa fa-angle-double-right"></i>Thêm tài khoản</a></li>
                             </ul>
                         </li>
 
                         <li>
+                            <a href="@routes.MastersThesiss.list(0)" target="_blank">
+                                <i class="fa fa-list"></i> <span>Danh sách luận văn</span>
+                            </a>
+                        </li>
+
+                        <li>
                             <a href="#">
-                                <i class="fa fa-envelope"></i> <span>Mailbox</span>
-                                <small class="badge pull-right bg-yellow">12</small>
+                                <i class="fa fa-envelope"></i> <span>Hộp thư</span>
+                                <small class="badge pull-right bg-yellow">0</small>
                             </a>
                         </li>
 
                         <li>
                             <a href="@routes.Application.logout()">
-                                <i class="fa fa-sign-out"></i> <span>Sign Out</span>
+                                <i class="fa fa-sign-out"></i> <span>Đăng Xuất</span>
                             </a>
                         </li>
 
@@ -203,37 +209,84 @@
                 <section class="content">
                     <div class="row">
 
-                        <div class="col-lg-6 col-xs-6">
+                        <div class="col-lg-4 col-xs-6">
                             <div class="small-box bg-aqua">
                                 <div class="inner">
-                                    <h3>Total: @Faculty.getTotalRowCount()</h3>
-                                    <p>Facultys</p>
+                                    <h3>@Faculty.getTotalRowCount()</h3>
+                                    <p>Số lượng giảng viên</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-ios-people"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">
-                                    More info <i class="fa fa-arrow-circle-right"></i>
+                                <a href="@routes.Facultys.list(0, "id", "asc", "")" class="small-box-footer" target="_blank">
+                                    Xem danh sách <i class="fa fa-arrow-circle-right"></i>
                                 </a>
                             </div>
                         </div>
+                        <div class="col-lg-4 col-xs-6">
+                            <div class="small-box bg-green">
+                                <div class="inner">
+                                    <h3><i class="ion ion-android-add"></i></h3>
+                                    <p>Thêm tài khoản giảng viên</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-person-add"></i>
+                                </div>
+                                <a href="@routes.Facultys.newFaculty()" class="small-box-footer" target="_blank">
+                                    Thêm tài khoản <i class="fa fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="col-lg-6 col-xs-6">
+                    <div class="row">
+                        <div class="col-lg-4 col-xs-6">
                             <div class="small-box bg-orange">
                                 <div class="inner">
-                                    <h3>Total: @MastersStudent.getTotalRowCount()</h3>
-                                    <p>Master's Students</p>
+                                    <h3>@MastersStudent.getTotalRowCount()</h3>
+                                    <p>Số lượng học viên</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-ios-people"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">
-                                    More info <i class="fa fa-arrow-circle-right"></i>
+                                <a href="@routes.MastersStudents.list(0, "id", "asc", "")" class="small-box-footer" target="_blank">
+                                    Xem danh sách <i class="fa fa-arrow-circle-right"></i>
                                 </a>
                             </div>
                         </div>
-
+                        <div class="col-lg-4 col-xs-6">
+                            <div class="small-box bg-red">
+                                <div class="inner">
+                                    <h3><i class="ion ion-android-add"></i></h3>
+                                    <p>Thêm tài khoản học viên</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-person-add"></i>
+                                </div>
+                                <a href="@routes.MastersThesiss.newMastersThesis()" class="small-box-footer" target="_blank">
+                                    Thêm tài khoản <i class="fa fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-lg-4 col-xs-6">
+                            <div class="small-box bg-fuchsia">
+                                <div class="inner">
+                                    <h3>@MastersThesis.getTotalRowCount()</h3>
+                                    <p>Số lượng luận văn</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-ios-folder"></i>
+                                </div>
+                                <a href="@routes.MastersThesiss.list(0)" class="small-box-footer" target="_blank">
+                                    Xem danh sách <i class="fa fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                 </section>
 
             </aside>

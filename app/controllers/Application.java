@@ -1,5 +1,7 @@
 package controllers;
 
+import models.Faculty;
+import models.MastersStudent;
 import models.UserAccount;
 import play.data.Form;
 import play.mvc.Controller;
@@ -32,7 +34,13 @@ public class Application extends Controller {
         if (session().get("email") == null) {
             return redirect(routes.Application.index());
         }
-        return ok(home.render("Hệ Thống Quản Lý Luận Văn Cao Học"));
+        if (UserAccount.findByEmail(session().get("email")).isFaculty()) {
+            return redirect(routes.Facultys.info(Faculty.findByEmail(session().get("email"))));
+        }
+        if (UserAccount.findByEmail(session().get("email")).isMastersStudent()) {
+            return redirect(routes.MastersStudents.info(MastersStudent.findByEmail(session().get("email"))));
+        }
+        return redirect(routes.Application.admin());
     }
 
     public static Result logout() {

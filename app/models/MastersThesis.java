@@ -59,6 +59,9 @@ public class MastersThesis extends Model implements PathBindable<MastersThesis> 
                 .getPage(page);
     }
 
+    public static int getTotalRowCount() {
+        return find.where().findPagingList(5).getTotalRowCount();
+    }
 
     @Override
     public MastersThesis bind(String key, String value) {

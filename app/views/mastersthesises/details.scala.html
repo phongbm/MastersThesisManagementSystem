@@ -6,6 +6,12 @@
 @main("Hệ Thống Quản Lý Luận Văn Cao Học") {
     <h1>Thông Tin Luận Văn</h1>
 
+    <script>
+        $(function(){
+            $('.help-block').css('display', 'none');
+        });
+    </script>
+
     @form(CSRF(routes.MastersThesises.save())) {
         <input type="hidden" value="@mastersThesisForm("id").valueOr("")" name="id"/>
         <fieldset>
@@ -14,24 +20,26 @@
                 <div class="col-xs-5">
                 @helper.inputText(mastersThesisForm("code"),
                     '_label -> "Mã số đề tài *",
-                    'class -> "form-control")
+                    'class -> "form-control")<br>
                     @helper.inputText(mastersThesisForm("name"),
                         '_label -> "Tên đề tài *",
-                        'class -> "form-control")
+                        'class -> "form-control")<br>
                     @helper.select(mastersThesisForm("facultyName"),
                         options = options(Faculty.optionsName()),
                         '_label -> "Giảng viên hướng dẫn *",
                         'class -> "form-control",
-                        '_default -> "-- Chọn --")
+                        '_default -> "-- Chọn --")<br>
                 </div>
                 <div class="col-xs-5">
                     @helper.textarea(mastersThesisForm("description"),
                         '_label -> "Mô tả ngắn gọn về đề tài",
-                        'class -> "form-control")
+                        'class -> "form-control")<br>
                 </div>
             </div>
         </fieldset>
-        <input type="submit" class="btn btn-primary" value="Lưu Lại"> hoặc
+        <input type="submit" class="btn btn-primary" value="Lưu Lại">&nbsp;
+        <input type="reset" class="btn btn-warning" value="Đặt Lại">
+        hoặc
         <a class="btn btn-default" href="@routes.MastersThesises.list(0)">Trở Lại</a>
         <br><br>
     }

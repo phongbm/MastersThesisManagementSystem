@@ -18,6 +18,12 @@
         </script>
     }
 
+    <script>
+        $(function(){
+            $('.help-block').css('display', 'none');
+        });
+    </script>
+
     @form(CSRF(routes.MastersStudents.save())) {
         <input type="hidden" value="@mastersStudentForm("id").valueOr("")" name="id"/>
         <fieldset>
@@ -25,46 +31,42 @@
             <div class="row">
                 <div class="col-xs-5">
                     @helper.inputText(mastersStudentForm("code"), '_label -> "Mã số *",
-                        'type -> "code",
                         '_id -> "code",
-                        'class -> "form-control")
+                        'class -> "form-control")<br>
                     @helper.inputText(mastersStudentForm("name"), '_label -> "Họ tên *",
-                        'type -> "name",
                         '_id -> "name",
-                        'class -> "form-control")
+                        'class -> "form-control")<br>
                     @helper.inputDate(mastersStudentForm("birthday"), '_label -> "Ngày sinh *",
-                        'type -> "birthday",
                         '_id -> "birthdady",
                         'class -> "form-control",
-                        'placeholder -> "YYYY-MM-DD")
+                        'placeholder -> "YYYY-MM-DD")<br>
                     @helper.inputText(mastersStudentForm("address"), '_label -> "Địa chỉ *",
-                        'type -> "address",
                         '_id -> "address",
-                        'class -> "form-control")
+                        'class -> "form-control")<br>
                 </div>
                 <div class="col-xs-5">
                     @helper.inputText(mastersStudentForm("phoneNumber"), '_label -> "Số điện thoại *",
-                        'type -> "phone-number",
                         '_id -> "phoneNumber",
-                        'class -> "form-control")
+                        'class -> "form-control digits")<br>
                     @helper.select(mastersStudentForm("faculty"),
                         options = options(MastersStudent.options()),
                         '_id -> "faculty",
                         '_label -> "Ngành *",
                         'class -> "form-control",
-                        '_default -> "-- Chọn ngành --")
+                        '_default -> "-- Chọn ngành --")<br>
                     @helper.inputText(mastersStudentForm("course"), '_label -> "Khóa *",
-                        'type -> "course",
                         '_id -> "course",
-                        'class -> "form-control")
+                        'class -> "form-control")<br>
                     @helper.inputText(mastersStudentForm("email"), '_label -> "Địa chỉ Email *",
                         'type -> "email",
                         '_id -> "email",
-                        'class -> "form-control")
+                        'class -> "form-control")<br>
                 </div>
             </div>
         </fieldset>
-        <input type="submit" class="btn btn-primary" value="Lưu Lại"> hoặc
+        <input type="submit" class="btn btn-primary" value="Lưu Lại">&nbsp;
+        <input type="reset" class="btn btn-warning" value="Đặt Lại">
+        hoặc
         <a class="btn btn-default" href="@routes.MastersStudents.list(0, "id", "asc", "")">Trở Lại</a>
         <br><br>
     }

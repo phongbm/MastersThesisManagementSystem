@@ -34,6 +34,7 @@ public class MastersThesises extends Controller {
             return badRequest(details.render(boundForm));
         }
         MastersThesis mastersThesis = boundForm.get();
+        mastersThesis.code = mastersThesis.code.toUpperCase();
         if (mastersThesis.id == null) {
             MastersThesis thesis1 = MastersThesis.findByCode(mastersThesis.code);
             if (thesis1 != null && mastersThesis.code.equals(thesis1.code)) {

@@ -57,6 +57,7 @@ public class Faculties extends Controller {
             return badRequest(details.render(boundForm));
         }
         Faculty faculty = boundForm.get();
+        faculty.code = faculty.code.toUpperCase();
         List<MastersStudent> mastersStudents = MastersStudent.findAll();
         for (int i = 0; i < mastersStudents.size(); i++) {
             if (faculty.email.equals(mastersStudents.get(i).email)) {

@@ -15,6 +15,12 @@
         </script>
     }
 
+    <script>
+        $(function(){
+            $('.help-block').css('display', 'none');
+        });
+    </script>
+
     @form(CSRF(routes.Faculties.save())) {
         <input type="hidden" value="@facultyForm("id").valueOr("")" name="id"/>
         <fieldset>
@@ -23,32 +29,34 @@
                 <div class="col-xs-5">
                     @helper.inputText(facultyForm("code"), '_label -> "Mã số *",
                         '_id -> "code",
-                        'class -> "form-control")
+                        'class -> "form-control")<br>
                     @helper.inputText(facultyForm("name"), '_label -> "Họ tên *",
                         '_id -> "name",
-                        'class -> "form-control")
+                        'class -> "form-control")<br>
                     @helper.select(facultyForm("degree"),
                     options = options(Faculty.optionsDegree()),
                     '_id -> "degree",
                     '_label -> "Chức danh",
                     'class -> "form-control",
-                    '_default -> "-- Chọn chức danh --")
+                    '_default -> "-- Chọn chức danh --")<br>
                 </div>
                 <div class="col-xs-5">
                     @helper.inputText(facultyForm("address"), '_label -> "Địa chỉ",
                         '_id -> "address",
-                        'class -> "form-control")
+                        'class -> "form-control")<br>
                     @helper.inputText(facultyForm("email"), '_label -> "Địa chỉ Email *",
                         '_id -> "email",
                         'class -> "form-control",
-                        'type -> "email")
+                        'type -> "email")<br>
                     @helper.inputText(facultyForm("phoneNumber"), '_label -> "Số điện thoại",
                         '_id -> "phoneNumber",
-                        'class -> "form-control")
+                        'class -> "digits form-control")<br>
                 </div>
             </div>
         </fieldset>
-        <input type="submit" class="btn btn-primary" value="Lưu Lại"> hoặc
+        <input type="submit" class="btn btn-primary" value="Lưu Lại">&nbsp;
+        <input type="reset" class="btn btn-warning" value="Đặt Lại">
+        hoặc
         <a class="btn btn-default" href="@routes.Faculties.list(0, "id", "asc", "")">Trở Lại</a>
         <br><br>
     }

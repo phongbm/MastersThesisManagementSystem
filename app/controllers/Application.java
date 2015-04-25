@@ -27,14 +27,12 @@ public class Application extends Controller {
     }
 
     public static Result home() {
-        if (session().get("email") == null) {
-            return redirect(routes.Application.index());
+        String email = session().get("email");
+        if (Faculty.findByEmail(email) != null) {
+            return redirect(routes.Faculties.info(Faculty.findByEmail(email)));
         }
-        if (UserAccount.findByEmail(session().get("email")).isFaculty()) {
-            return redirect(routes.Faculties.info(Faculty.findByEmail(session().get("email"))));
-        }
-        if (UserAccount.findByEmail(session().get("email")).isMastersStudent()) {
-            return redirect(routes.MastersStudents.info(MastersStudent.findByEmail(session().get("email"))));
+        if (MastersStudent.findByEmail(email) != null) {
+            return redirect(routes.MastersStudents.info(MastersStudent.findByEmail(email)));
         }
         return redirect(routes.Application.admin());
     }
@@ -49,12 +47,14 @@ public class Application extends Controller {
         String email = loginForm.get().email;
         String password = loginForm.get().password;
         session().clear();
-        if (UserAccount.authenticate(email, password) == null) {
-            flash("error", "Địa chỉ email hoặc mật khẩu không đúng!");
-            return redirect(routes.Application.index());
+        if (UserAccount.authenticate(email, password) != null ||
+                MastersStudent.authenticate(email, password) != null ||
+                Faculty.authenticate(email, password) != null) {
+            session("email", email);
+            return redirect(routes.Application.home());
         }
-        session("email", email);
-        return redirect(routes.Application.home());
+        flash("error", "Địa chỉ email hoặc mật khẩu không đúng!");
+        return redirect(routes.Application.index());
     }
 
     public static Result listAccount() {
@@ -65,7 +65,7 @@ public class Application extends Controller {
         if (session().get("email") == null) {
             return redirect(routes.Application.index());
         }
-        if (!UserAccount.findByEmail(session().get("email")).isAdministrator()) {
+        if (UserAccount.findByEmail(session().get("email")) == null) {
             return redirect(routes.Application.home());
         }
         return ok(views.html.dashboard.render());

@@ -21,7 +21,7 @@ public class MastersStudents extends Controller {
         if (session().get("email") == null) {
             return redirect(routes.Application.index());
         }
-        if (!UserAccount.findByEmail(session().get("email")).isAdministrator()) {
+        if (UserAccount.findByEmail(session().get("email")) == null) {
             return redirect(routes.Application.home());
         }
         return ok(details.render(mastersStudentForm));
@@ -31,10 +31,10 @@ public class MastersStudents extends Controller {
         if (mastersStudent == null) {
             return notFound(String.format("Học viên không tồn tại!"));
         }
-        if(UserAccount.findByEmail(session().get("email")).isFaculty()){
+        if (Faculty.findByEmail(session().get("email")) != null) {
             return redirect(routes.Application.home());
         }
-        if (UserAccount.findByEmail(session().get("email")).isMastersStudent() &&
+        if (MastersStudent.findByEmail(session().get("email")) != null &&
                 !MastersStudent.findByEmail(session().get("email")).code.equals(mastersStudent.code)) {
             return redirect(routes.Application.home());
         }
@@ -50,6 +50,7 @@ public class MastersStudents extends Controller {
         }
         MastersStudent mastersStudent = boundForm.get();
         mastersStudent.code = mastersStudent.code.toUpperCase();
+        mastersStudent.password = boundForm.field("email").value().split("@")[0];
         List<Faculty> faculties = Faculty.findAll();
         for (int i = 0; i < faculties.size(); i++) {
             if (mastersStudent.email.equals(faculties.get(i).email)) {

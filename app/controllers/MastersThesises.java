@@ -21,7 +21,7 @@ public class MastersThesises extends Controller {
         if (session().get("email") == null) {
             return redirect(routes.Application.index());
         }
-        if (!UserAccount.findByEmail(session().get("email")).isMastersStudent()) {
+        if (MastersStudent.findByEmail(session().get("email")) == null) {
             return redirect(routes.Application.home());
         }
         return ok(details.render(mastersThesisForm));
@@ -57,7 +57,7 @@ public class MastersThesises extends Controller {
         } else {
             mastersThesis.update();
         }
-        if (UserAccount.findByEmail(session().get("email")).isAdministrator()) {
+        if (UserAccount.findByEmail(session().get("email")) != null) {
             List<MastersStudent> mastersStudents = MastersStudent.findAll();
             for (MastersStudent mastersStudent : mastersStudents) {
                 mastersStudent.update();

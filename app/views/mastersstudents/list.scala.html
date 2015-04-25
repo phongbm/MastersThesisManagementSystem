@@ -42,7 +42,7 @@
     }
     </script>
 
-    @if(!UserAccount.findByEmail(session().get("email")).isAdministrator()) {
+    @if(UserAccount.findByEmail(session().get("email")) == null) {
         <script>
             $(function(){
                 $("th#actions").css('display', 'none');

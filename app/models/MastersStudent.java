@@ -43,8 +43,12 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     @Constraints.Required
     public String email;
 
+    public String password;
+
     @OneToOne
     public MastersThesis mastersThesis;
+
+    // public String permission;
 
     public static Finder<Long, MastersStudent> find = new Finder<Long, MastersStudent>(
             Long.class, MastersStudent.class
@@ -89,6 +93,10 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
         super.delete();
     }
 
+    public static MastersStudent authenticate(String email, String password) {
+        return find.where().eq("email", email).eq("password", password).findUnique();
+    }
+
     public static Page<MastersStudent> page(int page, int pageSize, String sortBy, String order, String filter) {
         if (filter.matches("[\\d]*")) {
             return find.where()
@@ -122,6 +130,14 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
                 .setFetchAhead(false)
                 .getPage(page);
     }
+
+    /*
+    public boolean isMastersStudent() {
+        if (permission.equals("MastersStudent"))
+            return true;
+        return false;
+    }
+    */
 
     public static int getTotalRowCount() {
         return find.where().findPagingList(5).getTotalRowCount();

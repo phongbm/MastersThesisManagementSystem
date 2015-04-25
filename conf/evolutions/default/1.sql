@@ -11,6 +11,7 @@ create table faculty (
   address                   varchar(255),
   email                     varchar(255),
   phone_number              varchar(255),
+  password                  varchar(255),
   constraint pk_faculty primary key (id))
 ;
 
@@ -24,6 +25,7 @@ create table masters_student (
   faculty                   varchar(255),
   course                    varchar(255),
   email                     varchar(255),
+  password                  varchar(255),
   masters_thesis_id         bigint,
   constraint pk_masters_student primary key (id))
 ;
@@ -41,7 +43,6 @@ create table user_account (
   id                        bigint not null,
   email                     varchar(255),
   password                  varchar(255),
-  permission                varchar(255),
   constraint pk_user_account primary key (id))
 ;
 

@@ -32,6 +32,8 @@ public class Faculty extends Model implements PathBindable<Faculty> {
 
     public String phoneNumber;
 
+    public String password;
+
     public static List<String> optionsDegree() {
         List<String> options = new ArrayList<String>();
         options.add("Thạc Sĩ");
@@ -56,6 +58,7 @@ public class Faculty extends Model implements PathBindable<Faculty> {
     public Faculty() {
     }
 
+    /*
     public Faculty(String code, String name, String degree, String address, String email, String phoneNumber) {
         this.code = code;
         this.name = name;
@@ -64,9 +67,14 @@ public class Faculty extends Model implements PathBindable<Faculty> {
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
+    */
 
     public String toString() {
         return String.format("%s - %s", code, name);
+    }
+
+    public static Faculty authenticate(String email, String password) {
+        return find.where().eq("email", email).eq("password", password).findUnique();
     }
 
     public static Page<Faculty> page(int page, int pageSize, String sortBy, String order, String filter) {
@@ -125,4 +133,5 @@ public class Faculty extends Model implements PathBindable<Faculty> {
     public String javascriptUnbind() {
         return code;
     }
+
 }

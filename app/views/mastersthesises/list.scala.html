@@ -17,7 +17,7 @@
     }
     </script>
 
-    @if(!UserAccount.findByEmail(session().get("email")).isAdministrator()) {
+    @if(UserAccount.findByEmail(session().get("email")) == null) {
         <script>
             $(function(){
             $('th#actions').css('display', 'none');
@@ -107,7 +107,7 @@
         </table>
     }
 
-    @if(UserAccount.findByEmail(session().get("email")).isMastersStudent() &&
+    @if(MastersStudent.findByEmail(session().get("email")) != null &&
             MastersStudent.findByEmail(session().get("email")).mastersThesis == null) {
         <a href="@routes.MastersThesises.newMastersThesis()" class="btn btn-primary fa fa-plus">
                 &nbsp;Đăng Ký Luận Văn</a>

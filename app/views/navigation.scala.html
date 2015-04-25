@@ -71,37 +71,42 @@
                             <li class="user-header bg-light-blue">
                                 <img src="@routes.Assets.at("images/placeholder-avatar.png")" class="img-circle"/>
                                 <p>
-                                    @session.get("email")
-                                    <small>@UserAccount.findByEmail(session().get("email")).getPermission()</small>
+                                    @session().get("email")
+                                    @if(Faculty.findByEmail(session().get("email")) != null){
+                                        <small>GIẢNG VIÊN</small>
+                                    } else {
+                                        @if(MastersStudent.findByEmail(session().get("email")) != null) {
+                                            <small>HỌC VIÊN</small>
+                                        } else {
+                                            <small>Administrator</small>
+                                        }
+                                    }
                                 </p>
                             </li>
 
                             <li class="user-body">
-                                @{
-                                    userAccount = UserAccount.findByEmail(session().get("email"))
-                                }
-                                @if(userAccount.isFaculty()) {
+                                @if(Faculty.findByEmail(session().get("email")) != null) {
                                     <div class="col-xs-6 text-center">
-                                        <a href="@routes.Faculties.info(Faculty.findByEmail(userAccount.getEmail()))">
+                                        <a href="@routes.Faculties.info(Faculty.findByEmail(session().get("email")))">
                                             Hồ Sơ</a>
                                     </div>
                                     <div class="col-xs-6 text-center">
-                                        <a href="@routes.Faculties.details(Faculty.findByEmail(userAccount.getEmail()))">
+                                        <a href="@routes.Faculties.details(Faculty.findByEmail(session().get("email")))">
                                             Cập Nhật</a>
                                     </div>
                                 } else {
-                                    @if(userAccount.isMastersStudent()) {
+                                    @if(MastersStudent.findByEmail(session().get("email")) != null) {
                                         <div class="col-xs-6 text-center">
-                                            <a href="@routes.MastersStudents.info(MastersStudent.findByEmail(userAccount.getEmail()))">
+                                            <a href="@routes.MastersStudents.info(MastersStudent.findByEmail(session().get("email")))">
                                                 Xem Hồ Sơ</a>
                                         </div>
                                         <div class="col-xs-6 text-center">
-                                            <a href="@routes.MastersStudents.details(MastersStudent.findByEmail(userAccount.getEmail()))">
+                                            <a href="@routes.MastersStudents.details(MastersStudent.findByEmail(session().get("email")))">
                                                 Sửa Hồ Sơ</a>
                                         </div>
-                                        @if(MastersStudent.findByEmail(userAccount.getEmail()).mastersThesis != null) {
+                                        @if(MastersStudent.findByEmail(session().get("email")).mastersThesis != null) {
                                             <div class="col-xs-6 text-center">
-                                                <a href="@routes.MastersThesises.details(MastersStudent.findByEmail(userAccount.getEmail()).mastersThesis)">
+                                                <a href="@routes.MastersThesises.details(MastersStudent.findByEmail(session().get("email")).mastersThesis)">
                                                     Sửa Luận Văn</a>
                                             </div>
                                         }

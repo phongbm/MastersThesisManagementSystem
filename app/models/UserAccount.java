@@ -17,22 +17,23 @@ public class UserAccount extends Model {
     @Constraints.Required
     public String password;
 
-    public String permission;
+    // public String permission;
 
     public static Finder<Long, UserAccount> finder = new Finder<Long, UserAccount>(Long.class, UserAccount.class);
 
     public UserAccount() {
     }
 
+    /*
     public UserAccount(String email, String password, String permission) {
         this.email = email;
         this.password = password;
         this.permission = permission;
     }
+    */
 
     public static UserAccount authenticate(String email, String password) {
         return finder.where().eq("email", email).eq("password", password).findUnique();
-
     }
 
     public static UserAccount findByEmail(String email) {
@@ -40,6 +41,7 @@ public class UserAccount extends Model {
 
     }
 
+    /*
     public boolean isAdministrator() {
         if (permission.equals("Administrator")) {
             return true;
@@ -71,4 +73,6 @@ public class UserAccount extends Model {
     public String getEmail() {
         return email;
     }
+    */
+
 }

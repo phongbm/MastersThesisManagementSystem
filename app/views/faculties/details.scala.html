@@ -6,7 +6,7 @@
 @main("Hệ Thống Quản Lý Luận Văn Cao Học") {
     <h1>Thông Tin Tài Khoản</h1>
 
-    @if(UserAccount.findByEmail(session().get("email")).isFaculty()) {
+    @if(Faculty.findByEmail(session().get("email")) != null) {
         <script>
             $(function(){
                 $('input#name').attr('readonly', '');

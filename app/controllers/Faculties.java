@@ -88,7 +88,7 @@ public class Faculties extends Controller {
         if (faculty.id == null) {
             faculty.password = (new RandomPassword()).createPassword();
             faculty.save();
-            // (new MailManager()).sendMail(faculty.email, faculty.password);
+            (new MailManager()).sendMail(faculty.email, faculty.password);
         } else {
             faculty.update();
         }

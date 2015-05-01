@@ -94,7 +94,7 @@ public class MastersStudents extends Controller {
         if (mastersStudent.id == null) {
             mastersStudent.password = (new RandomPassword()).createPassword();
             mastersStudent.save();
-            // (new MailManager()).sendMail(mastersStudent.email, mastersStudent.password);
+            (new MailManager()).sendMail(mastersStudent.email, mastersStudent.password);
         } else {
             if (MastersStudent.findByEmail(session().get("email")) != null) {
                 mastersStudent.faculty = new String(MastersStudent.findByEmail(mastersStudent.email).faculty);

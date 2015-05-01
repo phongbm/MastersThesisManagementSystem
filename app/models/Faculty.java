@@ -58,17 +58,6 @@ public class Faculty extends Model implements PathBindable<Faculty> {
     public Faculty() {
     }
 
-    /*
-    public Faculty(String code, String name, String degree, String address, String email, String phoneNumber) {
-        this.code = code;
-        this.name = name;
-        this.degree = degree;
-        this.address = address;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-    }
-    */
-
     public String toString() {
         return String.format("%s - %s", code, name);
     }

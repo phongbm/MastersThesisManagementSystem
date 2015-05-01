@@ -3,17 +3,17 @@
 @import views.html.helper._
 @import views.html.helper.twitterBootstrap._
 
-@main("Hệ Thống Quản Lý Luận Văn Cao Học") {
+@main("Hệ thống quản lý luận văn cao học") {
     <h1>Thông Tin Tài Khoản</h1>
 
     @if(MastersStudent.findByEmail(session().get("email")) != null) {
         <script>
             $(function(){
-                $('select').attr('disabled', '');
                 $('input#name').attr('readonly', '');
                 $('input#course').attr('readonly', '');
                 $('input#email').attr('readonly', '');
                 $('input#birthday').attr('readonly', '');
+                $('select').attr('readonly', '');
             });
         </script>
     }
@@ -45,9 +45,10 @@
                         'class -> "form-control")<br>
                 </div>
                 <div class="col-xs-5">
-                    @helper.inputText(mastersStudentForm("phoneNumber"), '_label -> "Số điện thoại *",
-                        '_id -> "phoneNumber",
-                        'class -> "form-control digits")<br>
+                    <label>Số điện thoại *</label><br>
+                    <input type="phoneNumber" id="phoneNumber" name ="phoneNumber"
+                    class="form-control" placeholder=""
+                    value="@mastersStudentForm("phoneNumber").value"><br>
                     @helper.select(mastersStudentForm("faculty"),
                         options = options(MastersStudent.options()),
                         '_id -> "faculty",
@@ -64,10 +65,28 @@
                 </div>
             </div>
         </fieldset>
-        <input type="submit" class="btn btn-primary" value="Lưu Lại">&nbsp;
-        <input type="reset" class="btn btn-warning" value="Đặt Lại">
+        <input type="submit" class="btn btn-primary" value="Lưu học viên" id="save">&nbsp;
+        <input type="reset" class="btn btn-warning" value="Đặt lại" id="reset">
         hoặc
-        <a class="btn btn-default" href="@routes.MastersStudents.list(0, "id", "asc", "")">Trở Lại</a>
+        <a class="btn btn-default" href="@routes.MastersStudents.list(0, "id", "asc", "")">Trở lại</a>
         <br><br>
     }
+
+    <script>
+    $("input[type=phoneNumber]").keyup(function(){
+
+	var num = new RegExp("[0-9]+");
+
+	if($("#phoneNumber").val().length > 0){
+	    if(num.test($("#phoneNumber").val()) &&
+	        ($("#phoneNumber").val().length == 10 || $("#phoneNumber").val().length == 11)){
+		        $("#save").removeAttr("disabled");
+	        }else{
+		        $("#save").attr("disabled", "disabled");
+	        }
+	}else{
+		$("#save").removeAttr("disabled");
+	}
+	});
+	</script>
 }

@@ -12,6 +12,8 @@ libraryDependencies ++= Seq(
   cache,
   javaWs,
   "org.postgresql" % "postgresql" % "9.3-1100-jdbc41",
+  "org.apache.commons" % "commons-email" % "1.3.3",
+  "com.typesafe.play" %% "play-mailer" % "2.4.0-RC1",
   filters
 )
 

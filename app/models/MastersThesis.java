@@ -37,15 +37,6 @@ public class MastersThesis extends Model implements PathBindable<MastersThesis> 
     public MastersThesis() {
     }
 
-    /*
-    public MastersThesis(String code, String name, String facultyName, String description) {
-        this.code = code;
-        this.name = name;
-        this.facultyName = facultyName;
-        this.description = description;
-    }
-    */
-
     public String toString() {
         return String.format("%s - %s", code, name);
     }

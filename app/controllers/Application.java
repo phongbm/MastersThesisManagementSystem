@@ -57,10 +57,6 @@ public class Application extends Controller {
         return redirect(routes.Application.index());
     }
 
-    public static Result listAccount() {
-        return ok(listaccount.render());
-    }
-
     public static Result admin() {
         if (session().get("email") == null) {
             return redirect(routes.Application.index());
@@ -69,6 +65,10 @@ public class Application extends Controller {
             return redirect(routes.Application.home());
         }
         return ok(views.html.dashboard.render());
+    }
+
+    public static Result listAccount() {
+        return ok(listaccount.render());
     }
 
 }

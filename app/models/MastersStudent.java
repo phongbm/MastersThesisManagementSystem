@@ -48,8 +48,6 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     @OneToOne
     public MastersThesis mastersThesis;
 
-    // public String permission;
-
     public static Finder<Long, MastersStudent> find = new Finder<Long, MastersStudent>(
             Long.class, MastersStudent.class
     );
@@ -67,18 +65,6 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     }
 
     public MastersStudent() {
-    }
-
-    public MastersStudent(String code, String name, String address, String phoneNumber, String faculty,
-                          String course, String email, Date birthday) {
-        this.code = code;
-        this.name = name;
-        this.birthday = birthday;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.faculty = faculty;
-        this.course = course;
-        this.email = email;
     }
 
     public String toString() {
@@ -130,14 +116,6 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
                 .setFetchAhead(false)
                 .getPage(page);
     }
-
-    /*
-    public boolean isMastersStudent() {
-        if (permission.equals("MastersStudent"))
-            return true;
-        return false;
-    }
-    */
 
     public static int getTotalRowCount() {
         return find.where().findPagingList(5).getTotalRowCount();

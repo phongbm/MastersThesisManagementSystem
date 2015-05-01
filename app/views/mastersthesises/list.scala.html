@@ -2,7 +2,7 @@
 
 @import java.lang.String; var id1 = new String("#"); var id2 = new String("");
 
-@main("Hệ Thống Quản Lý Luận Văn Cao Học") {
+@main("Hệ thống quản lý luận văn cao học") {
     <h2>Danh Sách Luận Văn</h2>
 
     <script>
@@ -28,8 +28,8 @@
     }
 
     @if(currentPage.getTotalRowCount == 0) {
-        <div class="well"><em>Danh Sách Trống</em></div>
-        <a href="@routes.MastersThesises.list(0)" class="btn btn-default">Trở Lại</a>
+        <div class="well"><em>Danh sách trống</em></div>
+        <a href="@routes.MastersThesises.list(0)" class="btn btn-default">Trở lại</a>
     } else {
 
         <div id="pagination" class="pagination">
@@ -70,36 +70,6 @@
                     <td id="actions">
                         <a href="@routes.MastersThesises.details(mastersThesis)" class="btn btn-success btn-xs fa fa-edit">
                             &nbsp;Sửa</a>
-                        <!--
-                        {
-                            id1 = id1 + mastersThesis.id
-                        }
-                        {
-                            id2 = id2 + mastersThesis.id
-                        }
-                        <button id="delete" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=id1>
-                            <i class="fa fa-trash">&nbsp;Xóa</i>
-                        </button>
-                        <div class="modal fade" id=id2 tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Xóa Luận Văn</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        Bạn Có Chắc Chắn Muốn Xóa?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Trở Lại</button>
-                                        <a onclick="javascript: del('routes.MastersThesises.delete(mastersThesis.code)')">
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Xóa</button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        -->
                     </td>
                 </tr>
             }
@@ -110,7 +80,7 @@
     @if(MastersStudent.findByEmail(session().get("email")) != null &&
             MastersStudent.findByEmail(session().get("email")).mastersThesis == null) {
         <a href="@routes.MastersThesises.newMastersThesis()" class="btn btn-primary fa fa-plus">
-                &nbsp;Đăng Ký Luận Văn</a>
+                &nbsp;Đăng ký luận văn</a>
     }
     <br>
 }

@@ -28,7 +28,7 @@
     </th>
 }
 
-@main("Hệ Thống Quản Lý Luận Văn Cao Học") {
+@main("Hệ thống quản lý luận văn cao học") {
     <h2>Danh Sách Giảng Viên</h2>
     <script>
     function del ( urlToDelete ) {
@@ -54,8 +54,8 @@
     }
 
     @if(currentPage.getTotalRowCount == 0) {
-        <div class="well"><em>Danh Sách Trống</em></div>
-        <a href="@routes.Faculties.list(0, "id", "asc", "")" class="btn btn-default">Trở Lại</a>
+        <div class="well"><em>Danh sách trống</em></div>
+        <a href="@routes.Faculties.list(0, "id", "asc", "")" class="btn btn-default">Trở lại</a>
     } else {
 
         <div class="col-lg-6">
@@ -129,13 +129,13 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Xóa Tài Khoản</h4>
+                                        <h4 class="modal-title" id="myModalLabel">Xóa tài khoản</h4>
                                     </div>
                                     <div class="modal-body">
-                                        Bạn Có Chắc Chắn Muốn Xóa?
+                                        Bạn có chắc chắn muốn xóa?
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Trở Lại</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Trở lại</button>
                                         <a onclick="javascript: del('@routes.Faculties.delete(faculty.code)')">
                                             <button type="button" class="btn btn-danger" data-dismiss="modal">Xóa</button>
                                         </a>
@@ -150,7 +150,7 @@
         </table>
     }
 
-    <a id="new-faculty" href="@routes.Faculties.newFaculty()" class="btn btn-primary fa fa-plus">&nbsp;Thêm Tài Khoản</a>
+    <a id="new-faculty" href="@routes.Faculties.newFaculty()" class="btn btn-primary fa fa-plus">&nbsp;Thêm tài khoản</a>
     <br>
 
 

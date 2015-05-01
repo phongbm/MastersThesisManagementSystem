@@ -4,7 +4,7 @@
 
 <html>
     <head>
-        <title>Hệ Thống Quản Lý Luận Văn Cao Học</title>
+        <title>Hệ thống quản lý luận văn cao học</title>
             <!-- CSS -->
         <link href="@routes.Assets.at("bootstrap/css/bootstrap.min.css")" rel="stylesheet" media="screen">
 
@@ -179,7 +179,7 @@
                                                     <i class="glyphicon glyphicon-envelope"></i>
                                                 </span>
                                                 <input type="email" name ="email"
-                                                class="form-control" placeholder="Email"
+                                                class="form-control" placeholder="Địa chỉ email"
                                                 value="@loginForm("email").value">
                                             </div>
                                             <div class="form-group input-group">
@@ -187,14 +187,14 @@
                                                     <i class="glyphicon glyphicon-lock"></i>
                                                 </span>
                                                 <input type="password" name="password"
-                                                class="form-control" placeholder="Password">
+                                                class="form-control" placeholder="Mật khẩu">
                                             </div>
                                             <div class="form-group">
                                                 <label class="checkbox-inline">
                                                     <input type="checkbox">Ghi nhớ
                                                 </label>
                                                 <span class="pull-right">
-                                                    <a href="#">Quên mật khẩu?</a>
+                                                    <a href="@routes.Passwords.forgotPassword()">Quên mật khẩu?</a>
                                                 </span>
                                             </div>
                                             <button class="btn btn-primary" type="submit">Đăng nhập</button>

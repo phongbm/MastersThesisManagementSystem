@@ -23,12 +23,12 @@
                             <span class="label label-success">0</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">Tin Nhắn</li>
+                            <li class="header">Tin nhắn</li>
                             <li>
                                 <ul class="menu">
                                 </ul>
                             </li>
-                            <li class="footer"><a href="#">Xem Tất Cả</a></li>
+                            <li class="footer"><a href="#">Xem tất cả</a></li>
                         </ul>
                     </li>
 
@@ -38,12 +38,12 @@
                             <span class="label label-warning">0</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">Thông Báo</li>
+                            <li class="header">Thông báo</li>
                             <li>
                                 <ul class="menu">
                                 </ul>
                             </li>
-                            <li class="footer"><a href="#">Xem Tất Cả</a></li>
+                            <li class="footer"><a href="#">Xem tất cả</a></li>
                         </ul>
                     </li>
 
@@ -53,12 +53,12 @@
                             <span class="label label-danger">0</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">Công Việc</li>
+                            <li class="header">Công việc</li>
                             <li>
                                 <ul class="menu">
                                 </ul>
                             </li>
-                            <li class="footer"><a href="#">Xem Tất Cả</a></li>
+                            <li class="footer"><a href="#">Xem tất cả</a></li>
                         </ul>
                     </li>
 
@@ -86,30 +86,40 @@
 
                             <li class="user-body">
                                 @if(Faculty.findByEmail(session().get("email")) != null) {
-                                    <div class="col-xs-6 text-center">
+                                    <div class="col-xs-6" style="padding: 0px;">
+                                        <i class="glyphicon glyphicon-user"></i>
                                         <a href="@routes.Faculties.info(Faculty.findByEmail(session().get("email")))">
-                                            Hồ Sơ</a>
-                                    </div>
-                                    <div class="col-xs-6 text-center">
+                                            Xem hồ sơ</a><br>
+                                        <i class="glyphicon glyphicon-edit"></i>
                                         <a href="@routes.Faculties.details(Faculty.findByEmail(session().get("email")))">
-                                            Cập Nhật</a>
+                                            Sửa hồ sơ</a>
+                                    </div>
+                                    <div class="col-xs-6" style="padding: 0px;">
+                                        <i class="glyphicon glyphicon-cog"></i>
+                                        <a href="@routes.Passwords.changePassword()">
+                                            Đổi mật khẩu</a>
                                     </div>
                                 } else {
                                     @if(MastersStudent.findByEmail(session().get("email")) != null) {
-                                        <div class="col-xs-6 text-center">
+                                        <div class="col-xs-6" style="padding: 0px;">
+                                            <i class="glyphicon glyphicon-user"></i>
                                             <a href="@routes.MastersStudents.info(MastersStudent.findByEmail(session().get("email")))">
-                                                Xem Hồ Sơ</a>
-                                        </div>
-                                        <div class="col-xs-6 text-center">
+                                                Xem hồ sơ</a><br>
+                                            <i class="glyphicon glyphicon-edit"></i>
                                             <a href="@routes.MastersStudents.details(MastersStudent.findByEmail(session().get("email")))">
-                                                Sửa Hồ Sơ</a>
+                                                Sửa hồ sơ</a>
                                         </div>
-                                        @if(MastersStudent.findByEmail(session().get("email")).mastersThesis != null) {
-                                            <div class="col-xs-6 text-center">
+                                        <div class="col-xs-6" style="padding: 0px;">
+                                            <i class="glyphicon glyphicon-cog"></i>
+                                            <a href="@routes.Passwords.changePassword()">
+                                                Đổi mật khẩu</a><br>
+                                            @if(MastersStudent.findByEmail(session().get("email")).mastersThesis != null) {
+                                                <i class="glyphicon glyphicon-edit"></i>
                                                 <a href="@routes.MastersThesises.details(MastersStudent.findByEmail(session().get("email")).mastersThesis)">
-                                                    Sửa Luận Văn</a>
-                                            </div>
-                                        }
+                                                    Sửa luận văn</a>
+                                            }
+                                        </div>
+
                                     }
                                 }
                             </li>

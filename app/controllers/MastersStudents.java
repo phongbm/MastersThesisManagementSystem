@@ -1,9 +1,6 @@
 package controllers;
 
-import models.Faculty;
-import models.MastersStudent;
-import models.MastersThesis;
-import models.UserAccount;
+import models.*;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -18,13 +15,25 @@ public class MastersStudents extends Controller {
     private static final Form<MastersStudent> mastersStudentForm = Form.form(MastersStudent.class);
 
     public static Result newMastersStudent() {
-        if (session().get("email") == null) {
-            return redirect(routes.Application.index());
-        }
         if (UserAccount.findByEmail(session().get("email")) == null) {
             return redirect(routes.Application.home());
         }
         return ok(details.render(mastersStudentForm));
+    }
+
+    public static Result delete(String code) {
+        final MastersStudent mastersStudent = MastersStudent.findByCode(code);
+        if (mastersStudent == null) {
+            return notFound(String.format("Học viên %s không tồn tại!", code));
+        }
+        if (mastersStudent.mastersThesis != null) {
+            MastersThesis mastersThesis = MastersThesis.findByCode(mastersStudent.mastersThesis.code);
+            mastersStudent.delete();
+            mastersThesis.delete();
+        } else {
+            mastersStudent.delete();
+        }
+        return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
     }
 
     public static Result details(MastersStudent mastersStudent) {
@@ -32,11 +41,11 @@ public class MastersStudents extends Controller {
             return notFound(String.format("Học viên không tồn tại!"));
         }
         if (Faculty.findByEmail(session().get("email")) != null) {
-            return redirect(routes.Application.home());
+            return redirect(routes.Faculties.info(Faculty.findByEmail(session().get("email"))));
         }
         if (MastersStudent.findByEmail(session().get("email")) != null &&
                 !MastersStudent.findByEmail(session().get("email")).code.equals(mastersStudent.code)) {
-            return redirect(routes.Application.home());
+            return redirect(routes.MastersStudents.info(MastersStudent.findByEmail(session().get("email"))));
         }
         Form<MastersStudent> filledForm = mastersStudentForm.fill(mastersStudent);
         return ok(details.render(filledForm));
@@ -50,27 +59,24 @@ public class MastersStudents extends Controller {
         }
         MastersStudent mastersStudent = boundForm.get();
         mastersStudent.code = mastersStudent.code.toUpperCase();
-        mastersStudent.password = boundForm.field("email").value().split("@")[0];
-        List<Faculty> faculties = Faculty.findAll();
-        for (int i = 0; i < faculties.size(); i++) {
-            if (mastersStudent.email.equals(faculties.get(i).email)) {
-                flash("error", "Địa chỉ email trùng với tài khoản giảng viên!");
-                return badRequest(details.render(boundForm));
-            }
+        if (UserAccount.findByEmail(mastersStudent.email) != null) {
+            flash("error", "Địa chỉ email này không được phép sử dụng");
+            return badRequest(details.render(boundForm));
+        }
+        if (Faculty.findByEmail(mastersStudent.email) != null) {
+            flash("error", "Địa chỉ email trùng với tài khoản giảng viên!");
+            return badRequest(details.render(boundForm));
         }
         if (mastersStudent.id == null) {
-            MastersStudent student1 = MastersStudent.findByCode(mastersStudent.code);
-            if (student1 != null && mastersStudent.code.equals(student1.code)) {
+            if (MastersStudent.findByCode(mastersStudent.code) != null) {
                 flash("error", "Tài khoản với mã số này đã tồn tại!");
                 return badRequest(details.render(boundForm));
             }
-            MastersStudent student2 = MastersStudent.findByEmail(mastersStudent.email);
-            if (student2 != null && mastersStudent.email.equals(student2.email)) {
+            if (MastersStudent.findByEmail(mastersStudent.email) != null) {
                 flash("error", "Tài khoản với địa chỉ email này đã tồn tại!");
                 return badRequest(details.render(boundForm));
             }
-        }
-        if (mastersStudent.id != null) {
+        } else {
             List<MastersStudent> mastersStudents = MastersStudent.findAll();
             for (int i = 0; i < mastersStudents.size(); i++) {
                 if (mastersStudents.get(i).code.equals(mastersStudent.code) &&
@@ -86,26 +92,16 @@ public class MastersStudents extends Controller {
             }
         }
         if (mastersStudent.id == null) {
+            mastersStudent.password = (new RandomPassword()).createPassword();
             mastersStudent.save();
+            // (new MailManager()).sendMail(mastersStudent.email, mastersStudent.password);
         } else {
+            if (MastersStudent.findByEmail(session().get("email")) != null) {
+                mastersStudent.faculty = new String(MastersStudent.findByEmail(mastersStudent.email).faculty);
+            }
             mastersStudent.update();
         }
         flash("success", String.format("Thêm tài khoản học viên thành công %s!", mastersStudent));
-        return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
-    }
-
-    public static Result delete(String code) {
-        final MastersStudent mastersStudent = MastersStudent.findByCode(code);
-        if (mastersStudent == null) {
-            return notFound(String.format("Học viên %s không tồn tại!", code));
-        }
-        if (mastersStudent.mastersThesis != null) {
-            MastersThesis mastersThesis = MastersThesis.findByCode(mastersStudent.mastersThesis.code);
-            mastersStudent.delete();
-            mastersThesis.delete();
-            return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
-        }
-        mastersStudent.delete();
         return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
     }
 

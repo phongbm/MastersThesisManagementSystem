@@ -1,6 +1,6 @@
 @(faculty: Faculty)
 
-@main("Hệ Thống Quản Lý Luận Văn Cao Học") {
+@main("Hệ thống quản lý luận văn cao học") {
     <div class="container">
         <hr class=""/>
         <div class="row" style="padding-top: 30px;">
@@ -20,11 +20,11 @@
                 <ul class="list-group">
                     <li class="list-group-item text-muted" contenteditable="false">Hồ Sơ</li>
                     <li class="list-group-item text-right"><span class="pull-left"><strong class="">
-                        Họ Tên</strong></span>
+                        Họ tên</strong></span>
                         @faculty.name</li>
 
                     <li class="list-group-item text-right">
-                        <span class="pull-left"><strong>Chức Danh</strong></span>
+                        <span class="pull-left"><strong>Chức danh</strong></span>
                         @if(!faculty.degree.equals("")) {
                             @faculty.degree
                         } else {
@@ -33,7 +33,7 @@
                     </li>
 
                     <li class="list-group-item text-right">
-                        <span class="pull-left"><strong>Địa Chỉ</strong></span>
+                        <span class="pull-left"><strong>Địa chỉ</strong></span>
                         @if(!faculty.address.equals("")) {
                             @faculty.address
                         } else {
@@ -42,7 +42,7 @@
                     </li>
 
                     <li class="list-group-item text-right">
-                        <span class="pull-left"><strong>Địa Chỉ Email</strong></span>
+                        <span class="pull-left"><strong>Địa chỉ email</strong></span>
                         @if(!faculty.email.equals("")) {
                             @faculty.email
                         } else {
@@ -51,7 +51,7 @@
                     </li>
 
                     <li class="list-group-item text-right">
-                        <span class="pull-left"><strong>Số Điện Thoại</strong></span>
+                        <span class="pull-left"><strong>Số điện thoại</strong></span>
                         @if(!faculty.phoneNumber.equals("")) {
                             @faculty.phoneNumber
                         } else {

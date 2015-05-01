@@ -1,8 +1,6 @@
 package controllers;
 
-import models.Faculty;
-import models.MastersStudent;
-import models.UserAccount;
+import models.*;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -17,9 +15,6 @@ public class Faculties extends Controller {
     private static final Form<Faculty> facultyForm = Form.form(Faculty.class);
 
     public static Result newFaculty() {
-        if (session().get("email") == null) {
-            return redirect(routes.Application.index());
-        }
         if (UserAccount.findByEmail(session().get("email")) == null) {
             return redirect(routes.Application.home());
         }
@@ -40,11 +35,11 @@ public class Faculties extends Controller {
             return notFound(String.format("Giảng viên không tồn tại!"));
         }
         if (MastersStudent.findByEmail(session().get("email")) != null) {
-            return redirect(routes.Application.home());
+            return redirect(routes.MastersStudents.info(MastersStudent.findByEmail(session().get("email"))));
         }
         if (Faculty.findByEmail(session().get("email")) != null &&
                 !Faculty.findByEmail(session().get("email")).code.equals(faculty.code)) {
-            return redirect(routes.Application.home());
+            return redirect(routes.Faculties.info(Faculty.findByEmail(session().get("email"))));
         }
         Form<Faculty> filledForm = facultyForm.fill(faculty);
         return ok(details.render(filledForm));
@@ -58,27 +53,24 @@ public class Faculties extends Controller {
         }
         Faculty faculty = boundForm.get();
         faculty.code = faculty.code.toUpperCase();
-        faculty.password = boundForm.field("password").value().split("@")[0];
-        List<MastersStudent> mastersStudents = MastersStudent.findAll();
-        for (int i = 0; i < mastersStudents.size(); i++) {
-            if (faculty.email.equals(mastersStudents.get(i).email)) {
-                flash("error", "Địa chỉ email trùng với tài khoản học viên!");
-                return badRequest(details.render(boundForm));
-            }
+        if (UserAccount.findByEmail(faculty.email) != null) {
+            flash("error", "Địa chỉ email này không được phép sử dụng");
+            return badRequest(details.render(boundForm));
+        }
+        if (MastersStudent.findByEmail(faculty.email) != null) {
+            flash("error", "Địa chỉ email trùng với tài khoản học viên!");
+            return badRequest(details.render(boundForm));
         }
         if (faculty.id == null) {
-            Faculty faculty1 = Faculty.findByCode(faculty.code);
-            if (faculty1 != null && faculty.code.equals(faculty1.code)) {
+            if (Faculty.findByCode(faculty.code) != null) {
                 flash("error", "Tài khoản với mã số này đã tồn tại!");
                 return badRequest(details.render(boundForm));
             }
-            Faculty faculty2 = Faculty.findByEmail(faculty.email);
-            if (faculty2 != null && faculty.email.equals(faculty.email)) {
+            if (Faculty.findByEmail(faculty.email) != null) {
                 flash("error", "Tài khoản với địa chỉ email này đã tồn tại!");
                 return badRequest(details.render(boundForm));
             }
-        }
-        if (faculty.id != null) {
+        } else {
             List<Faculty> facultyList = Faculty.findAll();
             for (int i = 0; i < facultyList.size(); i++) {
                 if (facultyList.get(i).code.equals(faculty.code) &&
@@ -94,7 +86,9 @@ public class Faculties extends Controller {
             }
         }
         if (faculty.id == null) {
+            faculty.password = (new RandomPassword()).createPassword();
             faculty.save();
+            // (new MailManager()).sendMail(faculty.email, faculty.password);
         } else {
             faculty.update();
         }

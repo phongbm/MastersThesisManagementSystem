@@ -46,6 +46,4 @@ public class Global extends GlobalSettings {
         ));
     }
 
-
-
 }

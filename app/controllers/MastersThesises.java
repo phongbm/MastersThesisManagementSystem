@@ -1,6 +1,7 @@
 package controllers;
 
 import com.avaje.ebean.Page;
+import models.Faculty;
 import models.MastersStudent;
 import models.MastersThesis;
 import models.UserAccount;
@@ -15,16 +16,33 @@ import java.util.List;
 
 @Security.Authenticated(Secured.class)
 public class MastersThesises extends Controller {
+
     private static final Form<MastersThesis> mastersThesisForm = Form.form(MastersThesis.class);
 
     public static Result newMastersThesis() {
-        if (session().get("email") == null) {
-            return redirect(routes.Application.index());
+        String emailUser = session().get("email");
+        if (Faculty.findByEmail(emailUser) != null) {
+            return redirect(routes.Faculties.info(Faculty.findByEmail(emailUser)));
         }
-        if (MastersStudent.findByEmail(session().get("email")) == null) {
-            return redirect(routes.Application.home());
+        if (MastersStudent.findByEmail(emailUser).mastersThesis != null) {
+            return redirect(routes.MastersStudents.info(MastersStudent.findByEmail(emailUser)));
         }
         return ok(details.render(mastersThesisForm));
+    }
+
+    public static Result delete(String code) {
+        return ok();
+    }
+
+    public static Result details(MastersThesis mastersThesis) {
+        if (Faculty.findByEmail(session().get("email")) != null) {
+            return redirect(routes.Faculties.info(Faculty.findByEmail(session().get("email"))));
+        }
+        if (mastersThesis == null) {
+            return notFound(String.format("Luận văn không tồn tại!"));
+        }
+        Form<MastersThesis> filledForm = mastersThesisForm.fill(mastersThesis);
+        return ok(details.render(filledForm));
     }
 
     public static Result save() {
@@ -36,13 +54,11 @@ public class MastersThesises extends Controller {
         MastersThesis mastersThesis = boundForm.get();
         mastersThesis.code = mastersThesis.code.toUpperCase();
         if (mastersThesis.id == null) {
-            MastersThesis thesis1 = MastersThesis.findByCode(mastersThesis.code);
-            if (thesis1 != null && mastersThesis.code.equals(thesis1.code)) {
+            if (MastersThesis.findByCode(mastersThesis.code) != null) {
                 flash("error", "Luận văn với mã số này đã tồn tại!");
                 return badRequest(details.render(boundForm));
             }
-        }
-        if (mastersThesis.id != null) {
+        } else {
             List<MastersThesis> mastersThesises = MastersThesis.findAll();
             for (int i = 0; i < mastersThesises.size(); i++) {
                 if (mastersThesises.get(i).code.equals(mastersThesis.code) &&
@@ -62,30 +78,18 @@ public class MastersThesises extends Controller {
             for (MastersStudent mastersStudent : mastersStudents) {
                 mastersStudent.update();
             }
-            return redirect(routes.MastersThesises.list(0));
+        } else {
+            MastersStudent mastersStudent = MastersStudent.findByEmail(session().get("email"));
+            mastersStudent.mastersThesis = mastersThesis;
+            mastersStudent.update();
+            flash("success", String.format("Thêm luận văn thành công %s!", mastersThesis));
         }
-        MastersStudent mastersStudent = MastersStudent.findByEmail(session().get("email"));
-        mastersStudent.mastersThesis = mastersThesis;
-        mastersStudent.update();
-        flash("success", String.format("Thêm luận văn thành công %s!", mastersThesis));
         return redirect(routes.MastersThesises.list(0));
     }
 
     public static Result list(Integer page) {
         Page<MastersThesis> mastersThesisPage = MastersThesis.find(page);
         return ok(list.render(mastersThesisPage));
-    }
-
-    public static Result details(MastersThesis mastersThesis) {
-        if (mastersThesis == null) {
-            return notFound(String.format("Luận văn không tồn tại!"));
-        }
-        Form<MastersThesis> filledForm = mastersThesisForm.fill(mastersThesis);
-        return ok(details.render(filledForm));
-    }
-
-    public static Result delete(String code) {
-        return ok();
     }
 
 }

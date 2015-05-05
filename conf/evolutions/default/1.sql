@@ -33,6 +33,7 @@ create table masters_student (
   course                    varchar(255),
   email                     varchar(255),
   password                  varchar(255),
+  avatar                    bytea,
   masters_thesis_id         bigint,
   document_id               bigint,
   constraint pk_masters_student primary key (id))

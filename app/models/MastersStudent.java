@@ -8,6 +8,7 @@ import play.mvc.PathBindable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,6 +46,9 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
     public String email;
 
     public String password;
+
+    @Lob
+    public byte[] avatar;
 
     @OneToOne
     public MastersThesis mastersThesis;

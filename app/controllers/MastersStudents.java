@@ -3,11 +3,18 @@ package controllers;
 import models.*;
 import play.data.Form;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 import views.html.mastersstudents.details;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+
+import static play.data.Form.form;
 
 @Security.Authenticated(Secured.class)
 public class MastersStudents extends Controller {
@@ -121,6 +128,63 @@ public class MastersStudents extends Controller {
 
     public static Result info(MastersStudent mastersStudent) {
         return ok(views.html.mastersstudents.info.render(mastersStudent));
+    }
+
+    /* ------------------------ */
+    public static class UploadAvatarForm {
+
+        public Http.MultipartFormData.FilePart avatar;
+
+        public String validate() {
+            Http.MultipartFormData data = request().body().asMultipartFormData();
+            avatar = data.getFile("avatar");
+            if (avatar == null) {
+                return "Tệp tin tài liệu bị thiếu!";
+            }
+            return null;
+        }
+    }
+
+    public static Result upload() {
+        return ok(views.html.mastersstudents.uploadavatar.render(form(UploadAvatarForm.class)));
+    }
+
+    public static Result uploadAvatar() {
+        Form<UploadAvatarForm> form = form(UploadAvatarForm.class).bindFromRequest();
+        if (form.hasErrors()) {
+            return badRequest(views.html.mastersstudents.uploadavatar.render(form));
+        }
+        MastersStudent mastersStudent = MastersStudent.findByEmail(session().get("email"));
+        mastersStudent.avatar = new byte[(int) form.get().avatar.getFile().length()];
+        InputStream inputStream = null;
+        try {
+            inputStream = new BufferedInputStream(new FileInputStream(form.get().avatar.getFile()));
+            inputStream.read(mastersStudent.avatar);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        mastersStudent.update();
+        flash("success", "Thay đổi hình ảnh đại diện thành công!");
+        return redirect(routes.Application.home());
+    }
+
+
+    public static Result getAvatar(long id) {
+        MastersStudent mastersStudent = MastersStudent.find.byId(id);
+        if (mastersStudent != null) {
+            return ok(mastersStudent.avatar).as("avatar");
+        } else {
+            flash("error", "Hình đại diện không tồn tại!");
+            return redirect(routes.Application.home());
+        }
     }
 
 }

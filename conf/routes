@@ -44,5 +44,9 @@ GET           /forgotpassword/success/:email             controllers.Passwords.f
 GET           /documents/list                            controllers.Documents.list(page: Integer ?= 0)
 GET           /documents/upload                          controllers.Documents.upload()
 POST          /documents/upload                          controllers.Documents.uploadDocument()
-GET           /documents/views/getdocument/:id           controllers.Documents.getDocument(id: Long)
+GET           /document/view/getdocument/:id             controllers.Documents.getDocument(id: Long)
 DELETE        /document/:id                              controllers.Documents.delete(id: Long)
+
+GET           /mastersstudents/avatar/upload             controllers.MastersStudents.upload()
+POST          /mastersstudents/avatar/upload             controllers.MastersStudents.uploadAvatar()
+GET           /mastersstudents/avatar/view/:id           controllers.MastersStudents.getAvatar(id: Long)

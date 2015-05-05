@@ -119,11 +119,15 @@
                                             <i class="glyphicon glyphicon-cog"></i>
                                             <a href="@routes.Passwords.changePassword()">
                                                 Đổi mật khẩu</a><br>
+                                            <i class="glyphicon glyphicon-cog"></i>
+                                            <a href="@routes.MastersStudents.upload()">
+                                                Đổi hình đại diện</a><br>
                                             @if(MastersStudent.findByEmail(session().get("email")).mastersThesis != null) {
                                                 <i class="glyphicon glyphicon-edit"></i>
                                                 <a href="@routes.MastersThesises.details(MastersStudent.findByEmail(session().get("email")).mastersThesis)">
                                                     Sửa luận văn</a>
                                             }
+
                                         </div>
 
                                     }

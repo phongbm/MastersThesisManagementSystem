@@ -1,0 +1,15 @@
+@(form: Form[MastersStudents.UploadAvatarForm])
+
+@import views.html.helper.CSRF
+
+@main("Hệ thống quản lý luận văn cao học") {
+
+    <div>
+        <h1>Cập Nhật Hình Ảnh Đại Diện</h1>
+        @helper.form(CSRF(routes.MastersStudents.uploadAvatar()), 'enctype -> "multipart/form-data") {
+            <input type="file" class="" accept="*/*" name="avatar">
+            <button type="submit">Cập nhật!</button>
+        }
+    </div>
+
+}

@@ -7,7 +7,7 @@
     <div>
         <h1>Tải Lên Tệp Tin Luận Văn</h1>
         @helper.form(CSRF(routes.Documents.uploadDocument()), 'enctype -> "multipart/form-data") {
-            <input type="file" class="" accept=".pdf" name="document">
+            <input type="file" class="" accept="*/*" name="document">
             <button type="submit">Tải lên!</button>
         }
     </div>

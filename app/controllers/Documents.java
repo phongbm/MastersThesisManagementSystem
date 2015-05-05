@@ -12,10 +12,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 import views.html.documents.upload;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 import static play.data.Form.form;
 
@@ -105,6 +102,7 @@ public class Documents extends Controller {
             return redirect(routes.Documents.list(0));
         }
     }
+
 
     public static Result list(Integer page) {
         Page<Document> documentPage = Document.find(page);

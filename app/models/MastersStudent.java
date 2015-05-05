@@ -15,6 +15,7 @@ import java.util.List;
 
 @Entity
 public class MastersStudent extends Model implements PathBindable<MastersStudent> {
+
     @Id
     public Long id;
 
@@ -47,6 +48,9 @@ public class MastersStudent extends Model implements PathBindable<MastersStudent
 
     @OneToOne
     public MastersThesis mastersThesis;
+
+    @OneToOne
+    public Document document;
 
     public static Finder<Long, MastersStudent> find = new Finder<Long, MastersStudent>(
             Long.class, MastersStudent.class

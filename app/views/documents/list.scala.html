@@ -1,16 +1,16 @@
-@(currentPage: com.avaje.ebean.Page[MastersThesis])
+@(currentPage: com.avaje.ebean.Page[Document])
 
 @import java.lang.String; var id1 = new String("#"); var id2 = new String("");
 
 @main("Hệ thống quản lý luận văn cao học") {
-    <h2>Danh Sách Luận Văn</h2>
-
+    <h2>Danh Sách Tệp Tin Luận Văn</h2>
     <script>
     function del ( urlToDelete ) {
     $.ajax ( {
     url : urlToDelete,
     type : 'DELETE',
     success : function ( results ) {
+    // Refresh the page
     location.reload ( ) ;
     }
     } ) ;
@@ -20,27 +20,26 @@
     @if(UserAccount.findByEmail(session().get("email")) == null) {
         <script>
             $(function(){
-            $('th#actions').css('display', 'none');
-            $('td#actions').css('display', 'none');
-        });
-
+                $("th#actions").css('display', 'none');
+                $("td#actions").css('display', 'none');
+            });
         </script>
     }
 
     @if(currentPage.getTotalRowCount == 0) {
         <div class="well"><em>Danh sách trống</em></div>
-        <a href="@routes.MastersThesises.list(0)" class="btn btn-default">Trở lại</a>
+        <a href="@routes.Documents.list(0)" class="btn btn-default">Trở lại</a>
     } else {
 
         <div id="pagination" class="pagination">
             @if(currentPage.hasPrev) {
-                <li><a href="@routes.MastersStudents.list(currentPage.getPageIndex - 1)">&larr;</a></li>
+                <li><a href="@routes.Documents.list(currentPage.getPageIndex - 1)">&larr;</a></li>
             } else {
                 <li class="disabled"><a>&larr;</a></li>
             }
             <li class="active"><a>Displaying @currentPage.getDisplayXtoYofZ(" to ", " of ")</a></li>
             @if(currentPage.hasNext) {
-                <li><a href="@routes.MastersStudents.list(currentPage.getPageIndex + 1)">&rarr;</a></li>
+                <li><a href="@routes.Documents.list(currentPage.getPageIndex + 1)">&rarr;</a></li>
             } else {
                 <li class="disabled"><a>&rarr;</a></li>
             }
@@ -50,35 +49,27 @@
             <thead style="color : #0000ff ;">
                 <tr>
                     <th>Mã Số</th>
-                    <th>Đề Tài</th>
+                    <th>Tên Tệp Tin</th>
                     <th>Học Viên</th>
-                    <th>Giảng viên hướng dẫn</th>
-                    <th>Mô Tả</th>
-                    <th id="actions">Thao Tác</th>
+                    <th id="actions"></th>
                 </tr>
             </thead>
             <tbody>
-            @for(mastersThesis <- currentPage.getList()) {
+            @for(document <- currentPage.getList()) {
                 <tr>
-                    <td><button class="btn btn-xs btn-info">@mastersThesis.code</button></td>
-                    <td>@mastersThesis.name</td>
+                    <td><button class="btn btn-xs btn-info">@document.id</button></td>
                     <td>
-                        <a href="@routes.MastersStudents.info(mastersThesis.mastersStudent)">
-                        @mastersThesis.mastersStudent.name
-                        </a>
+                        <a href="@routes.Documents.getDocument(document.id)" target="_blank">@document.name</a>
                     </td>
                     <td>
-                    @mastersThesis.facultyName
+                        @document.mastersStudent.name
                     </td>
-                    <td>@mastersThesis.description</td>
                     <td id="actions">
-                        <a href="@routes.MastersThesises.details(mastersThesis)" class="btn btn-success btn-xs fa fa-edit">
-                                &nbsp;Sửa</a>
                         @{
-                            id1 = id1 + mastersThesis.id
+                            id1 = id1 + document.id
                         }
                         @{
-                            id2 = id2 + mastersThesis.id
+                            id2 = id2 + document.id
                         }
                         <button id="delete" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=@id1>
                             <i class="fa fa-trash">&nbsp;Xóa</i>
@@ -88,14 +79,14 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Xóa luận văn</h4>
+                                        <h4 class="modal-title" id="myModalLabel">Xóa tệp tin luận văn</h4>
                                     </div>
                                     <div class="modal-body">
-                                        Bạn có chắc chắn muốn xóa?
+                                            Bạn có chắc chắn muốn xóa?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Trở lại</button>
-                                        <a onclick="javascript: del('@routes.MastersThesises.delete(mastersThesis.code)')">
+                                        <a onclick="javascript: del('@routes.Documents.delete(document.id)')">
                                             <button type="button" class="btn btn-danger" data-dismiss="modal">Xóa</button>
                                         </a>
                                     </div>
@@ -110,9 +101,10 @@
     }
 
     @if(MastersStudent.findByEmail(session().get("email")) != null &&
-            MastersStudent.findByEmail(session().get("email")).mastersThesis == null) {
-        <a href="@routes.MastersThesises.newMastersThesis()" class="btn btn-primary fa fa-plus">
-                &nbsp;Đăng ký luận văn</a>
+            MastersStudent.findByEmail(session().get("email")).document == null) {
+        <a href="@routes.Documents.upload()" class="btn btn-primary fa fa-plus">
+                &nbsp;Tải tài liệu</a>
     }
     <br>
+
 }

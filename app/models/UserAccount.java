@@ -8,6 +8,7 @@ import javax.persistence.Id;
 
 @Entity
 public class UserAccount extends Model {
+
     @Id
     public Long id;
 

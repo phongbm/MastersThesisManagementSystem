@@ -3,6 +3,13 @@
 
 # --- !Ups
 
+create table document (
+  id                        bigint not null,
+  name                      varchar(255),
+  data                      bytea,
+  constraint pk_document primary key (id))
+;
+
 create table faculty (
   id                        bigint not null,
   code                      varchar(255),
@@ -27,6 +34,7 @@ create table masters_student (
   email                     varchar(255),
   password                  varchar(255),
   masters_thesis_id         bigint,
+  document_id               bigint,
   constraint pk_masters_student primary key (id))
 ;
 
@@ -46,6 +54,8 @@ create table user_account (
   constraint pk_user_account primary key (id))
 ;
 
+create sequence document_seq;
+
 create sequence faculty_seq;
 
 create sequence masters_student_seq;
@@ -56,10 +66,14 @@ create sequence user_account_seq;
 
 alter table masters_student add constraint fk_masters_student_mastersThes_1 foreign key (masters_thesis_id) references masters_thesis (id);
 create index ix_masters_student_mastersThes_1 on masters_student (masters_thesis_id);
+alter table masters_student add constraint fk_masters_student_document_2 foreign key (document_id) references document (id);
+create index ix_masters_student_document_2 on masters_student (document_id);
 
 
 
 # --- !Downs
+
+drop table if exists document cascade;
 
 drop table if exists faculty cascade;
 
@@ -68,6 +82,8 @@ drop table if exists masters_student cascade;
 drop table if exists masters_thesis cascade;
 
 drop table if exists user_account cascade;
+
+drop sequence if exists document_seq;
 
 drop sequence if exists faculty_seq;
 

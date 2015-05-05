@@ -31,7 +31,16 @@ public class MastersThesises extends Controller {
     }
 
     public static Result delete(String code) {
-        return ok();
+        final MastersThesis mastersThesis = MastersThesis.findByCode(code);
+        if (mastersThesis == null) {
+            return notFound(String.format("Luận văn %s không tồn tại!", code));
+        }
+        MastersStudent mastersStudent = mastersThesis.mastersStudent;
+        MastersThesis mastersThesis1 = mastersStudent.mastersThesis;
+        mastersStudent.mastersThesis = null;
+        mastersStudent.update();
+        mastersThesis1.delete();
+        return redirect(routes.MastersThesises.list(0));
     }
 
     public static Result details(MastersThesis mastersThesis) {

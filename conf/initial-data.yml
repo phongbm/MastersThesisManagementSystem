@@ -2,3 +2,6 @@ user_accounts:
     - !!models.UserAccount
         email: giaovu@vnu.edu.vn
         password: uet2015
+    - !!models.UserAccount
+        email: giaovu.uet@gmail.com
+        password: NamPhong1995

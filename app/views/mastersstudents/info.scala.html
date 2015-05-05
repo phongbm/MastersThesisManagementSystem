@@ -40,6 +40,23 @@
                                     } else {
                                         Học viên chưa đăng ký luận văn
                                     }
+                                    <br>
+                                    @if(mastersStudent.document != null){
+                                        <tr>
+                                            <td>Mã số tệp tin</td>
+                                            <td>@mastersStudent.document.id</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tên tệp tin</td>
+                                            <td>
+                                                <a href="@routes.Documents.getDocument(mastersStudent.document.id)"
+                                                target="_blank">@mastersStudent.document.name</a>
+                                            </td>
+                                        </tr>
+
+                                    } else {
+                                        Học viên chưa tải lên tệp tin luận văn
+                                    }
                                     </tbody>
                                 </table>
 

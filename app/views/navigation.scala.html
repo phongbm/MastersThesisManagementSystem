@@ -12,6 +12,7 @@
                 <li><a href="@routes.Faculties.list(0, "id", "asc", "")">Giảng Viên</a></li>
                 <li><a href="@routes.MastersStudents.list(0, "id", "asc", "")">Học Viên</a></li>
                 <li><a href="@routes.MastersThesises.list(0)">Luận Văn</a> </li>
+                <li><a href="@routes.Documents.list(0)">Tài Liệu</a></li>
                 <li><a href="">Liên Hệ</a></li>
             </ul>
 
@@ -107,7 +108,12 @@
                                                 Xem hồ sơ</a><br>
                                             <i class="glyphicon glyphicon-edit"></i>
                                             <a href="@routes.MastersStudents.details(MastersStudent.findByEmail(session().get("email")))">
-                                                Sửa hồ sơ</a>
+                                                Sửa hồ sơ</a><br>
+                                            @if(MastersStudent.findByEmail(session().get("email")).document != null) {
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                                <a href="@routes.Documents.upload()">
+                                                    Cập nhật tài liệu</a>
+                                            }
                                         </div>
                                         <div class="col-xs-6" style="padding: 0px;">
                                             <i class="glyphicon glyphicon-cog"></i>

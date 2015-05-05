@@ -7,12 +7,14 @@ import play.mvc.PathBindable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.validation.Constraint;
 import java.util.List;
 
 @Entity
 public class MastersThesis extends Model implements PathBindable<MastersThesis> {
+
     @Id
     public Long id;
 

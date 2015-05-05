@@ -14,6 +14,7 @@ import java.util.Map;
 
 @Entity
 public class Faculty extends Model implements PathBindable<Faculty> {
+
     @Id
     public Long id;
 

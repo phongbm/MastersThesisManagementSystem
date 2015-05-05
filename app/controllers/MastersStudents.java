@@ -26,12 +26,20 @@ public class MastersStudents extends Controller {
         if (mastersStudent == null) {
             return notFound(String.format("Học viên %s không tồn tại!", code));
         }
+        MastersThesis mastersThesis = null;
+        Document document = null;
         if (mastersStudent.mastersThesis != null) {
-            MastersThesis mastersThesis = MastersThesis.findByCode(mastersStudent.mastersThesis.code);
-            mastersStudent.delete();
+            mastersThesis = MastersThesis.findByCode(mastersStudent.mastersThesis.code);
+        }
+        if (mastersStudent.document != null) {
+            document = Document.find.byId(mastersStudent.document.id);
+        }
+        mastersStudent.delete();
+        if (mastersThesis != null) {
             mastersThesis.delete();
-        } else {
-            mastersStudent.delete();
+        }
+        if (document != null) {
+            document.delete();
         }
         return redirect(routes.MastersStudents.list(0, "id", "asc", ""));
     }
